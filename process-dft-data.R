@@ -14,7 +14,7 @@ process_dft_data <- function(input_file, type, min_year, output_file){
   fwrite(formatted_data, output_file)
 }
 
-process_dft_data("Downloads/dft-road-casualty-statistics-accident-1979-2020.csv", 'Accident', min_year, "Downloads/crashes.csv")
-process_dft_data("Downloads/dft-road-casualty-statistics-casualty-1979-2020.csv", 'Casualty', min_year, "Downloads/casualties.csv")
-process_dft_data("Downloads/dft-road-casualty-statistics-vehicle-1979-2020.csv", 'Vehicle', min_year, "Downloads/vehicles.csv")
+process_dft_data("data/dft-road-casualty-statistics-accident-1979-2020.csv", 'Accident', min_year, "data/crashes.csv")
+process_dft_data("data/dft-road-casualty-statistics-casualty-1979-2020.csv", 'Casualty', min_year, "data/casualties.csv")
+process_dft_data("data/dft-road-casualty-statistics-vehicle-1979-2020.csv", 'Vehicle', min_year, "data/vehicles.csv")
 
