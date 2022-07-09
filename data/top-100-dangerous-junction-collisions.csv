@@ -1,0 +1,851 @@
+id,cluster,accident_year,latitude,longitude,n_serious,n_fatal,danger_rank,gmaps_link,date,time,junction_detail,junction_control
+200001NI01020,69,2000,51.522029,-0.106978,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522029+-0.106978,2000-08-15,20:00,Crossroads,Auto traffic signal
+200101NI00839,69,2001,51.522119,-0.106975,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522119+-0.106975,2001-07-09,04:10,Crossroads,Auto traffic signal
+200101NI01177,69,2001,51.522119,-0.106975,0,1,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522119+-0.106975,2001-10-15,12:12,Crossroads,Auto traffic signal
+200201EO01911,69,2002,51.522275,-0.105527,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522275+-0.105527,2002-12-23,17:00,T or staggered junction,Give way or uncontrolled
+200501EO40379,69,2005,51.522121,-0.107119,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522121+-0.107119,2005-04-21,16:15,Crossroads,Auto traffic signal
+200701EO40490,69,2007,51.522268,-0.105094,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522268+-0.105094,2007-07-12,09:55,T or staggered junction,Give way or uncontrolled
+200701EO40738,69,2007,51.522029,-0.106978,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522029+-0.106978,2007-04-14,07:40,Crossroads,Auto traffic signal
+200801EO40753,69,2008,51.522266,-0.10495,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522266+-0.10495,2008-11-11,08:45,T or staggered junction,Give way or uncontrolled
+201001EO40429,69,2010,51.522123,-0.107263,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522123+-0.107263,2010-07-22,17:46,Crossroads,Auto traffic signal
+201101EO40479,69,2011,51.522121,-0.107119,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522121+-0.107119,2011-06-07,02:20,Crossroads,Auto traffic signal
+201101TB00935,69,2011,51.522107,-0.106254,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522107+-0.106254,2011-04-30,08:53,Crossroads,Auto traffic signal
+201101TB00995,69,2011,51.522268,-0.105094,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522268+-0.105094,2011-06-01,15:03,T or staggered junction,Give way or uncontrolled
+201201EO40589,69,2012,51.522027,-0.106834,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522027+-0.106834,2012-10-04,17:58,Crossroads,Auto traffic signal
+201201EO40672,69,2012,51.522185,-0.10553,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522185+-0.10553,2012-11-13,10:47,T or staggered junction,Give way or uncontrolled
+201301EO40323,69,2013,51.522108,-0.106255,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522108+-0.106255,2013-06-12,23:15,Crossroads,Give way or uncontrolled
+201401EO40317,69,2014,51.522266,-0.104951,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522266+-0.104951,2014-04-30,09:30,T or staggered junction,Give way or uncontrolled
+201401EO40487,69,2014,51.522197,-0.106251,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522197+-0.106251,2014-07-17,06:51,Crossroads,Give way or uncontrolled
+201401EO40723,69,2014,51.522122,-0.107119,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522122+-0.107119,2014-10-09,21:30,Crossroads,Auto traffic signal
+2017010023437,69,2017,51.522243,-0.105669,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522243+-0.105669,2017-02-16,22:10,T or staggered junction,Give way or uncontrolled
+2019010161919,69,2019,51.52233,-0.105478,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.52233+-0.105478,2019-02-06,18:36,Other junction,Give way or uncontrolled
+2019010169556,69,2019,51.522279,-0.10623,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522279+-0.10623,2019-03-16,23:24,T or staggered junction,Give way or uncontrolled
+2019010188489,69,2019,51.522194,-0.105412,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522194+-0.105412,2019-06-20,15:31,Other junction,Give way or uncontrolled
+2019010222650,69,2019,51.52218,-0.106782,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.52218+-0.106782,2019-12-04,11:54,Crossroads,Auto traffic signal
+2020010284544,69,2020,51.522206,-0.106132,1,0,1.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522206+-0.106132,2020-12-10,08:40,Crossroads,Give way or uncontrolled
+200001MM00022,53,2000,51.49468,-0.100764,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.49468+-0.100764,2000-01-13,08:30,Roundabout,Authorised person
+200501MM71154,53,2005,51.494768,-0.100617,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494768+-0.100617,2005-10-18,16:20,Roundabout,Give way or uncontrolled
+200601MM70376,53,2006,51.494867,-0.101189,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494867+-0.101189,2006-05-05,19:00,Roundabout,Give way or uncontrolled
+200601MM70397,53,2006,51.494962,-0.101473,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494962+-0.101473,2006-05-11,07:00,Roundabout,Give way or uncontrolled
+200701MM70203,53,2007,51.495574,-0.100439,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.495574+-0.100439,2007-02-26,23:03,Roundabout,Give way or uncontrolled
+200801MM70036,53,2008,51.494678,-0.10062,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494678+-0.10062,2008-01-22,11:45,Roundabout,Give way or uncontrolled
+200801MM70976,53,2008,51.494763,-0.100329,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494763+-0.100329,2008-09-29,16:20,Roundabout,Give way or uncontrolled
+200901MM70147,53,2009,51.494683,-0.100908,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494683+-0.100908,2009-02-28,14:10,Roundabout,Give way or uncontrolled
+200901MM70719,53,2009,51.494962,-0.101473,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494962+-0.101473,2009-09-11,08:50,Roundabout,Give way or uncontrolled
+200901MM70998,53,2009,51.494867,-0.101189,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494867+-0.101189,2009-11-26,12:50,Roundabout,Give way or uncontrolled
+200901TD00051,53,2009,51.495574,-0.100439,0,1,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.495574+-0.100439,2009-04-08,14:53,Roundabout,Give way or uncontrolled
+201101MM70091,53,2011,51.49548,-0.100155,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.49548+-0.100155,2011-02-12,05:00,Roundabout,Give way or uncontrolled
+201101MM70655,53,2011,51.495406,-0.101166,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.495406+-0.101166,2011-08-24,09:23,Roundabout,Give way or uncontrolled
+201101TB00046,53,2011,51.494851,-0.100181,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494851+-0.100181,2011-02-04,09:03,Roundabout,Give way or uncontrolled
+201101TB00179,53,2011,51.495579,-0.100727,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.495579+-0.100727,2011-02-16,12:44,Roundabout,Give way or uncontrolled
+201201TB01099,53,2012,51.495208,-0.100022,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.495208+-0.100022,2012-10-18,05:50,Roundabout,Give way or uncontrolled
+201301MM70738,53,2013,51.49548,-0.100155,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.49548+-0.100155,2013-09-14,05:30,Roundabout,Auto traffic signal
+2016010020737,53,2016,51.49487,-0.101333,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.49487+-0.101333,2016-09-06,09:00,Roundabout,Auto traffic signal
+2017010035720,53,2017,51.495814,-0.100715,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.495814+-0.100715,2017-05-05,14:58,Other junction,Auto traffic signal
+2017010039342,53,2017,51.495185,-0.100741,1,0,2.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.495185+-0.100741,2017-05-24,06:43,Roundabout,Give way or uncontrolled
+200301LX00064,235,2003,51.505141,-0.113731,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.505141+-0.113731,2003-01-14,08:25,Roundabout,Give way or uncontrolled
+200601LX50277,235,2006,51.50433,-0.11362,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.50433+-0.11362,2006-04-21,20:10,Roundabout,Auto traffic signal
+200701LX50036,235,2007,51.504609,-0.114185,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.504609+-0.114185,2007-01-29,21:27,Roundabout,Give way or uncontrolled
+201001LX50032,235,2010,51.504773,-0.113169,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.504773+-0.113169,2010-01-21,18:05,Roundabout,Give way or uncontrolled
+201101LX50373,235,2011,51.504863,-0.113166,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.504863+-0.113166,2011-06-03,21:00,Roundabout,Give way or uncontrolled
+201101TB00933,235,2011,51.504699,-0.114181,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.504699+-0.114181,2011-04-29,17:40,Roundabout,Give way or uncontrolled
+201101TB01612,235,2011,51.504773,-0.113169,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.504773+-0.113169,2011-12-03,04:12,Roundabout,Give way or uncontrolled
+201201TB00438,235,2012,51.504773,-0.113169,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.504773+-0.113169,2012-04-23,11:20,Roundabout,Give way or uncontrolled
+201401LX51379,235,2014,51.505047,-0.113447,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.505047+-0.113447,2014-12-01,13:45,Roundabout,Give way or uncontrolled
+2017010067884,235,2017,51.505103,-0.113441,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.505103+-0.113441,2017-10-21,12:20,Roundabout,Give way or uncontrolled
+2018010101363,235,2018,51.505093,-0.112865,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.505093+-0.112865,2018-04-12,05:05,Roundabout,unknown (self reported)
+2018010101700,235,2018,51.504476,-0.113611,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.504476+-0.113611,2018-04-13,20:45,Roundabout,Auto traffic signal
+2018010117964,235,2018,51.505105,-0.113585,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.505105+-0.113585,2018-07-01,13:25,Roundabout,Give way or uncontrolled
+2018010142107,235,2018,51.504398,-0.114335,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.504398+-0.114335,2018-10-29,22:30,Roundabout,Give way or uncontrolled
+2019010184804,235,2019,51.504709,-0.114149,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.504709+-0.114149,2019-05-20,21:31,Roundabout,unknown (self reported)
+2019010193513,235,2019,51.504162,-0.114806,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.504162+-0.114806,2019-07-14,13:23,Crossroads,Auto traffic signal
+2020010250254,235,2020,51.505159,-0.113612,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.505159+-0.113612,2020-05-31,16:02,Roundabout,Give way or uncontrolled
+2020010274534,235,2020,51.505123,-0.11357,1,0,3.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.505123+-0.11357,2020-10-18,22:30,Roundabout,Give way or uncontrolled
+200001EK00548,22,2000,51.519544,-0.120198,1,0,4.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519544+-0.120198,2000-04-04,00:03,T or staggered junction,Give way or uncontrolled
+200101EK00980,22,2001,51.519802,-0.119467,1,0,4.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519802+-0.119467,2001-07-31,16:41,Crossroads,Give way or uncontrolled
+200301TA00530,22,2003,51.519191,-0.120645,1,0,4.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519191+-0.120645,2003-12-17,18:35,T or staggered junction,Give way or uncontrolled
+200401EO01621,22,2004,51.518841,-0.121236,1,0,4.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.518841+-0.121236,2004-11-03,17:25,Crossroads,Auto traffic signal
+200701EO40902,22,2007,51.518841,-0.121236,1,0,4.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.518841+-0.121236,2007-11-29,22:16,Crossroads,Auto traffic signal
+200801EK74772,22,2008,51.518931,-0.121233,0,1,4.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.518931+-0.121233,2008-09-24,06:40,Crossroads,Auto traffic signal
+200901TB00207,22,2009,51.519016,-0.120941,0,1,4.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519016+-0.120941,2009-11-11,23:04,Crossroads,Auto traffic signal
+201101CW12037,22,2011,51.518841,-0.121236,1,0,4.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.518841+-0.121236,2011-10-06,17:30,Crossroads,Auto traffic signal
+201201TB00325,22,2012,51.519539,-0.11991,1,0,4.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519539+-0.11991,2012-03-28,12:35,T or staggered junction,Give way or uncontrolled
+201301TD00137,22,2013,51.518929,-0.121089,0,1,4.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.518929+-0.121089,2013-11-05,18:42,Crossroads,Auto traffic signal
+201401EK40494,22,2014,51.518841,-0.121237,1,0,4.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.518841+-0.121237,2014-05-23,11:30,Crossroads,Auto traffic signal
+201601EK40291,22,2016,51.519192,-0.120646,1,0,4.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519192+-0.120646,2016-02-19,23:00,T or staggered junction,Give way or uncontrolled
+201601EK40375,22,2016,51.519279,-0.120498,1,0,4.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519279+-0.120498,2016-05-04,18:00,T or staggered junction,Give way or uncontrolled
+2020010254343,22,2020,51.519027,-0.120966,1,0,4.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519027+-0.120966,2020-07-01,14:50,Crossroads,Auto traffic signal
+200301CP00277,211,2003,51.514164,-0.104422,1,0,5.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.514164+-0.104422,2003-11-04,16:50,Crossroads,Auto traffic signal
+200601CP00022,211,2006,51.514072,-0.104282,1,0,5.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.514072+-0.104282,2006-02-01,19:05,Crossroads,Auto traffic signal
+200701CP00241,211,2007,51.514069,-0.104138,1,0,5.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.514069+-0.104138,2007-09-13,09:17,Crossroads,Auto traffic signal
+200801CP00037,211,2008,51.514076,-0.10457,1,0,5.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.514076+-0.10457,2008-02-08,23:55,Crossroads,Auto traffic signal
+200901CP00043,211,2009,51.514166,-0.104566,1,0,5.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.514166+-0.104566,2009-03-03,14:20,Crossroads,Auto traffic signal
+201001CP00264,211,2010,51.514074,-0.104426,1,0,5.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.514074+-0.104426,2010-09-30,09:45,Crossroads,Auto traffic signal
+201201CP00142,211,2012,51.513984,-0.104429,1,0,5.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513984+-0.104429,2012-05-23,18:08,Crossroads,Auto traffic signal
+201201CP00176,211,2012,51.514074,-0.104426,1,0,5.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.514074+-0.104426,2012-06-20,18:25,Crossroads,Auto traffic signal
+201301CP00153,211,2013,51.514075,-0.104426,1,0,5.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.514075+-0.104426,2013-06-06,19:39,Crossroads,Auto traffic signal
+201401CP00107,211,2014,51.514075,-0.104426,0,1,5.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.514075+-0.104426,2014-04-03,10:00,Crossroads,Auto traffic signal
+201401CP00297,211,2014,51.514075,-0.104426,0,1,5.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.514075+-0.104426,2014-10-17,11:35,Crossroads,Auto traffic signal
+2018480820779,211,2018,51.51422,-0.104417,1,0,5.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.51422+-0.104417,2018-12-14,20:15,Crossroads,Auto traffic signal
+2020480990259,211,2020,51.51414,-0.104478,1,0,5.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.51414+-0.104478,2020-09-24,08:05,Crossroads,Auto traffic signal
+200501HT20227,311,2005,51.523523,-0.07722,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.523523+-0.07722,2005-03-31,15:20,T or staggered junction,Auto traffic signal
+200501TC00269,311,2005,51.522724,-0.07783,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522724+-0.07783,2005-06-30,11:30,Crossroads,Auto traffic signal
+200701GD10277,311,2007,51.522906,-0.077967,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522906+-0.077967,2007-01-26,17:05,T or staggered junction,Give way or uncontrolled
+200701GD68318,311,2007,51.523793,-0.077209,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.523793+-0.077209,2007-11-13,17:39,T or staggered junction,Auto traffic signal
+200801GD72837,311,2008,51.522454,-0.077842,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522454+-0.077842,2008-05-25,22:05,More than 4 arms (not roundabout),Stop sign
+200801GD74464,311,2008,51.522632,-0.07769,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522632+-0.07769,2008-08-12,09:22,Crossroads,Auto traffic signal
+201001GD10502,311,2010,51.523436,-0.077368,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.523436+-0.077368,2010-08-05,16:50,T or staggered junction,Auto traffic signal
+201101TA00548,311,2011,51.524155,-0.077338,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.524155+-0.077338,2011-03-17,13:45,T or staggered junction,Give way or uncontrolled
+201101TA01268,311,2011,51.523523,-0.07722,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.523523+-0.07722,2011-07-06,15:49,T or staggered junction,Auto traffic signal
+201201TA00391,311,2012,51.522724,-0.07783,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522724+-0.07783,2012-04-27,03:50,Crossroads,Auto traffic signal
+201401GD10383,311,2014,51.522537,-0.077406,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522537+-0.077406,2014-05-17,08:43,Crossroads,Auto traffic signal
+2016010006855,311,2016,51.522632,-0.077691,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522632+-0.077691,2016-12-14,10:05,More than 4 arms (not roundabout),Auto traffic signal
+2016010011514,311,2016,51.523616,-0.077361,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.523616+-0.077361,2016-12-11,12:30,T or staggered junction,Auto traffic signal
+2018010130062,311,2018,51.523761,-0.077351,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.523761+-0.077351,2018-09-01,13:45,More than 4 arms (not roundabout),Auto traffic signal
+2019010214489,311,2019,51.522896,-0.077791,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522896+-0.077791,2019-10-27,14:30,T or staggered junction,Auto traffic signal
+2020010272936,311,2020,51.523092,-0.077668,1,0,6.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.523092+-0.077668,2020-10-09,23:00,Crossroads,Auto traffic signal
+200501KG70322,314,2005,51.529658,-0.013668,1,0,7.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529658+-0.013668,2005-07-19,08:30,Roundabout,Auto traffic signal
+201001HT20419,314,2010,51.529585,-0.01468,1,0,7.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529585+-0.01468,2010-06-11,10:50,Roundabout,Give way or uncontrolled
+201101TD00175,314,2011,51.529675,-0.014676,0,1,7.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529675+-0.014676,2011-10-24,08:37,Roundabout,Give way or uncontrolled
+201101TD00187,314,2011,51.529568,-0.013672,0,1,7.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529568+-0.013672,2011-11-11,16:44,Roundabout,Auto traffic signal
+201201HT20525,314,2012,51.529496,-0.014684,1,0,7.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529496+-0.014684,2012-07-25,15:52,Roundabout,Give way or uncontrolled
+201301HT20664,314,2013,51.529401,-0.0144,1,0,7.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529401+-0.0144,2013-08-29,07:00,Roundabout,Give way or uncontrolled
+201301TD00139,314,2013,51.529569,-0.013672,0,1,7.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529569+-0.013672,2013-11-13,08:47,Roundabout,Auto traffic signal
+201601HT20686,314,2016,51.529396,-0.014112,1,0,7.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529396+-0.014112,2016-07-19,16:50,Roundabout,Auto traffic signal
+2018010141481,314,2018,51.529906,-0.014375,1,0,7.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529906+-0.014375,2018-10-25,08:45,Roundabout,Auto traffic signal
+200801HT74242,427,2008,51.515076,-0.072099,1,0,8.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.515076+-0.072099,2008-08-12,22:00,T or staggered junction,Give way or uncontrolled
+201001HT20117,427,2010,51.515166,-0.072095,1,0,8.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.515166+-0.072095,2010-02-23,10:00,T or staggered junction,Auto traffic signal
+201001TA00332,427,2010,51.515166,-0.072095,1,0,8.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.515166+-0.072095,2010-11-05,01:03,T or staggered junction,Auto traffic signal
+201201HT20046,427,2012,51.515161,-0.071807,1,0,8.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.515161+-0.071807,2012-01-29,06:00,Crossroads,Auto traffic signal
+201301TD00074,427,2013,51.515079,-0.072243,0,1,8.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.515079+-0.072243,2013-07-05,19:18,T or staggered junction,Auto traffic signal
+201301TD00140,427,2013,51.515161,-0.071808,0,1,8.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.515161+-0.071808,2013-11-13,23:30,Crossroads,Auto traffic signal
+201401HT21073,427,2014,51.514904,-0.072539,1,0,8.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.514904+-0.072539,2014-11-06,18:00,T or staggered junction,Give way or uncontrolled
+2017010009722,427,2017,51.515127,-0.071806,1,0,8.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.515127+-0.071806,2017-01-04,11:00,Crossroads,Auto traffic signal
+2019010212258,427,2019,51.514944,-0.072707,1,0,8.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.514944+-0.072707,2019-10-15,20:55,T or staggered junction,unknown (self reported)
+2020010236124,427,2020,51.515224,-0.071715,1,0,8.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.515224+-0.071715,2020-02-12,14:20,Crossroads,Auto traffic signal
+200001LX01829,52,2000,51.481829,-0.112388,1,0,9.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481829+-0.112388,2000-11-17,09:10,Crossroads,Auto traffic signal
+200101LX00064,52,2001,51.481918,-0.112385,1,0,9.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481918+-0.112385,2001-01-02,07:45,Crossroads,Auto traffic signal
+200301LX00372,52,2003,51.481918,-0.112385,1,0,9.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481918+-0.112385,2003-03-25,16:15,Crossroads,Auto traffic signal
+200401TE00534,52,2004,51.482013,-0.112669,1,0,9.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.482013+-0.112669,2004-07-06,12:23,Crossroads,Auto traffic signal
+200701LX66715,52,2007,51.481918,-0.112385,1,0,9.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481918+-0.112385,2007-08-02,08:20,Crossroads,Auto traffic signal
+200801LX50366,52,2008,51.481829,-0.112388,1,0,9.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481829+-0.112388,2008-05-19,07:55,Crossroads,Auto traffic signal
+200901LX50884,52,2009,51.482008,-0.112381,1,0,9.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.482008+-0.112381,2009-09-23,06:30,Crossroads,Auto traffic signal
+200901TD00156,52,2009,51.481831,-0.112532,0,1,9.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481831+-0.112532,2009-06-29,08:28,Crossroads,Auto traffic signal
+201201LX50610,52,2012,51.481831,-0.112532,1,0,9.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481831+-0.112532,2012-08-02,09:15,Crossroads,Auto traffic signal
+201201LX50817,52,2012,51.481739,-0.112392,1,0,9.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481739+-0.112392,2012-09-30,16:00,Crossroads,Auto traffic signal
+201201TB01183,52,2012,51.481386,-0.112839,1,0,9.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481386+-0.112839,2012-11-29,08:50,T or staggered junction,Give way or uncontrolled
+2017010038272,52,2017,51.481707,-0.112535,1,0,9.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481707+-0.112535,2017-05-18,12:10,Crossroads,Auto traffic signal
+2019010211990,52,2019,51.482102,-0.112504,1,0,9.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.482102+-0.112504,2019-10-16,08:12,Crossroads,Auto traffic signal
+2020010236717,52,2020,51.481787,-0.111955,1,0,9.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481787+-0.111955,2020-02-15,10:15,Crossroads,Auto traffic signal
+200101DM01654,98,2001,51.494742,-0.126982,1,0,10.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494742+-0.126982,2001-06-20,08:30,T or staggered junction,Give way or uncontrolled
+200201DM01658,98,2002,51.49462,-0.12497,1,0,10.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.49462+-0.12497,2002-09-25,07:45,Roundabout,Give way or uncontrolled
+200201DM02252,98,2002,51.494722,-0.125686,1,0,10.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494722+-0.125686,2002-11-19,09:20,Roundabout,Give way or uncontrolled
+200401DM00163,98,2004,51.494722,-0.125686,1,0,10.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494722+-0.125686,2004-02-05,08:12,Roundabout,Give way or uncontrolled
+200401DM00334,98,2004,51.494447,-0.125409,1,0,10.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494447+-0.125409,2004-03-19,09:00,Roundabout,Give way or uncontrolled
+200401DM00725,98,2004,51.494537,-0.125405,1,0,10.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494537+-0.125405,2004-05-11,17:25,Roundabout,Give way or uncontrolled
+200601TA00286,98,2006,51.494731,-0.126262,1,0,10.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494731+-0.126262,2006-12-13,11:30,Crossroads,Give way or uncontrolled
+200701CW11242,98,2007,51.494533,-0.125118,1,0,10.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494533+-0.125118,2007-11-13,23:45,Roundabout,Give way or uncontrolled
+200901CW11759,98,2009,51.494627,-0.125402,1,0,10.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494627+-0.125402,2009-08-28,05:55,Roundabout,Give way or uncontrolled
+201201TA00921,98,2012,51.494742,-0.126982,1,0,10.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494742+-0.126982,2012-10-31,08:27,Crossroads,Give way or uncontrolled
+201501TD00055,98,2015,51.494677,-0.125134,0,1,10.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494677+-0.125134,2015-04-09,09:33,Roundabout,Give way or uncontrolled
+2016010023380,98,2016,51.494625,-0.125258,1,0,10.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494625+-0.125258,2016-10-17,08:09,Roundabout,Give way or uncontrolled
+2017010045558,98,2017,51.494593,-0.1254,1,0,10.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494593+-0.1254,2017-06-28,12:42,Roundabout,Give way or uncontrolled
+2019010210882,98,2019,51.494823,-0.126875,1,0,10.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494823+-0.126875,2019-10-10,15:30,More than 4 arms (not roundabout),Give way or uncontrolled
+200001WW00710,80,2000,51.433092,-0.163602,1,0,11.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.433092+-0.163602,2000-06-22,00:39,T or staggered junction,Give way or uncontrolled
+200301WW00147,80,2003,51.432198,-0.163926,1,0,11.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.432198+-0.163926,2003-02-18,16:22,T or staggered junction,Give way or uncontrolled
+200501WW50430,80,2005,51.432198,-0.163926,1,0,11.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.432198+-0.163926,2005-08-08,19:37,T or staggered junction,Give way or uncontrolled
+200701WW50140,80,2007,51.43309,-0.163458,1,0,11.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.43309+-0.163458,2007-03-07,18:39,T or staggered junction,Give way or uncontrolled
+201201WW50534,80,2012,51.43309,-0.163458,1,0,11.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.43309+-0.163458,2012-07-05,15:00,T or staggered junction,Give way or uncontrolled
+201301WW50223,80,2013,51.432378,-0.163919,1,0,11.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.432378+-0.163919,2013-04-10,01:30,T or staggered junction,Give way or uncontrolled
+201501WW50357,80,2015,51.432611,-0.163786,1,0,11.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.432611+-0.163786,2015-04-30,17:15,T or staggered junction,Give way or uncontrolled
+2017010041617,80,2017,51.432611,-0.163761,1,0,11.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.432611+-0.163761,2017-06-01,07:10,T or staggered junction,Give way or uncontrolled
+2018010086081,80,2018,51.432433,-0.163912,1,0,11.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.432433+-0.163912,2018-01-26,16:51,More than 4 arms (not roundabout),Auto traffic signal
+2018010116050,80,2018,51.432163,-0.163923,1,0,11.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.432163+-0.163923,2018-06-22,13:12,Other junction,Give way or uncontrolled
+2019010180636,80,2019,51.432709,-0.163743,1,0,11.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.432709+-0.163743,2019-05-13,07:15,T or staggered junction,unknown (self reported)
+2020010267902,80,2020,51.432681,-0.163672,1,0,11.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.432681+-0.163672,2020-09-15,11:50,T or staggered junction,Give way or uncontrolled
+2020010269176,80,2020,51.432271,-0.16389,1,0,11.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.432271+-0.16389,2020-09-21,18:40,T or staggered junction,Give way or uncontrolled
+2020010273750,80,2020,51.432744,-0.163669,1,0,11.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.432744+-0.163669,2020-10-14,12:10,T or staggered junction,Give way or uncontrolled
+200201CP00397,161,2002,51.513375,-0.089033,0,1,12.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513375+-0.089033,2002-12-06,18:00,More than 4 arms (not roundabout),Auto traffic signal
+200501CP00158,161,2005,51.513457,-0.088598,1,0,12.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513457+-0.088598,2005-07-27,13:15,More than 4 arms (not roundabout),Auto traffic signal
+200801CP00054,161,2008,51.513299,-0.089901,1,0,12.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513299+-0.089901,2008-03-17,17:51,More than 4 arms (not roundabout),Auto traffic signal
+200801CP00196,161,2008,51.513296,-0.089757,1,0,12.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513296+-0.089757,2008-08-21,18:15,More than 4 arms (not roundabout),Auto traffic signal
+201001CP00150,161,2010,51.513296,-0.089757,1,0,12.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513296+-0.089757,2010-06-22,07:28,Crossroads,Auto traffic signal
+201201CP00372,161,2012,51.513285,-0.089037,1,0,12.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513285+-0.089037,2012-11-08,11:40,More than 4 arms (not roundabout),Auto traffic signal
+201301CP00115,161,2013,51.513285,-0.089038,1,0,12.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513285+-0.089038,2013-05-07,08:04,More than 4 arms (not roundabout),Auto traffic signal
+201401CP00160,161,2014,51.513285,-0.089038,1,0,12.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513285+-0.089038,2014-05-03,08:45,More than 4 arms (not roundabout),Auto traffic signal
+201501CP00181,161,2015,51.513339,-0.089058,0,1,12.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513339+-0.089058,2015-06-22,08:59,More than 4 arms (not roundabout),Auto traffic signal
+2016480100905,161,2016,51.513373,-0.08889,1,0,12.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513373+-0.08889,2016-08-15,18:12,More than 4 arms (not roundabout),Auto traffic signal
+2018480815796,161,2018,51.513351,-0.088556,1,0,12.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513351+-0.088556,2018-10-09,08:30,More than 4 arms (not roundabout),Auto traffic signal
+200201FH00347,181,2002,51.472111,-0.203649,1,0,13.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472111+-0.203649,2002-05-13,08:10,T or staggered junction,Give way or uncontrolled
+200301FH00027,181,2003,51.472103,-0.203074,1,0,13.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472103+-0.203074,2003-01-10,18:00,T or staggered junction,Give way or uncontrolled
+200401FH00612,181,2004,51.472352,-0.201768,1,0,13.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472352+-0.201768,2004-09-22,19:09,T or staggered junction,Give way or uncontrolled
+200501FH10429,181,2005,51.472348,-0.20148,1,0,13.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472348+-0.20148,2005-09-03,19:26,T or staggered junction,Give way or uncontrolled
+200501FH10586,181,2005,51.472186,-0.202638,1,0,13.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472186+-0.202638,2005-11-04,23:30,T or staggered junction,Give way or uncontrolled
+200701FH10072,181,2007,51.472348,-0.20148,1,0,13.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472348+-0.20148,2007-02-21,08:32,T or staggered junction,Give way or uncontrolled
+200801FH10005,181,2008,51.472022,-0.203653,1,0,13.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472022+-0.203653,2008-01-05,10:45,T or staggered junction,Give way or uncontrolled
+200901TE00029,181,2009,51.471851,-0.204236,1,0,13.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.471851+-0.204236,2009-04-20,18:51,T or staggered junction,Give way or uncontrolled
+201101TA00846,181,2011,51.472022,-0.203653,1,0,13.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472022+-0.203653,2011-04-12,07:37,T or staggered junction,Give way or uncontrolled
+201101TA01895,181,2011,51.472022,-0.203653,1,0,13.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472022+-0.203653,2011-12-13,14:10,T or staggered junction,Give way or uncontrolled
+201201FH10148,181,2012,51.471851,-0.204236,1,0,13.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.471851+-0.204236,2012-03-16,19:00,T or staggered junction,Give way or uncontrolled
+201201TA00179,181,2012,51.472184,-0.202495,1,0,13.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472184+-0.202495,2012-03-07,09:45,T or staggered junction,Give way or uncontrolled
+201201TA00939,181,2012,51.472181,-0.202351,1,0,13.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472181+-0.202351,2012-10-30,08:30,T or staggered junction,Give way or uncontrolled
+2020010260278,181,2020,51.472177,-0.202535,1,0,13.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472177+-0.202535,2020-08-04,16:58,T or staggered junction,Give way or uncontrolled
+2020010262715,181,2020,51.471961,-0.204271,1,0,13.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.471961+-0.204271,2020-08-18,17:16,Crossroads,Give way or uncontrolled
+200101LX00094,121,2001,51.486327,-0.123726,1,0,14.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486327+-0.123726,2001-01-22,06:44,More than 4 arms (not roundabout),Auto traffic signal
+200101LX01123,121,2001,51.48624,-0.123873,1,0,14.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.48624+-0.123873,2001-07-20,05:15,More than 4 arms (not roundabout),Auto traffic signal
+200101LX01846,121,2001,51.485885,-0.124176,1,0,14.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485885+-0.124176,2001-11-13,18:36,Crossroads,Auto traffic signal
+200401LX50052,121,2004,51.485887,-0.12432,1,0,14.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485887+-0.12432,2004-04-26,08:00,Roundabout,Auto traffic signal
+200501LX50517,121,2005,51.486525,-0.12487,1,0,14.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486525+-0.12487,2005-02-15,17:55,More than 4 arms (not roundabout),Auto traffic signal
+200501LX51416,121,2005,51.485965,-0.123597,1,0,14.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485965+-0.123597,2005-11-26,08:00,More than 4 arms (not roundabout),Auto traffic signal
+200901LX50542,121,2009,51.48624,-0.123873,1,0,14.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.48624+-0.123873,2009-06-12,09:35,More than 4 arms (not roundabout),Auto traffic signal
+201001LX50980,121,2010,51.486053,-0.123449,1,0,14.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486053+-0.123449,2010-10-19,13:30,More than 4 arms (not roundabout),Auto traffic signal
+201101TB01116,121,2011,51.486334,-0.124158,1,0,14.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486334+-0.124158,2011-06-06,01:00,More than 4 arms (not roundabout),Auto traffic signal
+201101TB01334,121,2011,51.485885,-0.124176,1,0,14.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485885+-0.124176,2011-09-20,07:45,More than 4 arms (not roundabout),Auto traffic signal
+201501LX50735,121,2015,51.486478,-0.124174,1,0,14.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486478+-0.124174,2015-06-17,18:30,Crossroads,Give way or uncontrolled
+201601LX50840,121,2016,51.486422,-0.12401,1,0,14.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486422+-0.12401,2016-08-01,21:15,Roundabout,Auto traffic signal
+2017010056510,121,2017,51.485588,-0.124618,1,0,14.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485588+-0.124618,2017-07-31,13:45,More than 4 arms (not roundabout),Auto traffic signal
+2018010136341,121,2018,51.485855,-0.124463,1,0,14.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485855+-0.124463,2018-10-02,07:20,Roundabout,Give way or uncontrolled
+2019010160448,121,2019,51.486175,-0.124205,1,0,14.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486175+-0.124205,2019-01-09,07:05,More than 4 arms (not roundabout),unknown (self reported)
+200401CP00130,258,2004,51.517722,-0.107589,1,0,15.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517722+-0.107589,2004-06-14,15:35,Roundabout,Auto traffic signal
+200501CP00006,258,2005,51.517725,-0.107733,1,0,15.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517725+-0.107733,2005-01-07,18:05,Roundabout,Auto traffic signal
+200901TB00089,258,2009,51.517812,-0.107586,0,1,15.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517812+-0.107586,2009-06-12,18:40,Roundabout,Auto traffic signal
+201101CP00113,258,2011,51.517545,-0.107741,1,0,15.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517545+-0.107741,2011-04-04,07:15,Roundabout,Auto traffic signal
+201201EK40651,258,2012,51.517727,-0.107877,1,0,15.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517727+-0.107877,2012-11-07,18:08,Roundabout,Give way or uncontrolled
+201301CP00119,258,2013,51.517633,-0.107594,1,0,15.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517633+-0.107594,2013-05-17,08:25,More than 4 arms (not roundabout),Auto traffic signal
+201301CP00139,258,2013,51.517633,-0.107594,1,0,15.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517633+-0.107594,2013-06-18,20:40,More than 4 arms (not roundabout),Auto traffic signal
+201701X023279,258,2017,51.51778,-0.107728,1,0,15.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.51778+-0.107728,2017-03-06,15:37,More than 4 arms (not roundabout),Auto traffic signal
+2019480950593,258,2019,51.517832,-0.107568,1,0,15.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517832+-0.107568,2019-01-23,09:16,More than 4 arms (not roundabout),Auto traffic signal
+2020011001459,258,2020,51.517818,-0.107828,1,0,15.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517818+-0.107828,2020-10-21,09:05,More than 4 arms (not roundabout),Auto traffic signal
+200001DM00866,18,2000,51.50734,-0.127474,1,0,16.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.50734+-0.127474,2000-05-04,17:14,More than 4 arms (not roundabout),Auto traffic signal
+200201DM01687,18,2002,51.507077,-0.127917,1,0,16.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.507077+-0.127917,2002-09-24,15:22,Roundabout,Give way or uncontrolled
+200301DM00621,18,2003,51.507248,-0.127334,1,0,16.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.507248+-0.127334,2003-04-22,18:35,Roundabout,Auto traffic signal
+200401DM00139,18,2004,51.507165,-0.127769,1,0,16.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.507165+-0.127769,2004-01-28,18:25,T or staggered junction,Give way or uncontrolled
+200401DM00482,18,2004,51.50734,-0.127474,1,0,16.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.50734+-0.127474,2004-04-26,17:35,T or staggered junction,Auto traffic signal
+200601CW19013,18,2006,51.50778,-0.126879,1,0,16.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.50778+-0.126879,2006-12-20,17:30,T or staggered junction,Auto traffic signal
+200701CW10617,18,2007,51.507695,-0.127171,1,0,16.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.507695+-0.127171,2007-05-23,19:25,More than 4 arms (not roundabout),Auto traffic signal
+200801CW10960,18,2008,51.507077,-0.127917,1,0,16.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.507077+-0.127917,2008-07-01,09:20,Roundabout,Auto traffic signal
+200901CW10824,18,2009,51.50717,-0.128057,1,0,16.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.50717+-0.128057,2009-05-05,09:15,T or staggered junction,Auto traffic signal
+201201CW10766,18,2012,51.50743,-0.12747,1,0,16.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.50743+-0.12747,2012-06-07,20:00,Roundabout,Auto traffic signal
+201301CW11453,18,2013,51.507246,-0.12719,1,0,16.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.507246+-0.12719,2013-10-18,00:59,T or staggered junction,Auto traffic signal
+201501CW11148,18,2015,51.507834,-0.1269,1,0,16.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.507834+-0.1269,2015-08-02,07:00,Roundabout,Auto traffic signal
+2017010065683,18,2017,51.507128,-0.127624,1,0,16.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.507128+-0.127624,2017-10-17,17:13,Roundabout,Auto traffic signal
+2019010189097,18,2019,51.507186,-0.127838,1,0,16.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.507186+-0.127838,2019-06-19,17:40,More than 4 arms (not roundabout),Auto traffic signal
+200001EK00813,25,2000,51.521504,-0.113487,1,0,17.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521504+-0.113487,2000-06-15,21:45,Crossroads,Auto traffic signal
+200001EK00996,25,2000,51.521412,-0.113347,1,0,17.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521412+-0.113347,2000-07-26,10:59,Crossroads,Auto traffic signal
+200201EO01367,25,2002,51.521412,-0.113347,1,0,17.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521412+-0.113347,2002-10-21,19:00,Crossroads,Auto traffic signal
+200901CW12066,25,2009,51.521414,-0.113491,1,0,17.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521414+-0.113491,2009-10-06,22:40,Crossroads,Auto traffic signal
+201001CW11640,25,2010,51.521331,-0.113926,1,0,17.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521331+-0.113926,2010-08-02,18:55,T or staggered junction,Give way or uncontrolled
+201201TB00431,25,2012,51.521242,-0.11393,1,0,17.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521242+-0.11393,2012-04-25,18:00,T or staggered junction,Give way or uncontrolled
+201301EK40205,25,2013,51.5215,-0.113199,1,0,17.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.5215+-0.113199,2013-04-19,13:11,Crossroads,Auto traffic signal
+201401EK40109,25,2014,51.521413,-0.113347,1,0,17.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521413+-0.113347,2014-03-02,22:00,Crossroads,Auto traffic signal
+201501EK40686,25,2015,51.521466,-0.113367,1,0,17.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521466+-0.113367,2015-08-08,10:25,Crossroads,Auto traffic signal
+201501EK40788,25,2015,51.521468,-0.113511,1,0,17.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521468+-0.113511,2015-09-11,22:02,Crossroads,Auto traffic signal
+2016010012740,25,2016,51.5215,-0.113199,1,0,17.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.5215+-0.113199,2016-09-02,15:45,Crossroads,Auto traffic signal
+2018010129705,25,2018,51.521721,-0.112322,1,0,17.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521721+-0.112322,2018-08-30,09:45,Other junction,unknown (self reported)
+2019010194992,25,2019,51.521795,-0.113025,1,0,17.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521795+-0.113025,2019-07-21,17:42,Other junction,Auto traffic signal
+200001CP00264,12,2000,51.511908,-0.103939,1,0,18.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.511908+-0.103939,2000-07-27,17:58,Crossroads,Auto traffic signal
+200601CP00244,12,2006,51.51182,-0.104087,1,0,18.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.51182+-0.104087,2006-09-12,06:37,More than 4 arms (not roundabout),Auto traffic signal
+200701CP00119,12,2007,51.512454,-0.104349,1,0,18.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.512454+-0.104349,2007-05-03,09:14,Other junction,Give way or uncontrolled
+200901CP00106,12,2009,51.511998,-0.103935,1,0,18.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.511998+-0.103935,2009-05-07,05:50,T or staggered junction,Auto traffic signal
+201101CP00017,12,2011,51.511998,-0.103935,1,0,18.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.511998+-0.103935,2011-01-18,11:00,T or staggered junction,Auto traffic signal
+201101CP00359,12,2011,51.512002,-0.104223,1,0,18.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.512002+-0.104223,2011-12-20,13:43,T or staggered junction,Auto traffic signal
+201201CP00243,12,2012,51.51191,-0.104083,1,0,18.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.51191+-0.104083,2012-08-02,11:39,T or staggered junction,Auto traffic signal
+201301CP00284,12,2013,51.512365,-0.104353,1,0,18.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.512365+-0.104353,2013-11-28,14:04,T or staggered junction,Give way or uncontrolled
+2017480175288,12,2017,51.51251,-0.104344,1,0,18.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.51251+-0.104344,2017-04-10,08:40,T or staggered junction,Auto traffic signal
+2018480308975,12,2018,51.512519,-0.104343,1,0,18.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.512519+-0.104343,2018-06-07,08:59,T or staggered junction,Give way or uncontrolled
+2019480862724,12,2019,51.512527,-0.104285,1,0,18.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.512527+-0.104285,2019-05-05,14:35,T or staggered junction,Give way or uncontrolled
+2020480934992,12,2020,51.51259,-0.104312,1,0,18.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.51259+-0.104312,2020-01-23,17:18,T or staggered junction,Give way or uncontrolled
+200001NI00882,67,2000,51.525753,-0.087073,1,0,19.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.525753+-0.087073,2000-06-24,08:10,Roundabout,Give way or uncontrolled
+200101NI01359,67,2001,51.525592,-0.088234,1,0,19.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.525592+-0.088234,2001-11-26,08:35,Roundabout,Give way or uncontrolled
+200601GD10160,67,2006,51.52566,-0.086933,1,0,19.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.52566+-0.086933,2006-02-10,00:01,Roundabout,Auto traffic signal
+200701EO40071,67,2007,51.52541,-0.088097,1,0,19.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.52541+-0.088097,2007-02-05,07:35,Roundabout,Auto traffic signal
+200701NI66007,67,2007,51.525509,-0.088669,1,0,19.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.525509+-0.088669,2007-08-03,18:40,T or staggered junction,Auto traffic signal
+200801EO40802,67,2008,51.525857,-0.087934,1,0,19.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.525857+-0.087934,2008-12-29,08:25,Roundabout,Give way or uncontrolled
+200801NI73057,67,2008,51.525483,-0.087085,1,0,19.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.525483+-0.087085,2008-06-11,07:50,Other junction,Auto traffic signal
+201001EO40420,67,2010,51.525424,-0.088961,1,0,19.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.525424+-0.088961,2010-07-24,22:18,T or staggered junction,Give way or uncontrolled
+201101EO40489,67,2011,51.525419,-0.088673,1,0,19.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.525419+-0.088673,2011-08-23,11:37,T or staggered junction,Give way or uncontrolled
+201101TA00317,67,2011,51.525313,-0.087669,1,0,19.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.525313+-0.087669,2011-02-24,07:55,Roundabout,Give way or uncontrolled
+201101TA01384,67,2011,51.525854,-0.08779,1,0,19.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.525854+-0.08779,2011-07-29,22:50,Roundabout,Give way or uncontrolled
+2018010119377,67,2018,51.525565,-0.088664,1,0,19.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.525565+-0.088664,2018-07-06,18:30,T or staggered junction,Auto traffic signal
+2018010123214,67,2018,51.525903,-0.087353,1,0,19.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.525903+-0.087353,2018-07-25,15:10,Roundabout,Auto traffic signal
+200701WW50572,407,2007,51.424316,-0.171721,1,0,20.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.424316+-0.171721,2007-09-01,10:55,T or staggered junction,Give way or uncontrolled
+200801WW50081,407,2008,51.423433,-0.172764,1,0,20.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.423433+-0.172764,2008-01-11,07:35,Crossroads,Auto traffic signal
+200801WW75527,407,2008,51.423521,-0.172616,0,1,20.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.423521+-0.172616,2008-10-20,08:35,Other junction,Auto traffic signal
+201001WW50142,407,2010,51.424049,-0.171876,1,0,20.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.424049+-0.171876,2010-03-02,18:40,T or staggered junction,Give way or uncontrolled
+201301WW50592,407,2013,51.423786,-0.172318,1,0,20.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.423786+-0.172318,2013-08-13,07:55,T or staggered junction,Give way or uncontrolled
+201401WW50157,407,2014,51.424224,-0.171582,1,0,20.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.424224+-0.171582,2014-02-25,08:15,T or staggered junction,Give way or uncontrolled
+2018010142867,407,2018,51.423841,-0.172312,1,0,20.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.423841+-0.172312,2018-11-02,08:30,T or staggered junction,Give way or uncontrolled
+2019010165980,407,2019,51.423549,-0.172625,1,0,20.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.423549+-0.172625,2019-02-26,14:28,Crossroads,Auto traffic signal
+2019010212180,407,2019,51.423849,-0.172211,1,0,20.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.423849+-0.172211,2019-10-16,14:44,T or staggered junction,Give way or uncontrolled
+201001BS70110,460,2010,51.485757,-0.150108,1,0,21.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485757+-0.150108,2010-02-14,09:55,Crossroads,Auto traffic signal
+201101BS70591,460,2011,51.485577,-0.150115,1,0,21.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485577+-0.150115,2011-11-16,19:00,Crossroads,Auto traffic signal
+201101CW12468,460,2011,51.485757,-0.150108,1,0,21.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485757+-0.150108,2011-12-01,09:30,Crossroads,Auto traffic signal
+201401CW11503,460,2014,51.48567,-0.150256,1,0,21.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.48567+-0.150256,2014-10-05,14:09,Crossroads,Auto traffic signal
+201601CW10002,460,2016,51.485758,-0.150108,1,0,21.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485758+-0.150108,2016-01-18,19:25,Crossroads,Auto traffic signal
+2017010061138,460,2017,51.485808,-0.149815,0,1,21.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485808+-0.149815,2017-09-27,07:15,Crossroads,Auto traffic signal
+2019010181494,460,2019,51.485756,-0.149903,1,0,21.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485756+-0.149903,2019-04-16,18:12,Crossroads,unknown (self reported)
+2020010267501,460,2020,51.485785,-0.150089,1,0,21.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485785+-0.150089,2020-09-12,16:10,Crossroads,Auto traffic signal
+200001CP00187,10,2000,51.510194,-0.087005,1,0,22.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510194+-0.087005,2000-05-03,08:30,T or staggered junction,Give way or uncontrolled
+200201CP00114,10,2002,51.510107,-0.087153,1,0,22.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510107+-0.087153,2002-04-05,22:45,T or staggered junction,Give way or uncontrolled
+200201CP00149,10,2002,51.510104,-0.087009,1,0,22.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510104+-0.087009,2002-05-22,08:15,T or staggered junction,Auto traffic signal
+200401CP00160,10,2004,51.510017,-0.087156,1,0,22.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510017+-0.087156,2004-07-19,08:40,Crossroads,Give way or uncontrolled
+200401CP00287,10,2004,51.510017,-0.087156,1,0,22.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510017+-0.087156,2004-11-29,08:40,T or staggered junction,Give way or uncontrolled
+200701CP00056,10,2007,51.510102,-0.086865,1,0,22.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510102+-0.086865,2007-02-23,17:45,T or staggered junction,Give way or uncontrolled
+200801CP00228,10,2008,51.510279,-0.086713,1,0,22.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510279+-0.086713,2008-09-24,09:20,Crossroads,Auto traffic signal
+200901CP00284,10,2009,51.510282,-0.086857,1,0,22.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510282+-0.086857,2009-10-20,17:45,T or staggered junction,Give way or uncontrolled
+201201CP00018,10,2012,51.510282,-0.086857,1,0,22.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510282+-0.086857,2012-01-05,18:10,Crossroads,Auto traffic signal
+201301CP00177,10,2013,51.510102,-0.086865,1,0,22.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510102+-0.086865,2013-07-17,19:55,T or staggered junction,Auto traffic signal
+201301CP00278,10,2013,51.510192,-0.086861,1,0,22.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510192+-0.086861,2013-11-15,00:01,T or staggered junction,Auto traffic signal
+201401CP00400,10,2014,51.510282,-0.086857,1,0,22.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510282+-0.086857,2014-12-08,22:30,T or staggered junction,Auto traffic signal
+2018480806871,10,2018,51.510291,-0.086767,1,0,22.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510291+-0.086767,2018-04-12,14:42,T or staggered junction,Give way or uncontrolled
+200601LX50625,353,2006,51.46813,-0.144342,1,0,23.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.46813+-0.144342,2006-08-02,18:21,Crossroads,Auto traffic signal
+200901LX50657,353,2009,51.46813,-0.144342,1,0,23.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.46813+-0.144342,2009-07-17,16:00,Crossroads,Give way or uncontrolled
+201001LX51101,353,2010,51.468043,-0.144489,1,0,23.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.468043+-0.144489,2010-11-13,22:00,Crossroads,Give way or uncontrolled
+201201WW50104,353,2012,51.46813,-0.144342,1,0,23.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.46813+-0.144342,2012-02-09,07:40,Crossroads,Auto traffic signal
+201301LX50052,353,2013,51.468041,-0.144346,1,0,23.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.468041+-0.144346,2013-02-01,17:45,Crossroads,Auto traffic signal
+201601LX50868,353,2016,51.467861,-0.144353,1,0,23.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.467861+-0.144353,2016-08-14,16:55,Crossroads,Auto traffic signal
+2019010191515,353,2019,51.468211,-0.144234,0,1,23.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.468211+-0.144234,2019-07-04,15:09,Crossroads,Auto traffic signal
+2019010226137,353,2019,51.468318,-0.144187,1,0,23.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.468318+-0.144187,2019-12-19,17:20,Crossroads,Auto traffic signal
+200401LX50315,273,2004,51.464673,-0.130517,1,0,24.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.464673+-0.130517,2004-06-21,18:10,Crossroads,Give way or uncontrolled
+200601LX50440,273,2006,51.464673,-0.130517,1,0,24.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.464673+-0.130517,2006-05-31,07:30,Crossroads,Give way or uncontrolled
+201001LX50296,273,2010,51.464675,-0.130661,1,0,24.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.464675+-0.130661,2010-03-31,08:30,T or staggered junction,Give way or uncontrolled
+201101TA00841,273,2011,51.464675,-0.130661,1,0,24.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.464675+-0.130661,2011-04-09,13:49,T or staggered junction,Give way or uncontrolled
+201601LX50671,273,2016,51.464501,-0.130956,1,0,24.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.464501+-0.130956,2016-07-02,22:38,T or staggered junction,Give way or uncontrolled
+2018010109224,273,2018,51.464291,-0.131249,1,0,24.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.464291+-0.131249,2018-05-05,11:45,More than 4 arms (not roundabout),unknown (self reported)
+2020010259121,273,2020,51.464736,-0.130381,1,0,24.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.464736+-0.130381,2020-07-29,15:50,T or staggered junction,Give way or uncontrolled
+2020010265118,273,2020,51.464318,-0.131248,1,0,24.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.464318+-0.131248,2020-08-27,18:20,T or staggered junction,Give way or uncontrolled
+2020010272286,273,2020,51.464829,-0.130565,1,0,24.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.464829+-0.130565,2020-10-06,18:25,T or staggered junction,Give way or uncontrolled
+2020010280553,273,2020,51.464783,-0.130523,1,0,24.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.464783+-0.130523,2020-11-20,20:05,Crossroads,Give way or uncontrolled
+200101NI00441,137,2001,51.54553,-0.103263,1,0,25.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.54553+-0.103263,2001-03-29,16:23,Roundabout,Give way or uncontrolled
+200101NI00829,137,2001,51.545709,-0.103255,1,0,25.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.545709+-0.103255,2001-07-05,23:50,Roundabout,Give way or uncontrolled
+200201EO01308,137,2002,51.546159,-0.103237,1,0,25.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.546159+-0.103237,2002-10-08,15:15,T or staggered junction,Give way or uncontrolled
+200501EO40892,137,2005,51.546343,-0.103517,1,0,25.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.546343+-0.103517,2005-08-18,23:47,Roundabout,Give way or uncontrolled
+200601EO40287,137,2006,51.546064,-0.102952,1,0,25.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.546064+-0.102952,2006-03-25,01:00,Roundabout,Give way or uncontrolled
+201001EO40277,137,2010,51.545889,-0.103248,1,0,25.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.545889+-0.103248,2010-05-25,15:59,Roundabout,Give way or uncontrolled
+201001EO40751,137,2010,51.546159,-0.103237,1,0,25.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.546159+-0.103237,2010-12-04,17:45,T or staggered junction,Give way or uncontrolled
+201101TB00538,137,2011,51.54553,-0.103263,1,0,25.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.54553+-0.103263,2011-03-31,22:20,Roundabout,Give way or uncontrolled
+201101TB00952,137,2011,51.546064,-0.102952,1,0,25.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.546064+-0.102952,2011-04-28,23:52,T or staggered junction,Give way or uncontrolled
+201101TB01318,137,2011,51.54606,-0.102664,1,0,25.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.54606+-0.102664,2011-09-15,16:45,Roundabout,Give way or uncontrolled
+2018010135118,137,2018,51.545583,-0.103113,1,0,25.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.545583+-0.103113,2018-09-26,17:25,Roundabout,Auto traffic signal
+2020010272419,137,2020,51.546042,-0.102012,1,0,25.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.546042+-0.102012,2020-10-06,16:15,Roundabout,Auto traffic signal
+200201HT00790,190,2002,51.510944,-0.066941,1,0,26.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510944+-0.066941,2002-09-25,08:20,T or staggered junction,Give way or uncontrolled
+200301HT00640,190,2003,51.510854,-0.066945,1,0,26.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510854+-0.066945,2003-09-17,18:53,T or staggered junction,Give way or uncontrolled
+201101TA01218,190,2011,51.510854,-0.066945,1,0,26.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510854+-0.066945,2011-06-01,17:30,T or staggered junction,Give way or uncontrolled
+201101TA01894,190,2011,51.510854,-0.066945,1,0,26.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510854+-0.066945,2011-12-14,11:00,T or staggered junction,Give way or uncontrolled
+2016010007093,190,2016,51.510675,-0.066953,1,0,26.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510675+-0.066953,2016-12-15,08:55,T or staggered junction,Give way or uncontrolled
+2016010027913,190,2016,51.510855,-0.066945,1,0,26.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510855+-0.066945,2016-10-05,07:20,T or staggered junction,Give way or uncontrolled
+2017010023158,190,2017,51.51091,-0.06694,1,0,26.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.51091+-0.06694,2017-03-06,09:50,T or staggered junction,Give way or uncontrolled
+2017010055927,190,2017,51.51091,-0.06694,1,0,26.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.51091+-0.06694,2017-08-25,08:35,T or staggered junction,Give way or uncontrolled
+2018010120299,190,2018,51.51091,-0.06694,1,0,26.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.51091+-0.06694,2018-07-10,17:15,T or staggered junction,Give way or uncontrolled
+2019010212594,190,2019,51.511035,-0.066891,1,0,26.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.511035+-0.066891,2019-10-18,18:17,T or staggered junction,Give way or uncontrolled
+200101HT00228,118,2001,51.52507,-0.034915,1,0,27.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.52507+-0.034915,2001-02-22,23:15,Crossroads,Auto traffic signal
+200101HT00649,118,2001,51.525065,-0.034627,1,0,27.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.525065+-0.034627,2001-06-08,18:15,Crossroads,Auto traffic signal
+200401HT00455,118,2004,51.524973,-0.034487,1,0,27.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.524973+-0.034487,2004-07-26,08:20,T or staggered junction,Stop sign
+200901TC00122,118,2009,51.524715,-0.035219,1,0,27.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.524715+-0.035219,2009-05-29,08:30,T or staggered junction,Auto traffic signal
+201101TA01434,118,2011,51.52489,-0.034923,1,0,27.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.52489+-0.034923,2011-08-22,08:25,Crossroads,Auto traffic signal
+201201HT20263,118,2012,51.524978,-0.034775,1,0,27.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.524978+-0.034775,2012-04-16,17:28,Crossroads,Auto traffic signal
+201201HT20341,118,2012,51.524801,-0.034927,1,0,27.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.524801+-0.034927,2012-05-24,08:00,Crossroads,Auto traffic signal
+201301HT20300,118,2013,51.524888,-0.03478,1,0,27.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.524888+-0.03478,2013-05-06,09:00,Crossroads,Auto traffic signal
+201401HT20704,118,2014,51.524896,-0.035212,1,0,27.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.524896+-0.035212,2014-07-16,18:25,Crossroads,Auto traffic signal
+2017010071413,118,2017,51.525206,-0.03433,1,0,27.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.525206+-0.03433,2017-11-20,19:45,T or staggered junction,Give way or uncontrolled
+2019010204659,118,2019,51.525068,-0.034725,1,0,27.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.525068+-0.034725,2019-09-11,11:37,More than 4 arms (not roundabout),Auto traffic signal
+200201EO00181,170,2002,51.536842,-0.116602,0,1,28.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.536842+-0.116602,2002-05-17,08:55,Crossroads,Auto traffic signal
+200701NI63240,170,2007,51.536662,-0.116609,1,0,28.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.536662+-0.116609,2007-06-24,18:53,Crossroads,Auto traffic signal
+200701TA00078,170,2007,51.536842,-0.116602,1,0,28.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.536842+-0.116602,2007-05-05,18:30,Crossroads,Auto traffic signal
+201101TB01670,170,2011,51.536842,-0.116602,1,0,28.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.536842+-0.116602,2011-12-15,23:20,T or staggered junction,Auto traffic signal
+201401EO40365,170,2014,51.536663,-0.11661,1,0,28.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.536663+-0.11661,2014-06-05,11:54,Crossroads,Auto traffic signal
+201401EO49029,170,2014,51.536663,-0.11661,1,0,28.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.536663+-0.11661,2014-11-04,16:05,Crossroads,Auto traffic signal
+201601EO40530,170,2016,51.536845,-0.116746,1,0,28.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.536845+-0.116746,2016-08-10,20:20,Crossroads,Auto traffic signal
+2018010122051,170,2018,51.536893,-0.116308,1,0,28.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.536893+-0.116308,2018-07-18,14:05,Crossroads,Auto traffic signal
+2020010255076,170,2020,51.536941,-0.116494,1,0,28.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.536941+-0.116494,2020-07-05,14:49,Crossroads,Auto traffic signal
+200601TD00226,362,2006,51.468752,-0.126895,1,0,29.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.468752+-0.126895,2006-08-22,07:20,T or staggered junction,Auto traffic signal
+201201TB00440,362,2012,51.46875,-0.126751,1,0,29.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.46875+-0.126751,2012-04-27,07:40,T or staggered junction,Auto traffic signal
+201201TB00663,362,2012,51.468752,-0.126895,1,0,29.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.468752+-0.126895,2012-06-22,17:32,T or staggered junction,Auto traffic signal
+201501LX50229,362,2015,51.468719,-0.127062,1,0,29.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.468719+-0.127062,2015-03-08,18:30,T or staggered junction,Auto traffic signal
+201601LX50101,362,2016,51.468663,-0.126899,1,0,29.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.468663+-0.126899,2016-02-01,04:58,T or staggered junction,Give way or uncontrolled
+2018010121707,362,2018,51.468718,-0.126893,1,0,29.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.468718+-0.126893,2018-07-18,09:00,T or staggered junction,Auto traffic signal
+2018010143647,362,2018,51.46872,-0.127037,1,0,29.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.46872+-0.127037,2018-11-01,08:15,Crossroads,Auto traffic signal
+2020010233320,362,2020,51.468807,-0.126846,1,0,29.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.468807+-0.126846,2020-01-29,10:10,T or staggered junction,Auto traffic signal
+2020010257972,362,2020,51.468798,-0.126846,1,0,29.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.468798+-0.126846,2020-07-22,19:15,Crossroads,Auto traffic signal
+201001RG40451,475,2010,51.472894,0.003304,1,0,30.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472894+0.003304,2010-07-29,08:55,Mini-roundabout,Give way or uncontrolled
+201001TB00153,475,2010,51.472894,0.003304,1,0,30.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472894+0.003304,2010-04-30,07:45,Roundabout,Give way or uncontrolled
+201101TB00898,475,2011,51.472894,0.003304,1,0,30.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472894+0.003304,2011-05-05,08:18,Mini-roundabout,Give way or uncontrolled
+201301TB00016,475,2013,51.472895,0.003304,1,0,30.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472895+0.003304,2013-01-29,07:35,Mini-roundabout,Give way or uncontrolled
+201601RG40202,475,2016,51.472895,0.003304,1,0,30.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472895+0.003304,2016-01-04,09:23,Mini-roundabout,Give way or uncontrolled
+2017010049998,475,2017,51.47286,0.003304,1,0,30.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.47286+0.003304,2017-07-24,08:36,Roundabout,Give way or uncontrolled
+2017010057546,475,2017,51.47295,0.003308,1,0,30.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.47295+0.003308,2017-09-06,07:00,Mini-roundabout,Give way or uncontrolled
+2019010179836,475,2019,51.472876,0.003406,1,0,30.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472876+0.003406,2019-05-09,07:45,Mini-roundabout,Give way or uncontrolled
+2019010212081,475,2019,51.47301,0.003469,1,0,30.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.47301+0.003469,2019-10-16,09:00,Mini-roundabout,Give way or uncontrolled
+200001HT00794,42,2000,51.532454,-0.05709,1,0,31.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.532454+-0.05709,2000-08-23,18:15,Crossroads,Auto traffic signal
+200901HT29012,42,2009,51.532364,-0.057094,1,0,31.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.532364+-0.057094,2009-12-31,09:00,T or staggered junction,Auto traffic signal
+2017010018813,42,2017,51.532509,-0.057085,1,0,31.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.532509+-0.057085,2017-02-12,11:50,Crossroads,Auto traffic signal
+2018010097555,42,2018,51.532873,-0.057358,1,0,31.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.532873+-0.057358,2018-03-21,18:18,Crossroads,Auto traffic signal
+2019010210045,42,2019,51.532579,-0.056952,1,0,31.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.532579+-0.056952,2019-10-04,08:25,Crossroads,unknown (self reported)
+2019010214349,42,2019,51.532553,-0.057011,1,0,31.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.532553+-0.057011,2019-10-27,14:48,Crossroads,Auto traffic signal
+2019010242438,42,2019,51.532019,-0.056846,1,0,31.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.532019+-0.056846,2019-12-15,14:30,T or staggered junction,Give way or uncontrolled
+2020010262792,42,2020,51.53258,-0.057053,1,0,31.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.53258+-0.057053,2020-08-19,10:20,Crossroads,Auto traffic signal
+2020010275434,42,2020,51.532545,-0.057112,1,0,31.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.532545+-0.057112,2020-10-23,14:46,Crossroads,Auto traffic signal
+200501CW10879,300,2005,51.501578,-0.161138,1,0,32.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.501578+-0.161138,2005-07-02,07:27,T or staggered junction,Auto traffic signal
+200701CW10469,300,2007,51.501659,-0.160559,1,0,32.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.501659+-0.160559,2007-04-25,20:50,More than 4 arms (not roundabout),Auto traffic signal
+201001BS70521,300,2010,51.50191,-0.159396,1,0,32.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.50191+-0.159396,2010-09-10,15:00,T or staggered junction,Give way or uncontrolled
+201401CW10817,300,2014,51.501583,-0.161427,1,0,32.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.501583+-0.161427,2014-05-07,07:00,More than 4 arms (not roundabout),Auto traffic signal
+2016010028221,300,2016,51.501578,-0.161139,0,1,32.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.501578+-0.161139,2016-10-31,12:38,Other junction,Auto traffic signal
+2017010029423,300,2017,51.5018,-0.160262,1,0,32.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.5018+-0.160262,2017-03-26,12:05,T or staggered junction,Auto traffic signal
+2018010127440,300,2018,51.501795,-0.159974,1,0,32.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.501795+-0.159974,2018-08-15,20:05,T or staggered junction,Auto traffic signal
+200201MM00231,195,2002,51.506169,-0.088326,1,0,33.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.506169+-0.088326,2002-01-29,17:40,T or staggered junction,Auto traffic signal
+201001MM70330,195,2010,51.506256,-0.088178,1,0,33.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.506256+-0.088178,2010-05-04,07:30,Crossroads,Auto traffic signal
+201001MM70456,195,2010,51.506171,-0.08847,1,0,33.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.506171+-0.08847,2010-06-01,07:52,T or staggered junction,Auto traffic signal
+201301MM70359,195,2013,51.505992,-0.088478,1,0,33.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.505992+-0.088478,2013-05-20,19:40,T or staggered junction,Auto traffic signal
+201301TB00014,195,2013,51.506347,-0.088175,1,0,33.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.506347+-0.088175,2013-01-14,18:25,T or staggered junction,Auto traffic signal
+2018010096582,195,2018,51.506137,-0.088469,1,0,33.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.506137+-0.088469,2018-03-16,08:15,T or staggered junction,Auto traffic signal
+2018010137670,195,2018,51.506404,-0.088314,1,0,33.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.506404+-0.088314,2018-10-08,15:45,T or staggered junction,Auto traffic signal
+2019010210852,195,2019,51.506176,-0.088093,1,0,33.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.506176+-0.088093,2019-10-10,19:05,T or staggered junction,Auto traffic signal
+2020010256653,195,2020,51.506134,-0.088282,1,0,33.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.506134+-0.088282,2020-07-10,19:50,Other junction,Auto traffic signal
+201001WW50763,481,2010,51.448231,-0.148459,1,0,34.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.448231+-0.148459,2010-10-06,07:30,T or staggered junction,Give way or uncontrolled
+2017010067399,481,2017,51.448642,-0.14815,1,0,34.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.448642+-0.14815,2017-10-31,17:48,T or staggered junction,Give way or uncontrolled
+2018010085043,481,2018,51.448287,-0.148453,1,0,34.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.448287+-0.148453,2018-01-15,07:40,T or staggered junction,Give way or uncontrolled
+2018010138550,481,2018,51.448287,-0.148453,1,0,34.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.448287+-0.148453,2018-10-12,07:30,T or staggered junction,unknown (self reported)
+2019010173380,481,2019,51.448621,-0.147979,1,0,34.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.448621+-0.147979,2019-04-04,17:15,T or staggered junction,Auto traffic signal
+2020010242338,481,2020,51.448964,-0.148022,1,0,34.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.448964+-0.148022,2020-03-16,08:27,T or staggered junction,Give way or uncontrolled
+2020010273179,481,2020,51.448613,-0.148036,1,0,34.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.448613+-0.148036,2020-10-11,15:10,T or staggered junction,Stop sign
+2020010276010,481,2020,51.448348,-0.148292,1,0,34.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.448348+-0.148292,2020-10-26,20:00,T or staggered junction,Give way or uncontrolled
+200701HT63085,383,2007,51.531892,-0.061151,1,0,35.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531892+-0.061151,2007-06-15,13:50,Crossroads,Give way or uncontrolled
+201101GD10674,383,2011,51.531807,-0.061443,1,0,35.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531807+-0.061443,2011-11-03,18:25,T or staggered junction,Give way or uncontrolled
+201101HT20152,383,2011,51.531885,-0.060719,1,0,35.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531885+-0.060719,2011-04-01,16:30,T or staggered junction,Give way or uncontrolled
+201101TA01153,383,2011,51.531894,-0.061296,1,0,35.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531894+-0.061296,2011-06-01,14:00,T or staggered junction,Give way or uncontrolled
+201101TD00115,383,2011,51.531894,-0.061296,0,1,35.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531894+-0.061296,2011-06-21,08:30,T or staggered junction,Give way or uncontrolled
+201201TA00722,383,2012,51.531802,-0.061155,1,0,35.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531802+-0.061155,2012-09-01,01:05,T or staggered junction,Give way or uncontrolled
+201501HT20875,383,2015,51.531856,-0.061177,1,0,35.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531856+-0.061177,2015-09-19,15:11,Crossroads,Give way or uncontrolled
+200801CW72413,504,2008,51.512062,-0.119065,1,0,36.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.512062+-0.119065,2008-02-05,10:30,T or staggered junction,Give way or uncontrolled
+201201CW10574,504,2012,51.511522,-0.119088,1,0,36.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.511522+-0.119088,2012-04-24,08:15,T or staggered junction,Auto traffic signal
+201201TA00420,504,2012,51.510912,-0.120266,1,0,36.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510912+-0.120266,2012-05-29,13:45,T or staggered junction,Give way or uncontrolled
+201301CW10188,504,2013,51.511166,-0.119247,1,0,36.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.511166+-0.119247,2013-03-03,03:48,Crossroads,Auto traffic signal
+201401CW11264,504,2014,51.511703,-0.119081,1,0,36.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.511703+-0.119081,2014-08-26,07:30,Crossroads,Auto traffic signal
+2016010023842,504,2016,51.510995,-0.11983,1,0,36.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510995+-0.11983,2016-10-05,17:40,T or staggered junction,Give way or uncontrolled
+2017010046180,504,2017,51.511133,-0.119389,1,0,36.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.511133+-0.119389,2017-07-03,10:05,Crossroads,Auto traffic signal
+2019010184019,504,2019,51.511308,-0.119079,1,0,36.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.511308+-0.119079,2019-05-28,17:15,Crossroads,Auto traffic signal
+200401CP00029,257,2004,51.510832,-0.093031,0,1,37.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510832+-0.093031,2004-02-23,09:02,Crossroads,Auto traffic signal
+200401CP00178,257,2004,51.510832,-0.093031,1,0,37.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510832+-0.093031,2004-08-04,18:42,Crossroads,Auto traffic signal
+200801CP00222,257,2008,51.510836,-0.093319,0,1,37.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510836+-0.093319,2008-09-18,07:21,Crossroads,Auto traffic signal
+200901CP00217,257,2009,51.510652,-0.093038,1,0,37.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510652+-0.093038,2009-08-10,08:34,T or staggered junction,Auto traffic signal
+201001CP00057,257,2010,51.511191,-0.093016,1,0,37.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.511191+-0.093016,2010-03-13,12:10,T or staggered junction,Give way or uncontrolled
+201401CP00151,257,2014,51.510747,-0.093323,1,0,37.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510747+-0.093323,2014-05-13,19:50,T or staggered junction,Auto traffic signal
+200701MM70337,392,2007,51.473231,-0.070408,1,0,38.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.473231+-0.070408,2007-04-17,15:18,T or staggered junction,Auto traffic signal
+200701MM70639,392,2007,51.473241,-0.070984,1,0,38.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.473241+-0.070984,2007-11-01,22:30,T or staggered junction,Give way or uncontrolled
+200901TD00119,392,2009,51.473243,-0.071127,1,0,38.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.473243+-0.071127,2009-06-02,07:56,T or staggered junction,Give way or uncontrolled
+201301MM70209,392,2013,51.473334,-0.071124,1,0,38.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.473334+-0.071124,2013-04-10,20:20,T or staggered junction,Give way or uncontrolled
+2017010032488,392,2017,51.473299,-0.071123,1,0,38.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.473299+-0.071123,2017-04-18,10:10,T or staggered junction,Auto traffic signal
+2019010161635,392,2019,51.473362,-0.071106,1,0,38.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.473362+-0.071106,2019-02-05,13:27,T or staggered junction,Auto traffic signal
+2019010170334,392,2019,51.473255,-0.071168,1,0,38.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.473255+-0.071168,2019-03-21,05:12,T or staggered junction,Auto traffic signal
+2020010249071,392,2020,51.473353,-0.07112,1,0,38.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.473353+-0.07112,2020-05-25,20:08,T or staggered junction,Give way or uncontrolled
+200001PL00756,75,2000,51.486601,-0.036138,1,0,39.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486601+-0.036138,2000-07-22,11:21,T or staggered junction,Give way or uncontrolled
+200001PL00793,75,2000,51.486601,-0.036138,1,0,39.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486601+-0.036138,2000-07-26,07:10,T or staggered junction,Give way or uncontrolled
+200601PL60794,75,2006,51.486876,-0.036414,1,0,39.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486876+-0.036414,2006-09-28,19:45,T or staggered junction,Give way or uncontrolled
+200701PL60133,75,2007,51.486786,-0.036418,1,0,39.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486786+-0.036418,2007-02-27,09:08,T or staggered junction,Give way or uncontrolled
+200701PL60514,75,2007,51.486691,-0.036134,1,0,39.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486691+-0.036134,2007-11-14,08:00,T or staggered junction,Give way or uncontrolled
+201001PL60387,75,2010,51.486601,-0.036138,1,0,39.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486601+-0.036138,2010-06-15,06:43,T or staggered junction,Give way or uncontrolled
+201101PL60171,75,2011,51.486694,-0.036278,1,0,39.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486694+-0.036278,2011-03-03,07:38,T or staggered junction,Give way or uncontrolled
+201201PL60227,75,2012,51.486694,-0.036278,1,0,39.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486694+-0.036278,2012-04-17,07:00,T or staggered junction,Give way or uncontrolled
+2018010112229,75,2018,51.486749,-0.036273,1,0,39.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486749+-0.036273,2018-06-05,08:45,T or staggered junction,Give way or uncontrolled
+2019010220041,75,2019,51.486756,-0.036172,1,0,39.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486756+-0.036172,2019-11-22,09:15,T or staggered junction,Give way or uncontrolled
+200201MM00763,198,2002,51.471804,-0.093075,1,0,40.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.471804+-0.093075,2002-01-12,21:45,Crossroads,Auto traffic signal
+200301MM00779,198,2003,51.471534,-0.093086,1,0,40.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.471534+-0.093086,2003-06-13,19:00,T or staggered junction,Give way or uncontrolled
+200601MM71189,198,2006,51.471898,-0.093359,1,0,40.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.471898+-0.093359,2006-12-22,17:54,T or staggered junction,Auto traffic signal
+201001MM70793,198,2010,51.471633,-0.093658,1,0,40.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.471633+-0.093658,2010-09-13,21:45,T or staggered junction,Give way or uncontrolled
+201001MM71016,198,2010,51.471894,-0.093071,1,0,40.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.471894+-0.093071,2010-10-28,18:10,Crossroads,Auto traffic signal
+201301TB00000,198,2013,51.471899,-0.09336,1,0,40.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.471899+-0.09336,2013-01-21,10:55,Crossroads,Auto traffic signal
+2016010019185,198,2016,51.471546,-0.093806,1,0,40.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.471546+-0.093806,2016-09-09,09:43,T or staggered junction,Give way or uncontrolled
+201601MM70125,198,2016,51.471989,-0.093356,1,0,40.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.471989+-0.093356,2016-01-20,15:00,T or staggered junction,Auto traffic signal
+2018010106049,198,2018,51.472129,-0.093059,1,0,40.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.472129+-0.093059,2018-05-05,09:45,More than 4 arms (not roundabout),Auto traffic signal
+200001HT00743,41,2000,51.527086,-0.058761,1,0,41.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.527086+-0.058761,2000-08-07,23:02,T or staggered junction,Give way or uncontrolled
+200401TC01084,41,2004,51.527157,-0.057604,0,1,41.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.527157+-0.057604,2004-12-18,23:56,T or staggered junction,Give way or uncontrolled
+200501TC00298,41,2005,51.527166,-0.05818,1,0,41.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.527166+-0.05818,2005-07-23,23:00,T or staggered junction,Auto traffic signal
+200701HT64135,41,2007,51.527003,-0.059197,1,0,41.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.527003+-0.059197,2007-06-03,15:30,T or staggered junction,Give way or uncontrolled
+200901HT20183,41,2009,51.526921,-0.059633,1,0,41.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.526921+-0.059633,2009-04-07,18:30,T or staggered junction,Give way or uncontrolled
+201601HT20766,41,2016,51.527077,-0.058185,1,0,41.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.527077+-0.058185,2016-08-09,22:30,Crossroads,Give way or uncontrolled
+2017010049363,41,2017,51.526976,-0.059627,1,0,41.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.526976+-0.059627,2017-07-19,22:15,T or staggered junction,Give way or uncontrolled
+2017010063381,41,2017,51.526888,-0.059775,1,0,41.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.526888+-0.059775,2017-10-08,13:30,Slip road,Auto traffic signal
+200001MM00595,57,2000,51.497086,-0.099368,1,0,42.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497086+-0.099368,2000-05-23,15:00,T or staggered junction,Give way or uncontrolled
+200101MM00923,57,2001,51.497086,-0.099368,1,0,42.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497086+-0.099368,2001-07-17,07:00,T or staggered junction,Give way or uncontrolled
+200301MM01316,57,2003,51.497086,-0.099368,1,0,42.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497086+-0.099368,2003-11-04,23:25,T or staggered junction,Give way or uncontrolled
+200601MM70854,57,2006,51.497086,-0.099368,1,0,42.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497086+-0.099368,2006-09-20,15:11,T or staggered junction,Give way or uncontrolled
+200901MM70618,57,2009,51.497086,-0.099368,1,0,42.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497086+-0.099368,2009-08-10,09:30,T or staggered junction,Give way or uncontrolled
+200901MM70862,57,2009,51.497086,-0.099368,1,0,42.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497086+-0.099368,2009-10-09,07:30,T or staggered junction,Give way or uncontrolled
+201201TB00139,57,2012,51.497086,-0.099368,1,0,42.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497086+-0.099368,2012-02-06,06:50,T or staggered junction,Auto traffic signal
+201201TB00999,57,2012,51.497086,-0.099368,1,0,42.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497086+-0.099368,2012-09-27,17:00,T or staggered junction,Give way or uncontrolled
+201301MM70518,57,2013,51.497086,-0.099368,1,0,42.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497086+-0.099368,2013-06-20,13:00,T or staggered junction,Give way or uncontrolled
+2020010270033,57,2020,51.497185,-0.09926,1,0,42.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497185+-0.09926,2020-09-25,07:00,T or staggered junction,Give way or uncontrolled
+200701BS70422,368,2007,51.522078,-0.201539,1,0,43.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522078+-0.201539,2007-08-14,09:15,T or staggered junction,Give way or uncontrolled
+200701BS70575,368,2007,51.522078,-0.201539,1,0,43.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522078+-0.201539,2007-10-23,07:05,T or staggered junction,Give way or uncontrolled
+201101CW11652,368,2011,51.521988,-0.201543,1,0,43.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521988+-0.201543,2011-08-15,23:40,T or staggered junction,Give way or uncontrolled
+201101CW11983,368,2011,51.522168,-0.201536,1,0,43.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522168+-0.201536,2011-10-08,09:21,T or staggered junction,Give way or uncontrolled
+201201CW10831,368,2012,51.521988,-0.201543,1,0,43.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521988+-0.201543,2012-06-25,18:31,T or staggered junction,Give way or uncontrolled
+2018010120489,368,2018,51.521862,-0.2014,1,0,43.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521862+-0.2014,2018-07-11,08:50,T or staggered junction,unknown (self reported)
+2019010179025,368,2019,51.522159,-0.201461,1,0,43.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522159+-0.201461,2019-05-03,01:03,T or staggered junction,unknown (self reported)
+2020010246932,368,2020,51.522161,-0.201576,1,0,43.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.522161+-0.201576,2020-05-06,14:25,T or staggered junction,Give way or uncontrolled
+200001HT00245,38,2000,51.519769,-0.056765,1,0,44.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519769+-0.056765,2000-03-25,14:14,More than 4 arms (not roundabout),Auto traffic signal
+200501HT20331,38,2005,51.519759,-0.056189,1,0,44.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519759+-0.056189,2005-05-12,15:30,Crossroads,Auto traffic signal
+200701HT20342,38,2007,51.519769,-0.056765,1,0,44.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519769+-0.056765,2007-04-24,19:15,Crossroads,Auto traffic signal
+201001HT20111,38,2010,51.519764,-0.056477,1,0,44.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519764+-0.056477,2010-01-02,22:20,Crossroads,Auto traffic signal
+201101TA01631,38,2011,51.519764,-0.056477,1,0,44.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519764+-0.056477,2011-10-14,17:15,Crossroads,Auto traffic signal
+201201TA00566,38,2012,51.519764,-0.056477,1,0,44.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519764+-0.056477,2012-07-02,23:15,Crossroads,Auto traffic signal
+201301HT20794,38,2013,51.519764,-0.056478,1,0,44.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519764+-0.056478,2013-10-09,19:35,Crossroads,Auto traffic signal
+2017010030647,38,2017,51.51999,-0.055888,1,0,44.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.51999+-0.055888,2017-03-29,11:50,T or staggered junction,Give way or uncontrolled
+2020010255161,38,2020,51.519756,-0.056475,1,0,44.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.519756+-0.056475,2020-07-06,17:25,Crossroads,Give way or uncontrolled
+200701LX50416,402,2007,51.493927,-0.120965,1,0,45.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.493927+-0.120965,2007-09-17,07:50,Roundabout,Give way or uncontrolled
+200701TE00116,402,2007,51.494371,-0.120658,1,0,45.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494371+-0.120658,2007-05-08,06:25,Roundabout,Give way or uncontrolled
+200901LX51106,402,2009,51.494019,-0.121105,1,0,45.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494019+-0.121105,2009-11-24,08:49,Roundabout,Auto traffic signal
+201201LX50542,402,2012,51.494461,-0.120654,1,0,45.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494461+-0.120654,2012-07-20,04:40,Roundabout,Give way or uncontrolled
+201301LX51060,402,2013,51.494466,-0.120943,1,0,45.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494466+-0.120943,2013-10-09,16:25,Roundabout,Give way or uncontrolled
+2018010112511,402,2018,51.494346,-0.121233,1,0,45.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494346+-0.121233,2018-06-06,08:30,Roundabout,Auto traffic signal
+2018010137617,402,2018,51.494517,-0.120649,1,0,45.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494517+-0.120649,2018-10-01,15:30,Roundabout,Auto traffic signal
+2019010199546,402,2019,51.494553,-0.120648,1,0,45.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.494553+-0.120648,2019-08-14,07:17,Roundabout,unknown (self reported)
+200401LX50138,272,2004,51.498825,-0.112407,1,0,46.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.498825+-0.112407,2004-05-06,19:40,More than 4 arms (not roundabout),Auto traffic signal
+200801LX50544,272,2008,51.498558,-0.112562,1,0,46.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.498558+-0.112562,2008-07-25,19:55,More than 4 arms (not roundabout),Auto traffic signal
+201201LX50321,272,2012,51.498827,-0.112551,1,0,46.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.498827+-0.112551,2012-03-30,08:53,Crossroads,Auto traffic signal
+201201LX50348,272,2012,51.49883,-0.112694,1,0,46.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.49883+-0.112694,2012-05-14,07:45,More than 4 arms (not roundabout),Auto traffic signal
+201301MM71054,272,2013,51.498828,-0.112551,1,0,46.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.498828+-0.112551,2013-12-20,08:10,Crossroads,Auto traffic signal
+201401LX51424,272,2014,51.498828,-0.112551,1,0,46.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.498828+-0.112551,2014-12-17,09:25,Crossroads,Auto traffic signal
+2017010042228,272,2017,51.498429,-0.112276,1,0,46.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.498429+-0.112276,2017-06-10,08:40,T or staggered junction,Auto traffic signal
+2020010270991,272,2020,51.498873,-0.112459,1,0,46.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.498873+-0.112459,2020-09-30,13:55,Crossroads,Auto traffic signal
+200301DM00694,214,2003,51.500941,-0.126583,1,0,47.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.500941+-0.126583,2003-03-17,08:30,Crossroads,Auto traffic signal
+200301DM01638,214,2003,51.500939,-0.12644,1,0,47.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.500939+-0.12644,2003-10-17,21:00,Crossroads,Auto traffic signal
+200501CW10989,214,2005,51.500754,-0.126159,1,0,47.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.500754+-0.126159,2005-07-19,09:10,Crossroads,Auto traffic signal
+200701CW10704,214,2007,51.50084,-0.125867,1,0,47.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.50084+-0.125867,2007-06-01,22:11,Crossroads,Auto traffic signal
+201001TA00183,214,2010,51.500939,-0.12644,1,0,47.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.500939+-0.12644,2010-07-27,11:00,Crossroads,Auto traffic signal
+201101CW10765,214,2011,51.500752,-0.126015,1,0,47.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.500752+-0.126015,2011-05-05,20:46,Crossroads,Auto traffic signal
+201301CW11237,214,2013,51.500845,-0.126156,1,0,47.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.500845+-0.126156,2013-09-10,16:20,Crossroads,Auto traffic signal
+201401CW10209,214,2014,51.501024,-0.126148,1,0,47.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.501024+-0.126148,2014-02-26,23:01,Crossroads,Auto traffic signal
+201501CW11280,214,2015,51.501083,-0.126456,1,0,47.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.501083+-0.126456,2015-08-27,08:57,Crossroads,Auto traffic signal
+200001CP00328,13,2000,51.510818,-0.08669,1,0,48.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510818+-0.08669,2000-08-15,17:25,More than 4 arms (not roundabout),Auto traffic signal
+200301CP00121,13,2003,51.510818,-0.08669,1,0,48.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510818+-0.08669,2003-06-04,16:00,More than 4 arms (not roundabout),Auto traffic signal
+200701CP00235,13,2007,51.510915,-0.087119,1,0,48.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510915+-0.087119,2007-09-06,08:30,T or staggered junction,Auto traffic signal
+200801CP00130,13,2008,51.510821,-0.086834,1,0,48.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510821+-0.086834,2008-06-06,16:36,More than 4 arms (not roundabout),Auto traffic signal
+201101CP00036,13,2011,51.510731,-0.086838,1,0,48.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510731+-0.086838,2011-01-04,19:00,T or staggered junction,Auto traffic signal
+201201CP00301,13,2012,51.510818,-0.08669,1,0,48.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510818+-0.08669,2012-09-12,18:55,Other junction,Auto traffic signal
+201501CP00132,13,2015,51.511064,-0.087424,1,0,48.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.511064+-0.087424,2015-05-23,14:15,T or staggered junction,Auto traffic signal
+201501CP00259,13,2015,51.511059,-0.087136,1,0,48.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.511059+-0.087136,2015-10-02,08:30,Crossroads,Auto traffic signal
+2016480062456,13,2016,51.511096,-0.087112,1,0,48.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.511096+-0.087112,2016-04-12,17:18,Other junction,Auto traffic signal
+201201TA00918,520,2012,51.535385,-0.0822,1,0,49.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.535385+-0.0822,2012-11-01,12:03,Roundabout,Give way or uncontrolled
+2016010003083,520,2016,51.535298,-0.082348,1,0,49.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.535298+-0.082348,2016-11-09,18:30,Crossroads,Give way or uncontrolled
+2017010026440,520,2017,51.535533,-0.082334,1,0,49.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.535533+-0.082334,2017-03-19,16:10,Crossroads,Give way or uncontrolled
+2017010055330,520,2017,51.535531,-0.08219,1,0,49.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.535531+-0.08219,2017-08-01,13:15,Crossroads,unknown (self reported)
+2018010114844,520,2018,51.535531,-0.08219,1,0,49.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.535531+-0.08219,2018-06-17,07:30,Crossroads,Give way or uncontrolled
+2019010176286,520,2019,51.535816,-0.082063,1,0,49.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.535816+-0.082063,2019-04-19,19:20,T or staggered junction,Give way or uncontrolled
+2019010183792,520,2019,51.535434,-0.082353,1,0,49.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.535434+-0.082353,2019-05-29,06:29,Crossroads,Give way or uncontrolled
+200101MM00188,128,2001,51.49306,-0.100688,1,0,50.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.49306+-0.100688,2001-02-09,07:30,Roundabout,Give way or uncontrolled
+200201MM01229,128,2002,51.493051,-0.100112,1,0,50.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.493051+-0.100112,2002-10-04,18:55,Roundabout,Give way or uncontrolled
+200501LX50554,128,2005,51.493332,-0.10082,1,0,50.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.493332+-0.10082,2005-04-12,11:20,Roundabout,Give way or uncontrolled
+200801MM70354,128,2008,51.493242,-0.100824,1,0,50.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.493242+-0.100824,2008-02-18,18:30,Roundabout,Give way or uncontrolled
+201101MM70120,128,2011,51.493065,-0.100976,1,0,50.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.493065+-0.100976,2011-01-19,07:30,Roundabout,Give way or uncontrolled
+201401TD00039,128,2014,51.493056,-0.1004,0,1,50.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.493056+-0.1004,2014-05-13,16:05,Other junction,Auto traffic signal
+201501MM70320,128,2015,51.4932,-0.100417,1,0,50.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.4932+-0.100417,2015-04-23,10:40,Roundabout,Give way or uncontrolled
+200301TA00014,243,2003,51.53143,-0.104426,1,0,51.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.53143+-0.104426,2003-04-11,18:40,T or staggered junction,Auto traffic signal
+200301TA00195,243,2003,51.53143,-0.104426,0,1,51.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.53143+-0.104426,2003-07-29,13:05,T or staggered junction,Auto traffic signal
+200801NI73425,243,2008,51.531428,-0.104282,1,0,51.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531428+-0.104282,2008-06-06,17:30,T or staggered junction,Auto traffic signal
+201301EO40383,243,2013,51.531248,-0.104289,1,0,51.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531248+-0.104289,2013-07-06,03:12,T or staggered junction,Auto traffic signal
+201601EO40507,243,2016,51.530983,-0.104589,1,0,51.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.530983+-0.104589,2016-08-11,09:55,Other junction,Auto traffic signal
+2017010064993,243,2017,51.531486,-0.10442,1,0,51.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531486+-0.10442,2017-10-17,13:50,Crossroads,Auto traffic signal
+2020010281868,243,2020,51.531136,-0.103945,1,0,51.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531136+-0.103945,2020-11-30,12:16,T or staggered junction,Auto traffic signal
+201001CW11220,465,2010,51.485689,-0.145789,1,0,52.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485689+-0.145789,2010-06-22,09:02,T or staggered junction,Auto traffic signal
+201101TA01064,465,2011,51.485689,-0.145789,1,0,52.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485689+-0.145789,2011-05-05,07:51,T or staggered junction,Auto traffic signal
+201401CW11754,465,2014,51.485597,-0.14565,1,0,52.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485597+-0.14565,2014-11-14,11:25,T or staggered junction,Auto traffic signal
+2017010073156,465,2017,51.485652,-0.145644,1,0,52.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485652+-0.145644,2017-11-27,13:01,T or staggered junction,Auto traffic signal
+2018010112636,465,2018,51.485652,-0.145644,1,0,52.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485652+-0.145644,2018-06-06,23:10,T or staggered junction,Auto traffic signal
+2020010263362,465,2020,51.485625,-0.145055,1,0,52.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485625+-0.145055,2020-08-22,09:20,Other junction,Auto traffic signal
+2020010279933,465,2020,51.485724,-0.145612,1,0,52.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485724+-0.145612,2020-11-18,08:40,T or staggered junction,Give way or uncontrolled
+200101NI09009,143,2001,51.53845,-0.099231,1,0,53.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.53845+-0.099231,2001-12-19,15:30,T or staggered junction,Give way or uncontrolled
+200301EO01108,143,2003,51.538803,-0.098784,0,1,53.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.538803+-0.098784,2003-07-12,02:20,T or staggered junction,Give way or uncontrolled
+200301TA00341,143,2003,51.53827,-0.099238,1,0,53.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.53827+-0.099238,2003-09-30,09:35,T or staggered junction,Give way or uncontrolled
+200401EO00608,143,2004,51.538538,-0.099083,1,0,53.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.538538+-0.099083,2004-05-07,01:38,T or staggered junction,Give way or uncontrolled
+200501EO41453,143,2005,51.538095,-0.099534,1,0,53.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.538095+-0.099534,2005-12-08,19:00,Crossroads,Give way or uncontrolled
+201101TB00845,143,2011,51.538183,-0.099386,1,0,53.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.538183+-0.099386,2011-05-01,14:00,T or staggered junction,Give way or uncontrolled
+201601EO40242,143,2016,51.538008,-0.099682,1,0,53.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.538008+-0.099682,2016-03-08,14:00,Crossroads,Give way or uncontrolled
+2020010266492,143,2020,51.538407,-0.099244,1,0,53.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.538407+-0.099244,2020-09-08,16:45,T or staggered junction,Give way or uncontrolled
+200001BS00024,0,2000,51.486622,-0.170814,1,0,54.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486622+-0.170814,2000-01-13,08:00,T or staggered junction,Give way or uncontrolled
+200801BS70453,0,2008,51.486795,-0.170375,1,0,54.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486795+-0.170375,2008-08-01,08:50,T or staggered junction,Give way or uncontrolled
+200901BS70381,0,2009,51.486622,-0.170814,1,0,54.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486622+-0.170814,2009-07-16,09:00,T or staggered junction,Give way or uncontrolled
+201201TA00114,0,2012,51.486622,-0.170814,1,0,54.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486622+-0.170814,2012-01-23,06:50,T or staggered junction,Give way or uncontrolled
+201301BS70003,0,2013,51.486361,-0.171402,1,0,54.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486361+-0.171402,2013-01-02,09:08,T or staggered junction,Give way or uncontrolled
+201501BS70120,0,2015,51.486586,-0.170837,1,0,54.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486586+-0.170837,2015-03-11,12:44,T or staggered junction,Give way or uncontrolled
+2019010155778,0,2019,51.486873,-0.170096,1,0,54.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486873+-0.170096,2019-01-04,16:40,T or staggered junction,Auto traffic signal
+2020010261766,0,2020,51.486873,-0.17011,1,0,54.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486873+-0.17011,2020-08-13,00:25,T or staggered junction,Auto traffic signal
+200001LX00212,43,2000,51.481174,-0.110831,1,0,55.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481174+-0.110831,2000-02-15,09:10,Crossroads,Auto traffic signal
+200301LX01438,43,2003,51.481356,-0.110968,1,0,55.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481356+-0.110968,2003-10-28,11:00,More than 4 arms (not roundabout),Auto traffic signal
+200301TE00510,43,2003,51.481082,-0.110691,0,1,55.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481082+-0.110691,2003-09-25,21:35,Other junction,Auto traffic signal
+200401LX00311,43,2004,51.481172,-0.110687,1,0,55.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481172+-0.110687,2004-03-18,08:20,T or staggered junction,Auto traffic signal
+200601TD00111,43,2006,51.481079,-0.110547,1,0,55.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481079+-0.110547,2006-05-11,15:24,More than 4 arms (not roundabout),Auto traffic signal
+201101LX50874,43,2011,51.481079,-0.110547,1,0,55.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481079+-0.110547,2011-10-25,08:15,Crossroads,Auto traffic signal
+2018010118668,43,2018,51.481504,-0.111103,1,0,55.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481504+-0.111103,2018-06-17,23:00,More than 4 arms (not roundabout),Auto traffic signal
+2019010219105,43,2019,51.481301,-0.110809,1,0,55.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481301+-0.110809,2019-11-18,10:45,Other junction,Auto traffic signal
+200901CW11678,443,2009,51.517385,-0.142773,1,0,56.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517385+-0.142773,2009-07-06,13:00,Crossroads,Auto traffic signal
+201301CW10095,443,2013,51.517478,-0.142914,1,0,56.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517478+-0.142914,2013-01-25,20:06,Crossroads,Auto traffic signal
+201301CW11557,443,2013,51.517298,-0.142921,1,0,56.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517298+-0.142921,2013-11-06,18:15,Crossroads,Auto traffic signal
+201401TD00015,443,2014,51.517026,-0.142788,0,1,56.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517026+-0.142788,2014-02-25,18:23,T or staggered junction,Give way or uncontrolled
+2016010003233,443,2016,51.517298,-0.142921,1,0,56.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517298+-0.142921,2016-11-24,18:00,Crossroads,Auto traffic signal
+200201EO00411,171,2002,51.531318,-0.114235,1,0,57.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531318+-0.114235,2002-06-17,13:20,T or staggered junction,Auto traffic signal
+200701TA00033,171,2007,51.531228,-0.114238,0,1,57.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531228+-0.114238,2007-03-09,08:21,Other junction,Auto traffic signal
+200801NI76488,171,2008,51.531139,-0.114242,1,0,57.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531139+-0.114242,2008-12-15,11:59,Other junction,Auto traffic signal
+201401EO40256,171,2014,51.531231,-0.114383,1,0,57.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531231+-0.114383,2014-04-16,09:55,Other junction,Give way or uncontrolled
+2017010052502,171,2017,51.531284,-0.114233,1,0,57.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531284+-0.114233,2017-08-07,22:17,T or staggered junction,Auto traffic signal
+2018010146365,171,2018,51.531289,-0.114521,1,0,57.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531289+-0.114521,2018-11-18,04:00,More than 4 arms (not roundabout),Auto traffic signal
+200001NI01181,70,2000,51.529698,-0.097433,1,0,58.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529698+-0.097433,2000-09-07,09:05,T or staggered junction,Give way or uncontrolled
+200301EO01229,70,2003,51.529611,-0.097581,1,0,58.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529611+-0.097581,2003-07-16,12:15,Crossroads,Auto traffic signal
+200601EO41301,70,2006,51.529608,-0.097437,1,0,58.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529608+-0.097437,2006-11-30,09:45,More than 4 arms (not roundabout),Auto traffic signal
+201301EO40411,70,2013,51.529611,-0.097581,1,0,58.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529611+-0.097581,2013-07-20,18:45,Crossroads,Give way or uncontrolled
+2017010034010,70,2017,51.529853,-0.098,1,0,58.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529853+-0.098,2017-04-26,08:31,T or staggered junction,Give way or uncontrolled
+2017010055749,70,2017,51.529562,-0.096715,1,0,58.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529562+-0.096715,2017-07-23,12:34,T or staggered junction,Give way or uncontrolled
+2017010066218,70,2017,51.529758,-0.097716,1,0,58.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529758+-0.097716,2017-10-24,08:55,T or staggered junction,Auto traffic signal
+2018010081831,70,2018,51.529473,-0.096718,1,0,58.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.529473+-0.096718,2018-01-04,19:00,T or staggered junction,Auto traffic signal
+200001LX01511,51,2000,51.473075,-0.121678,1,0,59.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.473075+-0.121678,2000-09-25,22:45,Roundabout,Give way or uncontrolled
+201201LX50427,51,2012,51.473162,-0.12153,1,0,59.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.473162+-0.12153,2012-05-29,18:15,T or staggered junction,Give way or uncontrolled
+2016010029373,51,2016,51.473255,-0.121671,1,0,59.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.473255+-0.121671,2016-10-13,07:30,T or staggered junction,Auto traffic signal
+2020010258889,51,2020,51.473335,-0.12152,1,0,59.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.473335+-0.12152,2020-07-28,10:36,T or staggered junction,Auto traffic signal
+2020010264559,51,2020,51.473263,-0.121523,1,0,59.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.473263+-0.121523,2020-08-26,13:00,T or staggered junction,Give way or uncontrolled
+2020010279610,51,2020,51.473316,-0.121463,1,0,59.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.473316+-0.121463,2020-11-16,07:17,T or staggered junction,Give way or uncontrolled
+2020010283382,51,2020,51.473308,-0.121507,1,0,59.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.473308+-0.121507,2020-12-08,06:35,Other junction,Give way or uncontrolled
+200201MM01620,200,2002,51.50485,-0.09573,1,0,60.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.50485+-0.09573,2002-12-20,07:15,Crossroads,Auto traffic signal
+200301MM01469,200,2003,51.504853,-0.095874,1,0,60.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.504853+-0.095874,2003-11-13,15:30,Crossroads,Auto traffic signal
+200401TD00176,200,2004,51.50485,-0.09573,1,0,60.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.50485+-0.09573,2004-03-11,18:30,Crossroads,Auto traffic signal
+200601TD00028,200,2006,51.50485,-0.09573,1,0,60.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.50485+-0.09573,2006-01-19,08:11,Crossroads,Auto traffic signal
+201401MM70191,200,2014,51.505298,-0.095568,1,0,60.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.505298+-0.095568,2014-02-19,07:00,T or staggered junction,Give way or uncontrolled
+201501MM70901,200,2015,51.505262,-0.095592,1,0,60.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.505262+-0.095592,2015-10-20,15:30,T or staggered junction,Give way or uncontrolled
+2019010163666,200,2019,51.504878,-0.09564,1,0,60.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.504878+-0.09564,2019-02-15,19:00,Crossroads,Auto traffic signal
+2019010191311,200,2019,51.504958,-0.095594,1,0,60.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.504958+-0.095594,2019-07-03,19:04,Crossroads,Auto traffic signal
+200801EO40486,418,2008,51.542752,-0.137558,1,0,61.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.542752+-0.137558,2008-07-02,17:30,Crossroads,Auto traffic signal
+201101TD00069,418,2011,51.54266,-0.137417,0,1,61.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.54266+-0.137417,2011-04-05,15:18,Crossroads,Auto traffic signal
+201301EK40564,418,2013,51.54275,-0.137414,1,0,61.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.54275+-0.137414,2013-09-06,19:30,Crossroads,Auto traffic signal
+201401EK40695,418,2014,51.542575,-0.13771,1,0,61.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.542575+-0.13771,2014-09-02,15:47,Crossroads,Auto traffic signal
+2019010191394,418,2019,51.543035,-0.137139,1,0,61.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.543035+-0.137139,2019-07-04,10:52,Crossroads,Auto traffic signal
+200101DM02257,102,2001,51.497028,-0.146338,1,0,62.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497028+-0.146338,2001-11-07,08:45,More than 4 arms (not roundabout),Auto traffic signal
+201201CW11332,102,2012,51.497213,-0.146618,1,0,62.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497213+-0.146618,2012-09-13,18:15,Crossroads,Give way or uncontrolled
+201401CW11479,102,2014,51.497027,-0.146194,1,0,62.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497027+-0.146194,2014-09-30,08:28,More than 4 arms (not roundabout),Auto traffic signal
+201501CW11479,102,2015,51.497173,-0.146354,1,0,62.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497173+-0.146354,2015-09-24,06:50,More than 4 arms (not roundabout),Auto traffic signal
+2018010121533,102,2018,51.497266,-0.146469,1,0,62.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497266+-0.146469,2018-07-16,18:10,Slip road,Auto traffic signal
+2020010251965,102,2020,51.497145,-0.146186,1,0,62.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497145+-0.146186,2020-06-16,17:40,More than 4 arms (not roundabout),Auto traffic signal
+2020010273807,102,2020,51.497218,-0.14627,1,0,62.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.497218+-0.14627,2020-10-13,06:35,Crossroads,Auto traffic signal
+200501HT20530,313,2005,51.516026,-0.069753,1,0,63.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.516026+-0.069753,2005-08-11,00:50,T or staggered junction,Auto traffic signal
+200801HT69717,313,2008,51.516024,-0.069609,1,0,63.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.516024+-0.069609,2008-02-28,20:30,T or staggered junction,Give way or uncontrolled
+201001HT20757,313,2010,51.516026,-0.069753,1,0,63.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.516026+-0.069753,2010-10-20,06:40,T or staggered junction,Auto traffic signal
+201101TA01093,313,2011,51.515939,-0.0699,1,0,63.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.515939+-0.0699,2011-05-14,18:35,T or staggered junction,Auto traffic signal
+2017010016444,313,2017,51.516169,-0.0696,0,1,63.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.516169+-0.0696,2017-02-06,08:55,T or staggered junction,Auto traffic signal
+200001BS00725,6,2000,51.486668,-0.179599,1,0,64.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486668+-0.179599,2000-09-12,14:36,Other junction,Give way or uncontrolled
+200401BS00074,6,2004,51.486581,-0.179746,1,0,64.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486581+-0.179746,2004-02-12,11:55,T or staggered junction,Give way or uncontrolled
+200401BS00490,6,2004,51.487019,-0.179009,1,0,64.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.487019+-0.179009,2004-10-07,07:50,Crossroads,Auto traffic signal
+200601TA00240,6,2006,51.486931,-0.179156,0,1,64.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486931+-0.179156,2006-10-17,08:40,Crossroads,Auto traffic signal
+200801BS70316,6,2008,51.487021,-0.179153,1,0,64.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.487021+-0.179153,2008-06-07,15:50,Crossroads,Auto traffic signal
+201001BS70586,6,2010,51.486493,-0.179894,1,0,64.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.486493+-0.179894,2010-10-06,18:20,T or staggered junction,Give way or uncontrolled
+201401BS70241,6,2014,51.487022,-0.179153,1,0,64.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.487022+-0.179153,2014-04-19,13:48,Crossroads,Auto traffic signal
+201201LX50109,509,2012,51.474441,-0.122773,1,0,65.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.474441+-0.122773,2012-02-09,18:20,Crossroads,Auto traffic signal
+2019010159950,509,2019,51.474587,-0.122764,1,0,65.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.474587+-0.122764,2019-01-28,07:27,Crossroads,Auto traffic signal
+2019010192673,509,2019,51.474568,-0.122722,1,0,65.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.474568+-0.122722,2019-07-10,08:10,Crossroads,Auto traffic signal
+2019010195688,509,2019,51.474578,-0.12275,1,0,65.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.474578+-0.12275,2019-07-23,07:50,Crossroads,Auto traffic signal
+2019010218018,509,2019,51.474623,-0.122792,1,0,65.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.474623+-0.122792,2019-10-10,08:45,Crossroads,Auto traffic signal
+2020010248602,509,2020,51.47457,-0.122837,1,0,65.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.47457+-0.122837,2020-05-21,23:18,Crossroads,Auto traffic signal
+200201BS00491,157,2002,51.483255,-0.18564,0,1,66.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.483255+-0.18564,2002-08-27,14:30,Crossroads,Auto traffic signal
+201201BS70388,157,2012,51.483077,-0.185791,1,0,66.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.483077+-0.185791,2012-08-04,19:45,T or staggered junction,Give way or uncontrolled
+201201BS70476,157,2012,51.48334,-0.185349,1,0,66.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.48334+-0.185349,2012-09-18,19:40,Crossroads,Auto traffic signal
+201201TA00569,157,2012,51.483253,-0.185496,1,0,66.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.483253+-0.185496,2012-07-16,19:00,Crossroads,Auto traffic signal
+201401BS70264,157,2014,51.482637,-0.186385,1,0,66.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.482637+-0.186385,2014-04-29,20:05,T or staggered junction,Give way or uncontrolled
+2019010169116,157,2019,51.482888,-0.186213,1,0,66.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.482888+-0.186213,2019-03-14,15:45,More than 4 arms (not roundabout),Give way or uncontrolled
+201201WW50748,528,2012,51.430868,-0.16513,1,0,67.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.430868+-0.16513,2012-09-11,19:57,T or staggered junction,Give way or uncontrolled
+201401WW50722,528,2014,51.431131,-0.164688,1,0,67.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.431131+-0.164688,2014-08-13,18:30,T or staggered junction,Give way or uncontrolled
+2020010247209,528,2020,51.430554,-0.165095,1,0,67.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.430554+-0.165095,2020-05-06,09:45,T or staggered junction,Give way or uncontrolled
+2020010250837,528,2020,51.430805,-0.165056,1,0,67.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.430805+-0.165056,2020-06-08,12:13,T or staggered junction,Give way or uncontrolled
+2020010251805,528,2020,51.430885,-0.164981,1,0,67.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.430885+-0.164981,2020-06-15,17:10,T or staggered junction,Give way or uncontrolled
+2020010265350,528,2020,51.430507,-0.165529,1,0,67.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.430507+-0.165529,2020-09-02,16:55,Crossroads,Give way or uncontrolled
+200101EK00509,106,2001,51.52632,-0.133471,1,0,68.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.52632+-0.133471,2001-04-20,09:35,Crossroads,Auto traffic signal
+200501EO41147,106,2005,51.526233,-0.133619,1,0,68.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.526233+-0.133619,2005-10-18,19:28,Crossroads,Auto traffic signal
+201101TB00504,106,2011,51.52623,-0.133475,1,0,68.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.52623+-0.133475,2011-03-29,09:50,Crossroads,Auto traffic signal
+201601EK40481,106,2016,51.526238,-0.133907,1,0,68.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.526238+-0.133907,2016-06-29,08:40,Crossroads,Auto traffic signal
+2020010244580,106,2020,51.526352,-0.133654,0,1,68.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.526352+-0.133654,2020-04-07,13:19,Crossroads,Auto traffic signal
+200401DM00364,263,2004,51.488666,-0.129392,1,0,69.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.488666+-0.129392,2004-03-24,17:45,Crossroads,Auto traffic signal
+200701CW64262,263,2007,51.488389,-0.128971,1,0,69.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.488389+-0.128971,2007-06-26,17:07,T or staggered junction,Auto traffic signal
+200901CW10086,263,2009,51.488751,-0.1291,1,0,69.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.488751+-0.1291,2009-02-03,22:20,Crossroads,Auto traffic signal
+201101TA00617,263,2011,51.488488,-0.129543,1,0,69.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.488488+-0.129543,2011-03-17,10:20,Crossroads,Auto traffic signal
+201401CW11685,263,2014,51.488311,-0.129695,1,0,69.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.488311+-0.129695,2014-11-03,11:24,Crossroads,Auto traffic signal
+2018010110956,263,2018,51.488724,-0.12953,1,0,69.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.488724+-0.12953,2018-05-29,07:20,T or staggered junction,Auto traffic signal
+2019010165080,263,2019,51.488748,-0.129371,1,0,69.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.488748+-0.129371,2019-02-22,11:14,Crossroads,Auto traffic signal
+200001HT00247,39,2000,51.518256,-0.063172,1,0,70.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.518256+-0.063172,2000-03-23,23:50,Crossroads,Auto traffic signal
+200801HT72885,39,2008,51.518429,-0.062732,1,0,70.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.518429+-0.062732,2008-05-09,17:30,T or staggered junction,Give way or uncontrolled
+200801HT75040,39,2008,51.518344,-0.063024,1,0,70.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.518344+-0.063024,2008-09-23,12:35,More than 4 arms (not roundabout),Auto traffic signal
+200901TC00237,39,2009,51.518431,-0.062876,0,1,70.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.518431+-0.062876,2009-09-16,06:30,T or staggered junction,Auto traffic signal
+201001TC00084,39,2010,51.518341,-0.06288,1,0,70.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.518341+-0.06288,2010-03-02,21:57,T or staggered junction,Auto traffic signal
+201101HT20391,39,2011,51.518341,-0.06288,1,0,70.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.518341+-0.06288,2011-06-15,09:45,T or staggered junction,Auto traffic signal
+201401XD80757,555,2014,51.51079,-0.319581,1,0,71.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.51079+-0.319581,2014-08-02,23:00,Crossroads,Auto traffic signal
+201501XD80248,555,2015,51.510843,-0.319597,1,0,71.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510843+-0.319597,2015-03-31,13:00,Crossroads,Auto traffic signal
+2017010064137,555,2017,51.51093,-0.319283,0,1,71.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.51093+-0.319283,2017-10-12,13:30,Crossroads,Auto traffic signal
+2020010256279,555,2020,51.510896,-0.319457,1,0,71.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.510896+-0.319457,2020-07-12,12:31,Crossroads,Auto traffic signal
+200001GN00490,36,2000,51.545987,-0.076129,1,0,72.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.545987+-0.076129,2000-09-20,08:35,More than 4 arms (not roundabout),Auto traffic signal
+200001GN00561,36,2000,51.54616,-0.075689,1,0,72.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.54616+-0.075689,2000-10-31,20:00,Crossroads,Auto traffic signal
+200201GD00306,36,2002,51.545982,-0.075841,1,0,72.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.545982+-0.075841,2002-04-07,11:20,More than 4 arms (not roundabout),Auto traffic signal
+200701GD65356,36,2007,51.54607,-0.075693,1,0,72.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.54607+-0.075693,2007-07-07,00:30,T or staggered junction,Auto traffic signal
+200901GD10464,36,2009,51.546065,-0.075404,1,0,72.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.546065+-0.075404,2009-07-25,16:18,T or staggered junction,Give way or uncontrolled
+200901GD10667,36,2009,51.545892,-0.075844,1,0,72.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.545892+-0.075844,2009-09-03,20:40,T or staggered junction,Give way or uncontrolled
+201101TD00022,36,2011,51.54607,-0.075693,0,1,72.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.54607+-0.075693,2011-02-02,16:47,T or staggered junction,Auto traffic signal
+200101LX01945,127,2001,51.488108,-0.111409,1,0,73.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.488108+-0.111409,2001-12-05,20:50,More than 4 arms (not roundabout),Auto traffic signal
+200901LX50273,127,2009,51.488555,-0.111246,1,0,73.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.488555+-0.111246,2009-04-02,07:30,T or staggered junction,Auto traffic signal
+200901LX50302,127,2009,51.488108,-0.111409,1,0,73.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.488108+-0.111409,2009-04-21,07:50,T or staggered junction,Auto traffic signal
+201001LX50246,127,2010,51.488287,-0.111401,1,0,73.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.488287+-0.111401,2010-04-01,18:20,T or staggered junction,Auto traffic signal
+201601LX50563,127,2016,51.488555,-0.111247,1,0,73.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.488555+-0.111247,2016-06-01,14:05,Crossroads,Auto traffic signal
+2018010128597,127,2018,51.488343,-0.111396,1,0,73.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.488343+-0.111396,2018-08-23,06:28,Crossroads,Auto traffic signal
+2020010256869,127,2020,51.48791,-0.111313,1,0,73.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.48791+-0.111313,2020-07-16,07:05,T or staggered junction,Auto traffic signal
+200101LX00288,122,2001,51.463719,-0.132715,1,0,74.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.463719+-0.132715,2001-02-23,19:50,T or staggered junction,Give way or uncontrolled
+200601LX50241,122,2006,51.463889,-0.132133,1,0,74.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.463889+-0.132133,2006-04-06,11:30,T or staggered junction,Give way or uncontrolled
+200701LX65352,122,2007,51.463629,-0.132719,1,0,74.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.463629+-0.132719,2007-07-02,19:00,T or staggered junction,Give way or uncontrolled
+201501LX50282,122,2015,51.463684,-0.132739,1,0,74.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.463684+-0.132739,2015-03-23,19:49,T or staggered junction,Give way or uncontrolled
+2017010024988,122,2017,51.463685,-0.132713,1,0,74.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.463685+-0.132713,2017-03-13,18:05,T or staggered junction,Give way or uncontrolled
+2020010252726,122,2020,51.463879,-0.132461,1,0,74.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.463879+-0.132461,2020-06-20,22:20,T or staggered junction,Give way or uncontrolled
+2020010276022,122,2020,51.463695,-0.132799,1,0,74.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.463695+-0.132799,2020-10-26,14:55,Crossroads,Give way or uncontrolled
+201101GD10520,489,2011,51.549403,-0.059686,1,0,75.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.549403+-0.059686,2011-07-08,21:45,More than 4 arms (not roundabout),Auto traffic signal
+201101TA01615,489,2011,51.549408,-0.059974,1,0,75.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.549408+-0.059974,2011-10-02,16:45,More than 4 arms (not roundabout),Auto traffic signal
+2017010076481,489,2017,51.54946,-0.059825,1,0,75.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.54946+-0.059825,2017-12-09,10:17,Crossroads,Auto traffic signal
+2019010191647,489,2019,51.549399,-0.059899,1,0,75.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.549399+-0.059899,2019-07-01,17:45,More than 4 arms (not roundabout),unknown (self reported)
+2020010231706,489,2020,51.549582,-0.05956,1,0,75.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.549582+-0.05956,2020-01-21,05:15,Mini-roundabout,Auto traffic signal
+2020010270392,489,2020,51.549519,-0.059534,1,0,75.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.549519+-0.059534,2020-09-27,15:00,More than 4 arms (not roundabout),Auto traffic signal
+200101YR01107,154,2001,51.570682,-0.096011,1,0,76.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.570682+-0.096011,2001-11-09,10:00,T or staggered junction,Auto traffic signal
+200601TC00364,154,2006,51.570679,-0.095866,1,0,76.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.570679+-0.095866,2006-11-29,07:30,Crossroads,Auto traffic signal
+201001GD10412,154,2010,51.570502,-0.096018,1,0,76.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.570502+-0.096018,2010-06-17,09:45,Crossroads,Auto traffic signal
+201201TA00181,154,2012,51.570589,-0.09587,1,0,76.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.570589+-0.09587,2012-03-06,18:35,Crossroads,Auto traffic signal
+2017010041453,154,2017,51.570737,-0.096006,1,0,76.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.570737+-0.096006,2017-06-03,20:45,Crossroads,Auto traffic signal
+2017010078320,154,2017,51.570562,-0.096302,1,0,76.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.570562+-0.096302,2017-12-15,15:55,T or staggered junction,Auto traffic signal
+2019010177218,154,2019,51.570517,-0.096318,1,0,76.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.570517+-0.096318,2019-04-26,09:13,More than 4 arms (not roundabout),Auto traffic signal
+200301TW00323,248,2003,51.46461,-0.266858,1,0,77.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.46461+-0.266858,2003-07-20,06:55,Crossroads,Auto traffic signal
+200701TW60250,248,2007,51.464612,-0.267002,1,0,77.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.464612+-0.267002,2007-08-04,10:20,Crossroads,Auto traffic signal
+200901TW60332,248,2009,51.46461,-0.266858,1,0,77.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.46461+-0.266858,2009-10-05,18:45,Crossroads,Auto traffic signal
+201101TA00784,248,2011,51.46461,-0.266858,1,0,77.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.46461+-0.266858,2011-03-28,07:50,Crossroads,Auto traffic signal
+201101TA01681,248,2011,51.46461,-0.266858,1,0,77.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.46461+-0.266858,2011-11-01,21:00,Crossroads,Auto traffic signal
+201301TW60180,248,2013,51.464608,-0.266715,1,0,77.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.464608+-0.266715,2013-06-04,08:18,Crossroads,Auto traffic signal
+2018010113760,248,2018,51.464754,-0.266849,1,0,77.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.464754+-0.266849,2018-05-14,08:45,T or staggered junction,Auto traffic signal
+200901MM79011,449,2009,51.507074,-0.105293,1,0,78.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.507074+-0.105293,2009-12-11,07:30,Slip road,Give way or uncontrolled
+201101TB01452,449,2011,51.507062,-0.104573,1,0,78.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.507062+-0.104573,2011-10-05,03:01,Crossroads,Auto traffic signal
+2017010050860,449,2017,51.507118,-0.104568,1,0,78.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.507118+-0.104568,2017-07-27,19:20,Crossroads,Auto traffic signal
+2018010102839,449,2018,51.507115,-0.104424,1,0,78.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.507115+-0.104424,2018-04-18,21:15,Crossroads,Auto traffic signal
+2018010144333,449,2018,51.507118,-0.104568,1,0,78.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.507118+-0.104568,2018-11-09,07:45,More than 4 arms (not roundabout),Auto traffic signal
+2019010182883,449,2019,51.507083,-0.104627,1,0,78.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.507083+-0.104627,2019-05-23,23:40,More than 4 arms (not roundabout),Auto traffic signal
+200801CW10209,412,2008,51.514928,-0.135234,1,0,79.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.514928+-0.135234,2008-02-19,15:47,T or staggered junction,Give way or uncontrolled
+201301CW10833,412,2013,51.514746,-0.135098,1,0,79.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.514746+-0.135098,2013-06-03,13:30,T or staggered junction,Give way or uncontrolled
+2017010018639,412,2017,51.515168,-0.135509,1,0,79.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.515168+-0.135509,2017-02-11,18:15,Crossroads,Give way or uncontrolled
+2018010106417,412,2018,51.515089,-0.136233,1,0,79.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.515089+-0.136233,2018-05-08,02:30,T or staggered junction,Give way or uncontrolled
+2018010120469,412,2018,51.515089,-0.136233,1,0,79.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.515089+-0.136233,2018-06-20,07:00,Crossroads,unknown (self reported)
+2018010132205,412,2018,51.515091,-0.136377,1,0,79.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.515091+-0.136377,2018-09-12,18:47,Crossroads,Give way or uncontrolled
+200801MM70737,434,2008,51.498697,-0.055069,1,0,80.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.498697+-0.055069,2008-08-18,18:00,Roundabout,Give way or uncontrolled
+201301MM70177,434,2013,51.498528,-0.055653,1,0,80.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.498528+-0.055653,2013-03-18,19:30,Roundabout,Give way or uncontrolled
+2017010058182,434,2017,51.498753,-0.055064,1,0,80.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.498753+-0.055064,2017-09-10,20:42,Roundabout,Give way or uncontrolled
+2017010066169,434,2017,51.498394,-0.055079,1,0,80.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.498394+-0.055079,2017-10-19,17:45,Roundabout,Give way or uncontrolled
+2018010097306,434,2018,51.498663,-0.055068,1,0,80.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.498663+-0.055068,2018-03-20,16:20,Roundabout,Give way or uncontrolled
+2019010166140,434,2019,51.498689,-0.055009,1,0,80.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.498689+-0.055009,2019-02-28,15:48,Roundabout,Give way or uncontrolled
+201301HT20820,535,2013,51.534891,-0.063043,1,0,81.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.534891+-0.063043,2013-10-23,23:30,Crossroads,Give way or uncontrolled
+201301TA00006,535,2013,51.534891,-0.063043,1,0,81.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.534891+-0.063043,2013-01-09,14:30,Crossroads,Give way or uncontrolled
+201501GD10641,535,2015,51.534944,-0.063064,1,0,81.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.534944+-0.063064,2015-08-11,07:30,T or staggered junction,Give way or uncontrolled
+2016010000303,535,2016,51.534896,-0.063331,1,0,81.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.534896+-0.063331,2016-11-03,20:00,T or staggered junction,Auto traffic signal
+201601GD10480,535,2016,51.534891,-0.063043,1,0,81.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.534891+-0.063043,2016-06-22,01:09,Crossroads,Auto traffic signal
+201601GD10655,535,2016,51.534891,-0.063043,1,0,81.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.534891+-0.063043,2016-08-16,15:54,Crossroads,Auto traffic signal
+200001NI09006,74,2000,51.52691,-0.108506,1,0,82.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.52691+-0.108506,2000-12-21,19:22,Crossroads,Give way or uncontrolled
+200101NI01351,74,2001,51.52682,-0.10851,1,0,82.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.52682+-0.10851,2001-11-24,08:40,Crossroads,Give way or uncontrolled
+200501TC00242,74,2005,51.52682,-0.10851,1,0,82.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.52682+-0.10851,2005-06-13,09:45,Crossroads,Auto traffic signal
+200701EO40416,74,2007,51.52682,-0.10851,1,0,82.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.52682+-0.10851,2007-05-02,15:50,Crossroads,Auto traffic signal
+201101TB01148,74,2011,51.52682,-0.10851,1,0,82.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.52682+-0.10851,2011-07-01,00:30,Crossroads,Give way or uncontrolled
+201201TB00824,74,2012,51.52682,-0.10851,1,0,82.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.52682+-0.10851,2012-08-05,23:40,Crossroads,Auto traffic signal
+201301EO40662,74,2013,51.526465,-0.108813,1,0,82.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.526465+-0.108813,2013-10-19,10:05,Crossroads,Give way or uncontrolled
+2019010180524,74,2019,51.526674,-0.108815,1,0,82.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.526674+-0.108815,2019-05-13,08:46,Crossroads,Give way or uncontrolled
+200301CP00199,210,2003,51.516043,-0.081715,1,0,83.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.516043+-0.081715,2003-08-15,06:25,Crossroads,Auto traffic signal
+200401CP00261,210,2004,51.515953,-0.081719,1,0,83.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.515953+-0.081719,2004-11-04,08:55,Crossroads,Auto traffic signal
+201101CP00263,210,2011,51.515955,-0.081863,1,0,83.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.515955+-0.081863,2011-09-09,07:55,Crossroads,Auto traffic signal
+201201CP00045,210,2012,51.516043,-0.081715,0,1,83.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.516043+-0.081715,2012-02-03,13:05,Crossroads,Auto traffic signal
+2016480061019,210,2016,51.516041,-0.081572,1,0,83.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.516041+-0.081572,2016-03-18,09:49,Crossroads,Auto traffic signal
+201101FH10359,488,2011,51.470818,-0.2073,1,0,84.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.470818+-0.2073,2011-08-02,07:40,Crossroads,Give way or uncontrolled
+201401FH10603,488,2014,51.470731,-0.207448,1,0,84.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.470731+-0.207448,2014-10-20,16:00,Crossroads,Give way or uncontrolled
+201501TD00139,488,2015,51.470786,-0.207466,0,1,84.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.470786+-0.207466,2015-11-09,18:49,Crossroads,Give way or uncontrolled
+201601FH10285,488,2016,51.470733,-0.207592,1,0,84.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.470733+-0.207592,2016-05-28,09:05,Crossroads,Give way or uncontrolled
+201301CP00222,529,2013,51.513702,-0.076049,1,0,85.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513702+-0.076049,2013-08-05,11:00,T or staggered junction,Auto traffic signal
+201301CP00228,529,2013,51.513627,-0.076917,0,1,85.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513627+-0.076917,2013-09-15,07:55,Roundabout,Auto traffic signal
+201501CP00040,529,2015,51.51386,-0.07693,1,0,85.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.51386+-0.07693,2015-02-11,07:47,Crossroads,Auto traffic signal
+2019480927951,529,2019,51.513507,-0.076659,1,0,85.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513507+-0.076659,2019-11-05,07:02,T or staggered junction,Give way or uncontrolled
+200701TA00011,399,2007,51.485197,-0.137455,1,0,86.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485197+-0.137455,2007-02-05,17:28,T or staggered junction,Auto traffic signal
+201301CW11381,399,2013,51.485278,-0.136876,1,0,86.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485278+-0.136876,2013-10-07,08:55,T or staggered junction,Give way or uncontrolled
+201501CW10512,399,2015,51.485332,-0.136896,1,0,86.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485332+-0.136896,2015-04-10,15:45,T or staggered junction,Give way or uncontrolled
+201501CW10816,399,2015,51.485332,-0.136896,1,0,86.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485332+-0.136896,2015-06-15,08:40,T or staggered junction,Give way or uncontrolled
+2018010140676,399,2018,51.485241,-0.136731,1,0,86.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485241+-0.136731,2018-10-22,16:45,T or staggered junction,Give way or uncontrolled
+2020010233313,399,2020,51.485241,-0.137307,1,0,86.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.485241+-0.137307,2020-01-29,09:22,T or staggered junction,Auto traffic signal
+200501BS70380,293,2005,51.506097,-0.209086,1,0,87.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.506097+-0.209086,2005-07-20,23:00,T or staggered junction,Give way or uncontrolled
+200601BS70613,293,2006,51.506187,-0.209082,1,0,87.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.506187+-0.209082,2006-10-10,08:25,T or staggered junction,Give way or uncontrolled
+200701BS64157,293,2007,51.506187,-0.209082,1,0,87.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.506187+-0.209082,2007-06-05,21:35,T or staggered junction,Give way or uncontrolled
+200701BS70379,293,2007,51.506187,-0.209082,1,0,87.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.506187+-0.209082,2007-07-17,17:35,T or staggered junction,Give way or uncontrolled
+201201TA00789,293,2012,51.506187,-0.209082,1,0,87.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.506187+-0.209082,2012-09-13,23:09,T or staggered junction,Give way or uncontrolled
+201201TA00822,293,2012,51.506097,-0.209086,1,0,87.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.506097+-0.209086,2012-09-27,18:25,T or staggered junction,Auto traffic signal
+2017010046816,293,2017,51.506152,-0.20908,1,0,87.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.506152+-0.20908,2017-07-05,19:41,T or staggered junction,Auto traffic signal
+200901CW11190,441,2009,51.490067,-0.127029,1,0,88.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.490067+-0.127029,2009-06-18,07:15,T or staggered junction,Give way or uncontrolled
+201301CW11520,441,2013,51.490065,-0.126886,1,0,88.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.490065+-0.126886,2013-10-29,07:55,T or staggered junction,Give way or uncontrolled
+201501CW10699,441,2015,51.490209,-0.126902,1,0,88.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.490209+-0.126902,2015-05-27,09:50,T or staggered junction,Give way or uncontrolled
+201501CW10767,441,2015,51.490119,-0.126905,1,0,88.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.490119+-0.126905,2015-06-08,09:07,T or staggered junction,Give way or uncontrolled
+201601CW11022,441,2016,51.490065,-0.126886,1,0,88.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.490065+-0.126886,2016-05-19,07:25,T or staggered junction,Give way or uncontrolled
+2017010046541,441,2017,51.490125,-0.127168,1,0,88.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.490125+-0.127168,2017-07-04,13:29,T or staggered junction,Give way or uncontrolled
+200301GD00057,229,2003,51.565275,-0.073295,1,0,89.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.565275+-0.073295,2003-01-15,06:50,T or staggered junction,Auto traffic signal
+200601TC00343,229,2006,51.565273,-0.07315,1,0,89.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.565273+-0.07315,2006-11-09,09:20,T or staggered junction,Auto traffic signal
+200801GD73072,229,2008,51.56545,-0.072999,0,1,89.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.56545+-0.072999,2008-06-23,07:00,Crossroads,Give way or uncontrolled
+201501GD10227,229,2015,51.565326,-0.073172,1,0,89.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.565326+-0.073172,2015-03-22,02:29,T or staggered junction,Auto traffic signal
+2020010281384,229,2020,51.565201,-0.073094,1,0,89.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.565201+-0.073094,2020-11-27,05:38,T or staggered junction,Auto traffic signal
+200301EO00464,219,2003,51.52191,-0.110731,1,0,90.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.52191+-0.110731,2003-03-14,06:20,T or staggered junction,Give way or uncontrolled
+200301EO01038,219,2003,51.521907,-0.110587,1,0,90.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521907+-0.110587,2003-06-16,08:50,T or staggered junction,Give way or uncontrolled
+200701EO40852,219,2007,51.521992,-0.110295,1,0,90.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521992+-0.110295,2007-10-18,17:45,T or staggered junction,Give way or uncontrolled
+200901TB00213,219,2009,51.521903,-0.110299,1,0,90.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521903+-0.110299,2009-11-24,13:00,T or staggered junction,Give way or uncontrolled
+201301EK40889,219,2013,51.521901,-0.110156,1,0,90.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521901+-0.110156,2013-12-21,01:57,T or staggered junction,Give way or uncontrolled
+2016010003020,219,2016,51.521905,-0.110444,1,0,90.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521905+-0.110444,2016-11-23,18:25,Other junction,Give way or uncontrolled
+2018010144125,219,2018,51.521961,-0.110438,1,0,90.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.521961+-0.110438,2018-11-08,09:00,Other junction,Give way or uncontrolled
+200301LX00865,239,2003,51.502288,-0.10967,0,1,91.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.502288+-0.10967,2003-05-20,09:40,Crossroads,Auto traffic signal
+200301MM00256,239,2003,51.502201,-0.109818,1,0,91.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.502201+-0.109818,2003-02-18,15:45,Crossroads,Auto traffic signal
+200601LX50644,239,2006,51.501933,-0.109973,1,0,91.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.501933+-0.109973,2006-08-11,12:02,Crossroads,Auto traffic signal
+200801LX50967,239,2008,51.502198,-0.109674,1,0,91.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.502198+-0.109674,2008-11-11,18:30,More than 4 arms (not roundabout),Auto traffic signal
+200801LX73262,239,2008,51.502201,-0.109818,1,0,91.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.502201+-0.109818,2008-06-08,12:30,T or staggered junction,Auto traffic signal
+2018010129920,239,2018,51.502169,-0.10996,1,0,91.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.502169+-0.10996,2018-08-31,19:25,Crossroads,Auto traffic signal
+200801LX72326,431,2008,51.434206,-0.103706,1,0,92.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.434206+-0.103706,2008-04-22,11:15,More than 4 arms (not roundabout),Give way or uncontrolled
+200901LX50745,431,2009,51.434119,-0.103853,1,0,92.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.434119+-0.103853,2009-08-21,10:22,T or staggered junction,Give way or uncontrolled
+201001TB00408,431,2010,51.434029,-0.103857,1,0,92.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.434029+-0.103857,2010-07-22,08:25,Crossroads,Give way or uncontrolled
+201401LX51320,431,2014,51.434126,-0.104285,1,0,92.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.434126+-0.104285,2014-11-19,12:28,T or staggered junction,Give way or uncontrolled
+2018010111397,431,2018,51.434175,-0.103847,1,0,92.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.434175+-0.103847,2018-05-30,17:05,Crossroads,Give way or uncontrolled
+2020010255300,431,2020,51.43421,-0.103817,1,0,92.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.43421+-0.103817,2020-06-23,07:20,T or staggered junction,Give way or uncontrolled
+200101MM00610,131,2001,51.501239,-0.078302,1,0,93.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.501239+-0.078302,2001-05-16,09:48,Crossroads,Auto traffic signal
+200301MM00399,131,2003,51.501147,-0.078162,0,1,93.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.501147+-0.078162,2003-03-28,10:38,Crossroads,Auto traffic signal
+201001MM70477,131,2010,51.501236,-0.078158,1,0,93.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.501236+-0.078158,2010-06-05,15:45,Crossroads,Auto traffic signal
+201001TD00039,131,2010,51.501149,-0.078306,0,1,93.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.501149+-0.078306,2010-02-09,09:36,Crossroads,Auto traffic signal
+200501TC00384,325,2005,51.531046,-0.069838,1,0,94.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531046+-0.069838,2005-10-12,02:05,T or staggered junction,Auto traffic signal
+200701HT20053,325,2007,51.530956,-0.069842,1,0,94.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.530956+-0.069842,2007-01-24,18:20,Crossroads,Auto traffic signal
+201201TA00238,325,2012,51.530953,-0.069698,1,0,94.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.530953+-0.069698,2012-03-21,19:15,Crossroads,Auto traffic signal
+201601GD10213,325,2016,51.530954,-0.069698,1,0,94.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.530954+-0.069698,2016-03-28,09:50,Crossroads,Auto traffic signal
+2018010087522,325,2018,51.531009,-0.069693,1,0,94.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531009+-0.069693,2018-02-02,16:42,T or staggered junction,Auto traffic signal
+2020010259881,325,2020,51.531089,-0.069675,1,0,94.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.531089+-0.069675,2020-08-01,15:55,Crossroads,Auto traffic signal
+200701CP00141,370,2007,51.517593,-0.105144,1,0,95.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517593+-0.105144,2007-05-25,22:19,T or staggered junction,Give way or uncontrolled
+201101CP00127,370,2011,51.517685,-0.105285,1,0,95.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517685+-0.105285,2011-04-19,18:45,T or staggered junction,Give way or uncontrolled
+201301CP00250,370,2013,51.517593,-0.105145,1,0,95.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517593+-0.105145,2013-10-18,15:59,T or staggered junction,Give way or uncontrolled
+201301CP00254,370,2013,51.517589,-0.104857,1,0,95.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517589+-0.104857,2013-10-24,08:55,T or staggered junction,Give way or uncontrolled
+201401CP00018,370,2014,51.517596,-0.105289,1,0,95.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517596+-0.105289,2014-01-29,19:05,T or staggered junction,Give way or uncontrolled
+201401CP00175,370,2014,51.517775,-0.105281,1,0,95.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.517775+-0.105281,2014-06-20,19:00,T or staggered junction,Give way or uncontrolled
+200301EO01135,223,2003,51.542641,-0.141889,1,0,96.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.542641+-0.141889,2003-07-04,11:10,More than 4 arms (not roundabout),Auto traffic signal
+200601TA00160,223,2006,51.542641,-0.141889,1,0,96.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.542641+-0.141889,2006-07-28,23:00,More than 4 arms (not roundabout),Auto traffic signal
+201201TB01321,223,2012,51.542641,-0.141889,1,0,96.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.542641+-0.141889,2012-12-12,08:00,Crossroads,Auto traffic signal
+2018010147596,223,2018,51.542696,-0.141883,1,0,96.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.542696+-0.141883,2018-11-23,12:58,More than 4 arms (not roundabout),Auto traffic signal
+2019010158750,223,2019,51.542418,-0.141303,1,0,96.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.542418+-0.141303,2019-01-21,23:30,Crossroads,Auto traffic signal
+2019010195490,223,2019,51.5425,-0.141963,1,0,96.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.5425+-0.141963,2019-07-23,15:40,More than 4 arms (not roundabout),Auto traffic signal
+200901MM70690,448,2009,51.500451,-0.074157,1,0,97.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.500451+-0.074157,2009-08-22,12:00,Crossroads,Auto traffic signal
+201101TD00060,448,2011,51.500366,-0.074449,0,1,97.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.500366+-0.074449,2011-03-22,13:20,T or staggered junction,Give way or uncontrolled
+201201TB01070,448,2012,51.500456,-0.074445,1,0,97.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.500456+-0.074445,2012-10-19,07:27,Other junction,Give way or uncontrolled
+201201TB01217,448,2012,51.500366,-0.074449,1,0,97.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.500366+-0.074449,2012-12-07,08:35,T or staggered junction,Give way or uncontrolled
+200101NI01335,142,2001,51.540556,-0.095971,1,0,98.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.540556+-0.095971,2001-11-22,02:37,Crossroads,Auto traffic signal
+201201TB00638,142,2012,51.540816,-0.095383,1,0,98.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.540816+-0.095383,2012-06-23,11:35,T or staggered junction,Give way or uncontrolled
+201201TB01272,142,2012,51.540556,-0.095971,1,0,98.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.540556+-0.095971,2012-12-22,18:16,Crossroads,Auto traffic signal
+201501EO40175,142,2015,51.540609,-0.095992,1,0,98.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.540609+-0.095992,2015-03-06,18:40,Crossroads,Auto traffic signal
+2018010109104,142,2018,51.540519,-0.095825,1,0,98.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.540519+-0.095825,2018-05-19,23:05,Crossroads,Auto traffic signal
+2020010281390,142,2020,51.540278,-0.096469,1,0,98.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.540278+-0.096469,2020-11-27,09:18,T or staggered junction,Give way or uncontrolled
+200101BS00302,87,2001,51.482076,-0.173445,1,0,99.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.482076+-0.173445,2001-04-18,14:32,Crossroads,Auto traffic signal
+201201TA00823,87,2012,51.482076,-0.173445,1,0,99.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.482076+-0.173445,2012-09-23,03:53,Crossroads,Auto traffic signal
+201301BS70577,87,2013,51.481989,-0.173593,1,0,99.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481989+-0.173593,2013-10-01,12:26,Crossroads,Auto traffic signal
+201301BS70662,87,2013,51.481989,-0.173593,1,0,99.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.481989+-0.173593,2013-10-24,16:40,Crossroads,Auto traffic signal
+2019010195096,87,2019,51.482104,-0.173383,1,0,99.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.482104+-0.173383,2019-07-19,18:05,Other junction,unknown (self reported)
+2020010269829,87,2020,51.482079,-0.173499,1,0,99.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.482079+-0.173499,2020-09-24,16:35,Crossroads,Auto traffic signal
+200201CP00034,158,2002,51.512993,-0.104326,1,0,100.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.512993+-0.104326,2002-01-29,09:20,T or staggered junction,Give way or uncontrolled
+200601CP00325,158,2006,51.513083,-0.104323,1,0,100.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513083+-0.104323,2006-11-21,07:45,T or staggered junction,Auto traffic signal
+201401CP00184,158,2014,51.513443,-0.104308,1,0,100.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513443+-0.104308,2014-06-05,07:55,T or staggered junction,Give way or uncontrolled
+2018480277374,158,2018,51.512977,-0.10431,1,0,100.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.512977+-0.10431,2018-02-06,09:37,T or staggered junction,Auto traffic signal
+2018480815778,158,2018,51.513155,-0.10423,1,0,100.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513155+-0.10423,2018-10-05,17:19,T or staggered junction,Auto traffic signal
+2019480922179,158,2019,51.513147,-0.104288,1,0,100.0,http://maps.google.com/maps?z=12&t=m&q=loc:51.513147+-0.104288,2019-10-28,10:10,T or staggered junction,Auto traffic signal
