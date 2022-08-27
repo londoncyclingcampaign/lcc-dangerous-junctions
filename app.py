@@ -8,8 +8,8 @@ from streamlit_folium import st_folium
 
 @st.cache
 def read_in_data():
-    junctions = pd.read_csv('data/top-100-dangerous-junctions.csv')
-    collisions = pd.read_csv('data/top-100-dangerous-junction-collisions.csv')
+    junctions = pd.read_csv('data/top-dangerous-junctions.csv')
+    collisions = pd.read_csv('data/top-dangerous-junction-collisions.csv')
 
     junctions['map_label'] = junctions['cluster'].apply(lambda x: f'Cluster: {x}')
     collisions['map_label'] = collisions.apply(
@@ -51,7 +51,7 @@ st.markdown('# Dangerous Junctions')
 
 junctions, collisions = read_in_data()
 
-n = st.slider('Select number of dangerous junctions to show:', 0, 100, 5)
+n = st.slider('Select number of dangerous junctions to show:', 0, len(junctions), 5)
 
 generate_map(junctions.head(n))
 st.dataframe(junctions.head(n))
