@@ -6,6 +6,9 @@ import pydeck as pdk
 from streamlit_folium import st_folium, folium_static
 
 
+# TODO: Prevent maps re-rendering when the other is changed
+
+
 @st.cache
 def read_in_data():
     junctions = pd.read_csv('data/top-dangerous-junctions.csv')
