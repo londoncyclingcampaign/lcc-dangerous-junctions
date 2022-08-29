@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import pydeck as pdk
 
-from streamlit_folium import st_folium
+from streamlit_folium import st_folium, folium_static
 
 
 @st.cache
@@ -22,7 +22,7 @@ def read_in_data():
     return junctions, collisions
 
 
-def generate_map(map_data, radius=8, color='blue', zoom=12):
+def generate_map(map_data, radius=6, color='blue', zoom=12):
     avg_lat = map_data['latitude'].mean()
     avg_lon = map_data['longitude'].mean()
 
@@ -38,7 +38,7 @@ def generate_map(map_data, radius=8, color='blue', zoom=12):
             radius=radius
         ).add_to(m)
 
-    map_output = st_folium(m, width=1200, height=500)
+    folium_static(m, width=1750, height=500)
     return None
 
 
@@ -51,10 +51,15 @@ st.markdown('# Dangerous Junctions')
 
 junctions, collisions = read_in_data()
 
-n = st.slider('Select number of dangerous junctions to show:', 0, len(junctions), 5)
+n_junctions = st.slider(
+    label='Select number of dangerous junctions to show:',
+    min_value=0,
+    max_value=len(junctions),
+    value=5,
+)
 
-generate_map(junctions.head(n))
-st.dataframe(junctions.head(n))
+generate_map(junctions.head(n_junctions))
+st.dataframe(junctions.head(n_junctions))
 
 
 # =========================================================================== #
