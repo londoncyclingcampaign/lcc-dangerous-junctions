@@ -152,9 +152,9 @@ def main():
 
     # output csvs
     print('Output to csv')
-    crashes.to_csv('data/london-crashes.csv', index=False)
-    casualties.to_csv('data/london-casualties.csv', index=False)
-    vehicles.to_csv('data/london-vehicles.csv', index=False)
+    crashes.to_csv('data/collision-data/london-crashes.csv', index=False)
+    casualties.to_csv('data/collision-data/london-casualties.csv', index=False)
+    vehicles.to_csv('data/collision-data/london-vehicles.csv', index=False)
 
 
 if __name__ == "__main__":
