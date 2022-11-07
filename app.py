@@ -1,6 +1,7 @@
 import folium
 import geopandas
 import streamlit as st
+import numpy as np
 import pandas as pd
 import pydeck as pdk
 
@@ -15,24 +16,17 @@ def read_in_data():
     junctions = pd.read_csv('data/junctions.csv')
     collisions = pd.read_csv('data/collisions.csv')
 
-    # junctions['map_label'] = junctions['cluster'].apply(lambda x: f'Cluster: {x}')
-    # collisions['map_label'] = collisions.apply(
-    #     lambda row: f"""
-    #     ID: {row['id']}, Cluster: {row['cluster']}, Date: {row['date']}, 
-    #     Serious casualties: {row['n_serious']}, Fatal casualties: {row['n_fatal']}
-    #     """,
-    #     axis=1
-    # )
     return junctions, collisions
 
 
-def combine_junctions_and_collisions(junctions, collisions, min_year, max_year):
+def combine_junctions_and_collisions(junctions, collisions, min_year, max_year, boroughs):
     junction_collisions = (
         junctions
         .merge(
             collisions[
                 (collisions['accident_year'] >= min_year) &
-                (collisions['accident_year'] <= max_year)
+                (collisions['accident_year'] <= max_year) &
+                (collisions['local_authority_district'].isin(boroughs))
             ],
             how='left',
             on=['junction_id', 'junction_index']
@@ -43,15 +37,29 @@ def combine_junctions_and_collisions(junctions, collisions, min_year, max_year):
 
 
 def calculate_dangerous_junctions(junction_collisions, n_junctions):
+    agg_cols = [
+        'recency_danger_metric',
+        'fatal_cyclist_casualties',
+        'serious_cyclist_casualties'
+    ]
+
     dangerous_junctions = (
         junction_collisions
-        .groupby(['junction_cluster_id', 'latitude_cluster', 'longitude_cluster'])['recency_danger_metric']
+        .groupby(['junction_cluster_id', 'latitude_cluster', 'longitude_cluster'])[agg_cols]
         .sum()
         .reset_index()
         .sort_values(by='recency_danger_metric', ascending=False)
         .head(n_junctions)
     )
 
+    dangerous_junctions['label'] = dangerous_junctions.apply(
+        lambda row: f"""
+        Recency Danger Metric: {np.round(row['recency_danger_metric'], 2)} <br>
+        Serious casualties: {row['serious_cyclist_casualties']} <br>
+        Fatal casualties: {row['fatal_cyclist_casualties']}
+        """,
+        axis=1
+    )
     return dangerous_junctions
 
 
@@ -61,51 +69,81 @@ def generate_map(map_data, junction_collisions, radius=6, color='blue', zoom=12)
 
     m = folium.Map(location=[avg_lat, avg_lon], zoom_start=zoom)
 
-    ids = map_data['junction_cluster_id']
+    # filter junctions to just those of interest
+    # ids = map_data['junction_cluster_id']
+    # junction_collisions = junction_collisions[junction_collisions['junction_cluster_id'].isin(ids)]
 
-    junction_collisions = junction_collisions[junction_collisions['junction_cluster_id'].isin(ids)]
-
-    for lat, lon in junction_collisions[['latitude_junction', 'longitude_junction']].dropna().values:
-        folium.CircleMarker(
+    cols = ['junction_cluster_id', 'latitude_cluster', 'longitude_cluster', 'label']
+    for cluster_id, lat, lon, label in map_data[cols].values:
+        iframe = folium.IFrame(label)
+        popup = folium.Popup(iframe, min_width=240, max_width=240)
+        folium.Marker(
             location=[lat, lon],
-            # popup=label,
-            fill=True,
-            color='green',
-            fill_color='green',
-            radius=1
+            popup=popup,
+            radius=4
         ).add_to(m)
 
-    for lat, lon in junction_collisions[['latitude', 'longitude']].dropna().values:
-        folium.CircleMarker(
-            location=[lat, lon],
-            # popup=label,
-            fill=True,
-            color='red',
-            fill_color='red',
-            radius=1
-        ).add_to(m)
 
-    all_points = pd.concat([
-        junction_collisions[['latitude_junction', 'longitude_junction', 'junction_cluster_id']].rename(columns={'latitude_junction': 'latitude', 'longitude_junction': 'longitude'}),
-        junction_collisions[['latitude', 'longitude', 'junction_cluster_id']]
-    ])
-    all_points = geopandas.GeoDataFrame(
-        all_points,
-        geometry=geopandas.points_from_xy(
-            all_points.longitude,
-            all_points.latitude,
-            crs="EPSG:4326"
-        )
-    )
+        id_collisions = junction_collisions[junction_collisions['junction_cluster_id'] == cluster_id]
 
-    polygons = all_points.dissolve('junction_cluster_id').convex_hull
-    folium.GeoJson(polygons).add_to(m)
-    folium.LatLngPopup().add_to(m)
+        collision_coords = id_collisions[['latitude', 'longitude']].dropna().values
 
-    sw = junction_collisions[['latitude', 'longitude']].min().values.tolist()
-    ne = junction_collisions[['latitude', 'longitude']].max().values.tolist()
+        lines = folium.PolyLine(locations=[[coord, [lat, lon]] for coord in collision_coords], weight=3, color='grey')
+        m.add_child(lines)
+
+        for collision_lat, collision_lon in collision_coords:
+            folium.CircleMarker(
+                location=[collision_lat, collision_lon],
+                # popup=label,
+                fill=True,
+                color='orange',
+                fill_color='orange',
+                radius=2
+            ).add_to(m)
+
+
+    sw = map_data[['latitude_cluster', 'longitude_cluster']].min().values.tolist()
+    ne = map_data[['latitude_cluster', 'longitude_cluster']].max().values.tolist()
     m.fit_bounds([sw, ne])
 
+        # BeautifyIcon(icon='arrow-down', icon_shape='marker').add_to(marker)
+
+    # for lat, lon in junction_collisions[['latitude_junction', 'longitude_junction']].dropna().values:
+    #     folium.CircleMarker(
+    #         location=[lat, lon],
+    #         # popup=label,
+    #         fill=True,
+    #         color='green',
+    #         fill_color='green',
+    #         radius=1
+    #     ).add_to(m)
+
+    # for lat, lon in junction_collisions[['latitude', 'longitude']].dropna().values:
+    #     folium.CircleMarker(
+    #         location=[lat, lon],
+    #         # popup=label,
+    #         fill=True,
+    #         color='red',
+    #         fill_color='red',
+    #         radius=1
+    #     ).add_to(m)
+
+    # all_points = pd.concat([
+    #     junction_collisions[['latitude_junction', 'longitude_junction', 'junction_cluster_id']].rename(columns={'latitude_junction': 'latitude', 'longitude_junction': 'longitude'}),
+    #     junction_collisions[['latitude', 'longitude', 'junction_cluster_id']]
+    # ])
+    # all_points = geopandas.GeoDataFrame(
+    #     all_points,
+    #     geometry=geopandas.points_from_xy(
+    #         all_points.longitude,
+    #         all_points.latitude,
+    #         crs="EPSG:4326"
+    #     )
+    # )
+
+    # polygons = all_points.dissolve('junction_cluster_id').convex_hull
+    # folium.GeoJson(polygons).add_to(m)
+    # folium.LatLngPopup().add_to(m)
 
     # for lat, lon in map_data[['latitude_cluster', 'longitude_cluster']].values:
     #     folium.CircleMarker(
@@ -117,7 +155,7 @@ def generate_map(map_data, junction_collisions, radius=6, color='blue', zoom=12)
     #         radius=radius
     #     ).add_to(m)
 
-    folium_static(m, width=1400, height=600)
+    folium_static(m, width=1800, height=800)
     return None
 
 
@@ -130,22 +168,42 @@ st.markdown('# Dangerous Junctions')
 
 junctions, collisions = read_in_data()
 
-n_junctions = st.slider(
-    label='Select number of dangerous junctions to show:',
-    min_value=0,
-    max_value=200,  # not sure we'd ever need to view more?
-    # max_value=junctions.junction_cluster_id.nunique(),
-    value=25,
+col1, col2, col3, col4, col5 = st.columns([4, 1, 4, 1, 4])
+
+with col1:
+    n_junctions = st.slider(
+        label='Number of dangerous junctions to show:',
+        min_value=0,
+        max_value=200,  # not sure we'd ever need to view more?
+        # max_value=junctions.junction_cluster_id.nunique(),
+        value=20,
+    )
+
+with col3:
+    min_year, max_year = st.slider(
+        label='Select date period:',
+        min_value=2011,
+        max_value=2021,
+        value=(2011, 2021)
+    )
+
+available_boroughs = sorted(
+    list(
+        collisions['local_authority_district'].dropna().unique()
+    )
 )
 
-min_year, max_year = st.slider(
-    label='Select minimum year:',
-    min_value=2011,
-    max_value=2021,
-    value=(2015, 2021)
-)
+with col5:
+    boroughs = st.multiselect(
+        label='Filter by borough',
+        options=['All'] + available_boroughs,
+        default=['All']
+    )
+    if "All" in boroughs:
+        boroughs = available_boroughs
 
-junction_collisions = combine_junctions_and_collisions(junctions, collisions, min_year, max_year)
+
+junction_collisions = combine_junctions_and_collisions(junctions, collisions, min_year, max_year, boroughs)
 dangerous_junctions = calculate_dangerous_junctions(junction_collisions, n_junctions)
 
 generate_map(dangerous_junctions, junction_collisions)
