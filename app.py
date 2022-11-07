@@ -69,10 +69,6 @@ def generate_map(map_data, junction_collisions, radius=6, color='blue', zoom=12)
 
     m = folium.Map(location=[avg_lat, avg_lon], zoom_start=zoom)
 
-    # filter junctions to just those of interest
-    # ids = map_data['junction_cluster_id']
-    # junction_collisions = junction_collisions[junction_collisions['junction_cluster_id'].isin(ids)]
-
     cols = ['junction_cluster_id', 'latitude_cluster', 'longitude_cluster', 'label']
     for cluster_id, lat, lon, label in map_data[cols].values:
         iframe = folium.IFrame(label)
@@ -83,11 +79,12 @@ def generate_map(map_data, junction_collisions, radius=6, color='blue', zoom=12)
             radius=4
         ).add_to(m)
 
-
+        # filter lower level data to cluster
         id_collisions = junction_collisions[junction_collisions['junction_cluster_id'] == cluster_id]
 
         collision_coords = id_collisions[['latitude', 'longitude']].dropna().values
 
+        # draw lines between central point and collisions
         lines = folium.PolyLine(locations=[[coord, [lat, lon]] for coord in collision_coords], weight=3, color='grey')
         m.add_child(lines)
 
@@ -106,55 +103,6 @@ def generate_map(map_data, junction_collisions, radius=6, color='blue', zoom=12)
     ne = map_data[['latitude_cluster', 'longitude_cluster']].max().values.tolist()
     m.fit_bounds([sw, ne])
 
-        # BeautifyIcon(icon='arrow-down', icon_shape='marker').add_to(marker)
-
-    # for lat, lon in junction_collisions[['latitude_junction', 'longitude_junction']].dropna().values:
-    #     folium.CircleMarker(
-    #         location=[lat, lon],
-    #         # popup=label,
-    #         fill=True,
-    #         color='green',
-    #         fill_color='green',
-    #         radius=1
-    #     ).add_to(m)
-
-    # for lat, lon in junction_collisions[['latitude', 'longitude']].dropna().values:
-    #     folium.CircleMarker(
-    #         location=[lat, lon],
-    #         # popup=label,
-    #         fill=True,
-    #         color='red',
-    #         fill_color='red',
-    #         radius=1
-    #     ).add_to(m)
-
-    # all_points = pd.concat([
-    #     junction_collisions[['latitude_junction', 'longitude_junction', 'junction_cluster_id']].rename(columns={'latitude_junction': 'latitude', 'longitude_junction': 'longitude'}),
-    #     junction_collisions[['latitude', 'longitude', 'junction_cluster_id']]
-    # ])
-    # all_points = geopandas.GeoDataFrame(
-    #     all_points,
-    #     geometry=geopandas.points_from_xy(
-    #         all_points.longitude,
-    #         all_points.latitude,
-    #         crs="EPSG:4326"
-    #     )
-    # )
-
-    # polygons = all_points.dissolve('junction_cluster_id').convex_hull
-    # folium.GeoJson(polygons).add_to(m)
-    # folium.LatLngPopup().add_to(m)
-
-    # for lat, lon in map_data[['latitude_cluster', 'longitude_cluster']].values:
-    #     folium.CircleMarker(
-    #         location=[lat, lon],
-    #         # popup=label,
-    #         fill=True,
-    #         color=color,
-    #         fill_color=color,
-    #         radius=radius
-    #     ).add_to(m)
-
     folium_static(m, width=1800, height=800)
     return None
 
@@ -163,8 +111,6 @@ def generate_map(map_data, junction_collisions, radius=6, color='blue', zoom=12)
 
 st.set_page_config(layout="wide")
 st.markdown('# Dangerous Junctions')
-
-# SECTION 1
 
 junctions, collisions = read_in_data()
 
@@ -208,23 +154,4 @@ dangerous_junctions = calculate_dangerous_junctions(junction_collisions, n_junct
 
 generate_map(dangerous_junctions, junction_collisions)
 st.dataframe(dangerous_junctions)
-
-
-# =========================================================================== #
-
-# SECTION 2
-
-# st.markdown('---')
-# st.markdown('## Investigate Junctions')
-
-# selected_junctions = st.multiselect(
-# 	label='Select junction to investigate',
-# 	options=junctions.cluster.unique(),
-# 	default=junctions.cluster.unique()[0]
-# )
-
-# selected_junction_collisions = collisions[collisions.cluster.isin(selected_junctions)]
-
-# generate_map(selected_junction_collisions, radius=4, color='red', zoom=16)
-# st.dataframe(selected_junction_collisions)
 
