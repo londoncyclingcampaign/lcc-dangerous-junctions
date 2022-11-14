@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import pydeck as pdk
 
+from folium.plugins import BeautifyIcon
 from streamlit_folium import st_folium, folium_static
 
 
@@ -15,8 +16,9 @@ from streamlit_folium import st_folium, folium_static
 def read_in_data():
     junctions = pd.read_csv('data/junctions.csv')
     collisions = pd.read_csv('data/collisions.csv')
+    map_annotations = pd.read_csv('data/map-annotations.csv')
 
-    return junctions, collisions
+    return junctions, collisions, map_annotations
 
 
 def combine_junctions_and_collisions(junctions, collisions, min_year, max_year, boroughs):
@@ -63,21 +65,33 @@ def calculate_dangerous_junctions(junction_collisions, n_junctions):
     return dangerous_junctions
 
 
-def generate_map(map_data, junction_collisions, radius=6, color='blue', zoom=12):
+def generate_map(map_data, junction_collisions, annotations, radius=6, color='blue', zoom=12):
     avg_lat = map_data['latitude_cluster'].mean()
     avg_lon = map_data['longitude_cluster'].mean()
 
-    m = folium.Map(location=[avg_lat, avg_lon], zoom_start=zoom)
+    m = folium.Map(
+        location=[avg_lat, avg_lon],
+        tiles='cartodbpositron',
+        zoom_start=zoom
+    )
 
     cols = ['junction_cluster_id', 'latitude_cluster', 'longitude_cluster', 'label']
     for cluster_id, lat, lon, label in map_data[cols].values:
-        iframe = folium.IFrame(label)
-        popup = folium.Popup(iframe, min_width=240, max_width=240)
-        folium.Marker(
+        # iframe = folium.IFrame(label)
+        # popup = folium.Popup(iframe, min_width=240, max_width=240)
+        marker = folium.Marker(
             location=[lat, lon],
-            popup=popup,
-            radius=4
+            # popup=popup,
         ).add_to(m)
+        BeautifyIcon(
+            icon='exclamation',
+            icon_size=[20, 20],
+            icon_anchor=[10, 10],
+            icon_shape='circle',
+            background_color='#9B59B6',
+            border_color='#9B59B6',
+            font_color='white'
+        ).add_to(marker)
 
         # filter lower level data to cluster
         id_collisions = junction_collisions[junction_collisions['junction_cluster_id'] == cluster_id]
@@ -93,18 +107,34 @@ def generate_map(map_data, junction_collisions, radius=6, color='blue', zoom=12)
                 location=[collision_lat, collision_lon],
                 # popup=label,
                 fill=True,
-                color='orange',
-                fill_color='orange',
-                radius=2
+                color='#E74C3C',
+                fill_color='#E74C3C',
+                radius=5
             ).add_to(m)
 
+    cols = ['latitude', 'longitude', 'map_label', 'label_icon', 'colour']
+    for lat, lon, label, icon, colour in annotations[cols].values:
+        iframe = folium.IFrame(label)
+        popup = folium.Popup(iframe, min_width=240, max_width=240)
+        marker = folium.Marker(
+            location=[lat, lon],
+            popup=popup
+        ).add_to(m)
+        BeautifyIcon(
+            icon=icon,
+            icon_size=[20, 20],
+            icon_anchor=[10, 10],
+            icon_shape='circle',
+            background_color=colour,
+            border_color=colour,
+            font_color='white'
+        ).add_to(marker)
 
     sw = map_data[['latitude_cluster', 'longitude_cluster']].min().values.tolist()
     ne = map_data[['latitude_cluster', 'longitude_cluster']].max().values.tolist()
     m.fit_bounds([sw, ne])
 
-    folium_static(m, width=1800, height=800)
-    return None
+    return m
 
 
 # =========================================================================== #
@@ -112,7 +142,7 @@ def generate_map(map_data, junction_collisions, radius=6, color='blue', zoom=12)
 st.set_page_config(layout="wide")
 st.markdown('# Dangerous Junctions')
 
-junctions, collisions = read_in_data()
+junctions, collisions, annotations = read_in_data()
 
 col1, col2, col3, col4, col5 = st.columns([4, 1, 4, 1, 4])
 
@@ -120,7 +150,7 @@ with col1:
     n_junctions = st.slider(
         label='Number of dangerous junctions to show:',
         min_value=0,
-        max_value=200,  # not sure we'd ever need to view more?
+        max_value=100,  # not sure we'd ever need to view more then 100?
         # max_value=junctions.junction_cluster_id.nunique(),
         value=20,
     )
@@ -151,7 +181,40 @@ with col5:
 
 junction_collisions = combine_junctions_and_collisions(junctions, collisions, min_year, max_year, boroughs)
 dangerous_junctions = calculate_dangerous_junctions(junction_collisions, n_junctions)
+filtered_annotations = annotations[
+    annotations['borough'].isin(boroughs)
+]
 
-generate_map(dangerous_junctions, junction_collisions)
-st.dataframe(dangerous_junctions)
+col1, col2 = st.columns([6, 6])
+with col1:
+    m = generate_map(dangerous_junctions, junction_collisions, filtered_annotations)
+    m_data = st_folium(m, returned_objects=["last_object_clicked"], width=800, height=800)
+with col2:
+    d = junction_collisions[
+        (junction_collisions['latitude_cluster'] == m_data['last_object_clicked']['lat']) &
+        (junction_collisions['longitude_cluster'] == m_data['last_object_clicked']['lng'])
+    ]
+
+    sw = d[['latitude', 'longitude']].min().values.tolist()
+    ne = d[['latitude', 'longitude']].max().values.tolist()
+
+    m.fit_bounds([sw, ne])
+
+    st_folium(m)
+
+output_cols = [
+    'junction_id',
+    'id',
+    'date',
+    'police_force',
+    'max_cyclist_severity',
+    'fatal_cyclist_casualties',
+    'serious_cyclist_casualties',
+    'slight_cyclist_casualties',
+    'danger_metric',
+    'recency_danger_metric'
+]
+st.dataframe(d[output_cols])
+
+# st.dataframe(dangerous_junctions)
 
