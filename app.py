@@ -65,24 +65,25 @@ def calculate_dangerous_junctions(junction_collisions, n_junctions):
     return dangerous_junctions
 
 
-def generate_map(map_data, junction_collisions, annotations, radius=6, color='blue', zoom=12):
-    avg_lat = map_data['latitude_cluster'].mean()
-    avg_lon = map_data['longitude_cluster'].mean()
+def high_level_map(dangerous_junctions, map_data, annotations):
 
     m = folium.Map(
-        location=[avg_lat, avg_lon],
-        tiles='cartodbpositron',
-        zoom_start=zoom
+        tiles='https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png',
+        attr='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
     )
 
-    cols = ['junction_cluster_id', 'latitude_cluster', 'longitude_cluster', 'label']
-    for cluster_id, lat, lon, label in map_data[cols].values:
-        # iframe = folium.IFrame(label)
-        # popup = folium.Popup(iframe, min_width=240, max_width=240)
+    map_data = map_data[
+        map_data['junction_cluster_id'].isin(dangerous_junctions['junction_cluster_id'])
+    ]
+
+    cols = ['junction_cluster_id', 'latitude_cluster', 'longitude_cluster']
+
+    map_points = map_data[cols].drop_duplicates().values
+    for cluster_id, lat, lon in map_points:
         marker = folium.Marker(
-            location=[lat, lon],
-            # popup=popup,
+            location=[lat, lon]
         ).add_to(m)
+
         BeautifyIcon(
             icon='exclamation',
             icon_size=[20, 20],
@@ -93,24 +94,7 @@ def generate_map(map_data, junction_collisions, annotations, radius=6, color='bl
             font_color='white'
         ).add_to(marker)
 
-        # filter lower level data to cluster
-        id_collisions = junction_collisions[junction_collisions['junction_cluster_id'] == cluster_id]
-
-        collision_coords = id_collisions[['latitude', 'longitude']].dropna().values
-
-        # draw lines between central point and collisions
-        lines = folium.PolyLine(locations=[[coord, [lat, lon]] for coord in collision_coords], weight=3, color='grey')
-        m.add_child(lines)
-
-        for collision_lat, collision_lon in collision_coords:
-            folium.CircleMarker(
-                location=[collision_lat, collision_lon],
-                # popup=label,
-                fill=True,
-                color='#E74C3C',
-                fill_color='#E74C3C',
-                radius=5
-            ).add_to(m)
+    # add annotation layer
 
     cols = ['latitude', 'longitude', 'map_label', 'label_icon', 'colour']
     for lat, lon, label, icon, colour in annotations[cols].values:
@@ -130,8 +114,58 @@ def generate_map(map_data, junction_collisions, annotations, radius=6, color='bl
             font_color='white'
         ).add_to(marker)
 
+    # adjust map bounds
+
     sw = map_data[['latitude_cluster', 'longitude_cluster']].min().values.tolist()
     ne = map_data[['latitude_cluster', 'longitude_cluster']].max().values.tolist()
+    m.fit_bounds([sw, ne])
+
+    return m
+
+
+def low_level_map(map_data, chosen_point):
+
+    m = folium.Map(
+        tiles='https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png',
+        attr='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+    )
+
+    cols = ['junction_cluster_id', 'latitude_cluster', 'longitude_cluster']
+    map_points = map_data[cols].drop_duplicates().values
+    for cluster_id, lat, lon in map_points:
+        marker = folium.Marker(
+            location=[lat, lon],
+        ).add_to(m)
+        BeautifyIcon(
+            icon='exclamation',
+            icon_size=[20, 20],
+            icon_anchor=[10, 10],
+            icon_shape='circle',
+            background_color='#9B59B6',
+            border_color='#9B59B6',
+            font_color='white'
+        ).add_to(marker)
+
+        # filter lower level data to cluster
+        id_collisions = map_data[map_data['junction_cluster_id'] == cluster_id]
+
+        collision_coords = id_collisions[['latitude', 'longitude']].dropna().values
+
+        # draw lines between central point and collisions
+        lines = folium.PolyLine(locations=[[coord, [lat, lon]] for coord in collision_coords], weight=3, color='grey')
+        m.add_child(lines)
+
+        for collision_lat, collision_lon in collision_coords:
+            folium.CircleMarker(
+                location=[collision_lat, collision_lon],
+                fill=True,
+                color='#E74C3C',
+                fill_color='#E74C3C',
+                radius=5
+            ).add_to(m)
+
+    sw = map_data[['latitude', 'longitude']].min().values.tolist()
+    ne = map_data[['latitude', 'longitude']].max().values.tolist()
     m.fit_bounds([sw, ne])
 
     return m
@@ -140,7 +174,7 @@ def generate_map(map_data, junction_collisions, annotations, radius=6, color='bl
 # =========================================================================== #
 
 st.set_page_config(layout="wide")
-st.markdown('# Dangerous Junctions')
+st.markdown('# LCC - Dangerous Junctions')
 
 junctions, collisions, annotations = read_in_data()
 
@@ -148,16 +182,15 @@ col1, col2, col3, col4, col5 = st.columns([4, 1, 4, 1, 4])
 
 with col1:
     n_junctions = st.slider(
-        label='Number of dangerous junctions to show:',
+        label='Number of dangerous junctions to show',
         min_value=0,
         max_value=100,  # not sure we'd ever need to view more then 100?
-        # max_value=junctions.junction_cluster_id.nunique(),
         value=20,
     )
 
 with col3:
     min_year, max_year = st.slider(
-        label='Select date period:',
+        label='Select date period',
         min_value=2011,
         max_value=2021,
         value=(2011, 2021)
@@ -181,27 +214,51 @@ with col5:
 
 junction_collisions = combine_junctions_and_collisions(junctions, collisions, min_year, max_year, boroughs)
 dangerous_junctions = calculate_dangerous_junctions(junction_collisions, n_junctions)
+
 filtered_annotations = annotations[
     annotations['borough'].isin(boroughs)
 ]
 
+
+# set default to worst junction...
+chosen_point = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
+
 col1, col2 = st.columns([6, 6])
 with col1:
-    m = generate_map(dangerous_junctions, junction_collisions, filtered_annotations)
-    m_data = st_folium(m, returned_objects=["last_object_clicked"], width=800, height=800)
+    st.markdown('''
+        ### Most dangerous junctions
+
+        Identified junctions in purple.
+    ''')
+    high_map = high_level_map(dangerous_junctions, junction_collisions, filtered_annotations)
+    map_click = st_folium(high_map, returned_objects=["last_object_clicked"], width=800, height=600)
+
+    if map_click['last_object_clicked']:
+        chosen_point = [
+            map_click['last_object_clicked']['lat'],
+            map_click['last_object_clicked']['lng']
+        ]
 with col2:
-    d = junction_collisions[
-        (junction_collisions['latitude_cluster'] == m_data['last_object_clicked']['lat']) &
-        (junction_collisions['longitude_cluster'] == m_data['last_object_clicked']['lng'])
+    st.markdown('''
+        ### Investigate Junction
+
+        Select a point on the left map and drill down into it here.
+    ''')
+
+    low_junction_collisions = junction_collisions[
+        (junction_collisions['latitude_cluster'] == chosen_point[0]) &
+        (junction_collisions['longitude_cluster'] == chosen_point[1])
     ]
 
-    sw = d[['latitude', 'longitude']].min().values.tolist()
-    ne = d[['latitude', 'longitude']].max().values.tolist()
+    low_map = low_level_map(low_junction_collisions, chosen_point)
+    st_folium(low_map, width=800, height=600)
 
-    m.fit_bounds([sw, ne])
 
-    st_folium(m)
+st.markdown('''
+    ### Collisions data
 
+    Individual collision data for chosen junction above.
+''')
 output_cols = [
     'junction_id',
     'id',
@@ -214,7 +271,9 @@ output_cols = [
     'danger_metric',
     'recency_danger_metric'
 ]
-st.dataframe(d[output_cols])
-
-# st.dataframe(dangerous_junctions)
+st.dataframe(
+    low_junction_collisions[output_cols]
+    .dropna(subset=['id'])
+    .sort_values(by='date', ascending=False)
+)
 
