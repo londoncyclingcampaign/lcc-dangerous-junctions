@@ -20,3 +20,8 @@
     # 'unknown (self reported)'
   ]
   
+  # tolerance level to determine which junctions to combine (in metres)
+  tolerance: 28
+
+  number_of_dangerous_collisions: 100
+  distance_to_junction_threshold: .001
