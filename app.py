@@ -13,9 +13,9 @@ from streamlit_folium import st_folium, folium_static
 
 
 @st.cache
-def read_in_data():
-    junctions = pd.read_csv('data/junctions.csv')
-    collisions = pd.read_csv('data/collisions.csv')
+def read_in_data(tolerance):
+    junctions = pd.read_csv(f'data/junctions-tolerance={tolerance}.csv')
+    collisions = pd.read_csv(f'data/collisions-tolerance={tolerance}.csv')
     map_annotations = pd.read_csv('data/map-annotations.csv')
 
     return junctions, collisions, map_annotations
@@ -176,7 +176,12 @@ def low_level_map(map_data, chosen_point):
 st.set_page_config(layout="wide")
 st.markdown('# LCC - Dangerous Junctions')
 
-junctions, collisions, annotations = read_in_data()
+tolerance = st.radio(
+    label='Set tolerance (feature to be removed)',
+    options=[28, 30, 32, 35, 40]
+)
+
+junctions, collisions, annotations = read_in_data(tolerance)
 
 col1, col2, col3, col4, col5 = st.columns([4, 1, 4, 1, 4])
 
