@@ -5,11 +5,9 @@ import numpy as np
 import pandas as pd
 import pydeck as pdk
 
-from folium.plugins import BeautifyIcon
+from scipy.stats import linregress
+from folium.plugins import BeautifyIcon, HeatMap
 from streamlit_folium import st_folium, folium_static
-
-
-# TODO: Prevent maps re-rendering when the other is changed
 
 
 @st.cache
@@ -38,30 +36,114 @@ def combine_junctions_and_collisions(junctions, collisions, min_year, max_year, 
     return junction_collisions
 
 
+def get_all_year_df(junction_collisions):
+    all_years = junction_collisions[['accident_year']].dropna().drop_duplicates()
+    all_clusters = junction_collisions[['junction_cluster_id']].dropna().drop_duplicates()
+    all_years['key'] = 0
+    all_clusters['key'] = 0
+
+    all_years = all_years.merge(all_clusters, how='outer', on='key').drop(columns='key')
+    return all_years
+
+
+def calculate_metric_trajectories(junction_collisions, dangerous_junctions):
+
+    dangerous_junction_cluster_ids = dangerous_junctions['junction_cluster_id'].unique()
+
+    filtered_junction_collisions = junction_collisions[
+        junction_collisions['junction_cluster_id'].isin(dangerous_junction_cluster_ids)
+    ]
+
+    all_years_mapping = get_all_year_df(filtered_junction_collisions)
+
+    yearly_stats = (
+        filtered_junction_collisions
+        .groupby(['junction_cluster_id', 'accident_year'])['danger_metric']
+        .sum()
+        .reset_index()
+    )
+
+    yearly_stats = (
+        all_years_mapping
+        .merge(
+            yearly_stats,
+            how='left',
+            on=['accident_year', 'junction_cluster_id']
+        )
+        .fillna(0)
+        .sort_values(by=['junction_cluster_id', 'accident_year'])
+    )
+
+    yearly_stats['rolling_danger_metric'] = (
+        yearly_stats
+        .groupby(['junction_cluster_id'])['danger_metric']
+        .transform(lambda s: s.rolling(3, min_periods=3).mean())
+    )
+
+    trajectories = (
+        yearly_stats
+        .groupby(['junction_cluster_id'])
+        .apply(lambda x: linregress(x['accident_year'], x['danger_metric'])[0])
+        .reset_index(name='danger_metric_trajectory')
+    )
+
+    dangerous_junctions = dangerous_junctions.merge(
+        trajectories,
+        how='left',
+        on='junction_cluster_id'
+    )
+    return dangerous_junctions
+
+
+def create_junction_labels(row):
+    cluster_id = int(row['junction_cluster_id'])
+    rank = int(row['junction_rank'])
+    recency_metric = np.round(row['recency_danger_metric'], 2)
+    trajectory = np.round(row['danger_metric_trajectory'], 2)
+    n_fatal = int(row['fatal_cyclist_casualties'])
+    n_serious = int(row['serious_cyclist_casualties'])
+
+    if trajectory > 0:
+        trajectory_colour = 'red'
+    elif trajectory < 0:
+        trajectory_colour = 'green'
+    else:
+        trajectory_colour = 'black'
+
+    label = f"""
+        <h3>Cluster: {cluster_id}</h3>
+        Dangerous Junction Rank: <b>{rank}</b> <br>
+        Recency Danger Metric: <b>{recency_metric}</b> <br>
+        Danger Metric Trajectory: <b style="color:{trajectory_colour};">{trajectory}</b> <br>
+        <hr>
+        Fatal casualties: <b>{n_fatal}</b> <br>
+        Serious casualties: <b>{n_serious}</b>
+    """
+    return label
+
+
 def calculate_dangerous_junctions(junction_collisions, n_junctions):
     agg_cols = [
         'recency_danger_metric',
         'fatal_cyclist_casualties',
-        'serious_cyclist_casualties'
+        'serious_cyclist_casualties',
     ]
-
     dangerous_junctions = (
         junction_collisions
         .groupby(['junction_cluster_id', 'latitude_cluster', 'longitude_cluster'])[agg_cols]
         .sum()
         .reset_index()
-        .sort_values(by='recency_danger_metric', ascending=False)
+        .sort_values(by=['recency_danger_metric', 'fatal_cyclist_casualties'], ascending=[False, False])
         .head(n_junctions)
+        .reset_index()
     )
 
-    dangerous_junctions['label'] = dangerous_junctions.apply(
-        lambda row: f"""
-        Recency Danger Metric: {np.round(row['recency_danger_metric'], 2)} <br>
-        Serious casualties: {row['serious_cyclist_casualties']} <br>
-        Fatal casualties: {row['fatal_cyclist_casualties']}
-        """,
-        axis=1
-    )
+    dangerous_junctions['junction_rank'] = dangerous_junctions.index + 1
+
+    dangerous_junctions = calculate_metric_trajectories(junction_collisions, dangerous_junctions)
+
+    dangerous_junctions['label'] = dangerous_junctions.apply(create_junction_labels, axis=1)
+
     return dangerous_junctions
 
 
@@ -76,14 +158,55 @@ def high_level_map(dangerous_junctions, map_data, annotations):
         map_data['junction_cluster_id'].isin(dangerous_junctions['junction_cluster_id'])
     ]
 
-    cols = ['junction_cluster_id', 'latitude_cluster', 'longitude_cluster']
-
-    map_points = map_data[cols].drop_duplicates().values
-    for cluster_id, lat, lon in map_points:
+    # add annotation layer
+    cols = ['latitude', 'longitude', 'map_label', 'label_icon', 'colour']
+    for lat, lon, label, icon, colour in annotations[cols].values:
+        iframe = folium.IFrame(
+            html='''
+                <style>
+                body {
+                  font-family: Tahoma, sans-serif;
+                  font-size: 12px;
+                }
+                </style>
+            ''' + label,
+            width=200,
+            height=50
+        )
         marker = folium.Marker(
-            location=[lat, lon]
+            location=[lat, lon],
+            popup=folium.Popup(iframe)
         ).add_to(m)
+        BeautifyIcon(
+            icon=icon,
+            icon_size=[15, 15],
+            # icon_anchor=[0, 10],
+            icon_shape='circle',
+            background_color='transparent',
+            border_color='transparent'
+        ).add_to(marker)
 
+    # add junction markers
+    cols = ['junction_cluster_id', 'latitude_cluster', 'longitude_cluster', 'label']
+    # map_points = map_data[cols].drop_duplicates().values
+
+    for cluster_id, lat, lon, label in dangerous_junctions[cols].values:
+        iframe = folium.IFrame(
+            html='''
+                <style>
+                body {
+                  font-family: Tahoma, sans-serif;
+                  font-size: 12px;
+                }
+                </style>
+            ''' + label,
+            width=200,
+            height=160
+        )
+        marker = folium.Marker(
+            location=[lat, lon],
+            popup=folium.Popup(iframe)
+        ).add_to(m)
         BeautifyIcon(
             icon='exclamation',
             icon_size=[20, 20],
@@ -94,30 +217,10 @@ def high_level_map(dangerous_junctions, map_data, annotations):
             font_color='white'
         ).add_to(marker)
 
-    # add annotation layer
-
-    cols = ['latitude', 'longitude', 'map_label', 'label_icon', 'colour']
-    for lat, lon, label, icon, colour in annotations[cols].values:
-        iframe = folium.IFrame(label)
-        popup = folium.Popup(iframe, min_width=240, max_width=240)
-        marker = folium.Marker(
-            location=[lat, lon],
-            popup=popup
-        ).add_to(m)
-        BeautifyIcon(
-            icon=icon,
-            icon_size=[20, 20],
-            icon_anchor=[10, 10],
-            icon_shape='circle',
-            background_color=colour,
-            border_color=colour,
-            font_color='white'
-        ).add_to(marker)
-
     # adjust map bounds
 
-    sw = map_data[['latitude_cluster', 'longitude_cluster']].min().values.tolist()
-    ne = map_data[['latitude_cluster', 'longitude_cluster']].max().values.tolist()
+    sw = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].min().values.tolist()
+    ne = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].max().values.tolist()
     m.fit_bounds([sw, ne])
 
     return m
@@ -149,20 +252,29 @@ def low_level_map(map_data, chosen_point):
         # filter lower level data to cluster
         id_collisions = map_data[map_data['junction_cluster_id'] == cluster_id]
 
-        collision_coords = id_collisions[['latitude', 'longitude']].dropna().values
+        collision_coords = id_collisions[['latitude', 'longitude', 'max_cyclist_severity']].dropna().values
 
-        # draw lines between central point and collisions
-        lines = folium.PolyLine(locations=[[coord, [lat, lon]] for coord in collision_coords], weight=3, color='grey')
-        m.add_child(lines)
+        for collision_lat, collision_lon, severity in collision_coords:
+            if severity == 'fatal':
+                folium.CircleMarker(
+                    location=[collision_lat, collision_lon],
+                    fill=True,
+                    color='#D35400',
+                    fill_color='#D35400',
+                    radius=8
+                ).add_to(m)
+            elif severity == 'serious':
+                folium.CircleMarker(
+                    location=[collision_lat, collision_lon],
+                    fill=True,
+                    color='#F39C12',
+                    fill_color='#F39C12',
+                    radius=8
+                ).add_to(m)
 
-        for collision_lat, collision_lon in collision_coords:
-            folium.CircleMarker(
-                location=[collision_lat, collision_lon],
-                fill=True,
-                color='#E74C3C',
-                fill_color='#E74C3C',
-                radius=5
-            ).add_to(m)
+            # draw lines between central point and collisions
+            lines = folium.PolyLine(locations=[[[collision_lat, collision_lon], [lat, lon]]], weight=1.5, color='grey')
+            m.add_child(lines)
 
     sw = map_data[['latitude', 'longitude']].min().values.tolist()
     ne = map_data[['latitude', 'longitude']].max().values.tolist()
@@ -236,13 +348,18 @@ with col1:
         Identified junctions in purple.
     ''')
     high_map = high_level_map(dangerous_junctions, junction_collisions, filtered_annotations)
-    map_click = st_folium(high_map, returned_objects=["last_object_clicked"], width=800, height=600)
+    map_click = st_folium(high_map, returned_objects=["last_object_clicked"], width=600, height=600)
 
     if map_click['last_object_clicked']:
-        chosen_point = [
-            map_click['last_object_clicked']['lat'],
-            map_click['last_object_clicked']['lng']
-        ]
+        # hacky way to test what kind of point clicked..
+        if len(annotations[
+                (annotations['latitude'] == map_click['last_object_clicked']['lat']) &
+                (annotations['longitude'] == map_click['last_object_clicked']['lng'])
+            ]) == 0:
+            chosen_point = [
+                map_click['last_object_clicked']['lat'],
+                map_click['last_object_clicked']['lng']
+            ]
 with col2:
     st.markdown('''
         ### Investigate Junction
@@ -256,7 +373,7 @@ with col2:
     ]
 
     low_map = low_level_map(low_junction_collisions, chosen_point)
-    st_folium(low_map, width=800, height=600)
+    st_folium(low_map, width=600, height=600)
 
 
 st.markdown('''
@@ -266,6 +383,7 @@ st.markdown('''
 ''')
 output_cols = [
     'junction_id',
+    'junction_cluster_id',
     'id',
     'date',
     'police_force',
@@ -282,3 +400,21 @@ st.dataframe(
     .sort_values(by='date', ascending=False)
 )
 
+st.markdown('''
+    ---
+
+    ### Heatmap
+''')
+
+heatmap_points = collisions[['latitude', 'longitude', 'danger_metric']].dropna().values.tolist()
+
+heatmap = folium.Map(
+    [collisions['latitude'].mean(), collisions['longitude'].mean()],
+    zoom_start=11,
+    tiles='https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png',
+    attr='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+)
+
+HeatMap(heatmap_points, max_opacity=1, radius=20, blur=10).add_to(heatmap)
+
+st_folium(heatmap, width=1200, height=600)
