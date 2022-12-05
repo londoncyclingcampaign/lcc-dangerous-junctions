@@ -149,10 +149,11 @@ def calculate_dangerous_junctions(junction_collisions, n_junctions):
 
 def high_level_map(dangerous_junctions, map_data, annotations):
 
-    m = folium.Map(
-        tiles='https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png',
-        attr='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-    )
+#     m = folium.Map(
+#         tiles='https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png',
+#         attr='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+#     )
+    m = folium.Map()
 
     map_data = map_data[
         map_data['junction_cluster_id'].isin(dangerous_junctions['junction_cluster_id'])
@@ -228,10 +229,11 @@ def high_level_map(dangerous_junctions, map_data, annotations):
 
 def low_level_map(map_data, chosen_point):
 
-    m = folium.Map(
-        tiles='https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png',
-        attr='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-    )
+#     m = folium.Map(
+#         tiles='https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png',
+#         attr='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+#     )
+    m = folium.Map()
 
     cols = ['junction_cluster_id', 'latitude_cluster', 'longitude_cluster']
     map_points = map_data[cols].drop_duplicates().values
