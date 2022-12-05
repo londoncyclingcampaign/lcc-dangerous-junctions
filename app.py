@@ -10,11 +10,11 @@ from folium.plugins import BeautifyIcon, HeatMap
 from streamlit_folium import st_folium, folium_static
 
 
-@st.cache
+@st.experimental_memo
 def read_in_data(tolerance):
-    junctions = pd.read_csv(f'data/junctions-tolerance={tolerance}.csv')
-    collisions = pd.read_csv(f'data/collisions-tolerance={tolerance}.csv')
-    map_annotations = pd.read_csv('data/map-annotations.csv')
+    junctions = pd.read_csv(st.secrets[f"junctions_{tolerance}"])
+    collisions = pd.read_csv(st.secrets[f"collisions_{tolerance}"])
+    map_annotations = pd.read_csv(st.secrets["map_annotations"])
 
     return junctions, collisions, map_annotations
 
@@ -289,7 +289,7 @@ st.set_page_config(layout="wide")
 st.markdown('# LCC - Dangerous Junctions')
 
 tolerance = st.radio(
-    label='Set tolerance (feature to be removed)',
+    label='Set tolerance for combining junctions in metres (to be removed)',
     options=[28, 30, 32, 35, 40]
 )
 
@@ -400,21 +400,23 @@ st.dataframe(
     .sort_values(by='date', ascending=False)
 )
 
-st.markdown('''
-    ---
 
-    ### Heatmap
-''')
+# OPTIONAL HEATMAP
+# st.markdown('''
+#     ---
 
-heatmap_points = collisions[['latitude', 'longitude', 'danger_metric']].dropna().values.tolist()
+#     ### Heatmap
+# ''')
 
-heatmap = folium.Map(
-    [collisions['latitude'].mean(), collisions['longitude'].mean()],
-    zoom_start=11,
-    tiles='https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png',
-    attr='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-)
+# heatmap_points = collisions[['latitude', 'longitude', 'danger_metric']].dropna().values.tolist()
 
-HeatMap(heatmap_points, max_opacity=1, radius=20, blur=10).add_to(heatmap)
+# heatmap = folium.Map(
+#     [collisions['latitude'].mean(), collisions['longitude'].mean()],
+#     zoom_start=11,
+#     tiles='https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png',
+#     attr='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+# )
 
-st_folium(heatmap, width=1200, height=600)
+# HeatMap(heatmap_points, max_opacity=1, radius=20, blur=10).add_to(heatmap)
+
+# st_folium(heatmap, width=1200, height=600)

@@ -130,3 +130,6 @@ dmypy.json
 
 # ignore mac ds store files
 .DS_Store
+
+# streamlit secrets
+.streamlit/secrets.toml
