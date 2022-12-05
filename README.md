@@ -38,7 +38,8 @@ To run and develop on this code:
 - Setup a virtual environment, e.g: ```python3 -m venv venv```
 - Activate the virtual environment: `source/venv/activate`
 - Install the packages using: `pip install -r requirements.txt`
-- Run the `process-dft-data.R` file to download and process the DfT data (you'll need to download the relevant R packages for this)
+- Run `Rscript src/01-format-data.R` file to download and format the DfT data (you'll need to download the relevant R packages for this)
+- Run `python src/02-filter-data.py` to filter the data to London etc.
 
 You should now be setup to run the notebooks in `notebooks/` and the streamlit app. The streamlit app locally can be done using: `streamlit run app.py` and navigating to the local host port.
 

@@ -1,0 +1,27 @@
+---
+  # min, max coordinates to define grid covering London area
+  min_latitude: 51.404683
+  max_latitude: 51.571305
+  min_longitude: -0.332720
+  max_longitude: 0.037394
+
+  # junction types to include from the junction_detail field
+  valid_junction_types: [
+    # 'Not at junction or within 20 metres',
+    'Other junction',
+    'Crossroads',
+    'T or staggered junction',
+    'More than 4 arms (not roundabout)',
+    # 'Private drive or entrance',
+    'Roundabout',
+    'Mini-roundabout',
+    'Slip road',
+    # 'Data missing or out of range',
+    # 'unknown (self reported)'
+  ]
+  
+  # tolerance level to determine which junctions to combine (in metres)
+  tolerance: 28
+
+  number_of_dangerous_collisions: 100
+  distance_to_junction_threshold: .001
