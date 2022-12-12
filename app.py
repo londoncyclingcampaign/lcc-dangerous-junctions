@@ -1,9 +1,8 @@
+import os
 import folium
-import geopandas
 import streamlit as st
 import numpy as np
 import pandas as pd
-import pydeck as pdk
 
 from scipy.stats import linregress
 from folium.plugins import BeautifyIcon, HeatMap
@@ -12,8 +11,12 @@ from streamlit_folium import st_folium, folium_static
 
 @st.experimental_memo
 def read_in_data(tolerance):
-    junctions = pd.read_csv(st.secrets[f"junctions_{tolerance}"])
-    collisions = pd.read_csv(st.secrets[f"collisions_{tolerance}"])
+    if os.getenv('WHEREAMI') == 'Daniels-MBP.broadband':
+        junctions = pd.read_csv(f'data/junctions-tolerance={tolerance}.csv')
+        collisions = pd.read_csv(f'data/collisions-tolerance={tolerance}.csv')
+    else:
+        junctions = pd.read_csv(st.secrets[f"junctions_{tolerance}"])
+        collisions = pd.read_csv(st.secrets[f"collisions_{tolerance}"])
     map_annotations = pd.read_csv(st.secrets["map_annotations"])
 
     return junctions, collisions, map_annotations
@@ -304,7 +307,7 @@ with col1:
         label='Number of dangerous junctions to show',
         min_value=0,
         max_value=100,  # not sure we'd ever need to view more then 100?
-        value=20,
+        value=20
     )
 
 with col3:
