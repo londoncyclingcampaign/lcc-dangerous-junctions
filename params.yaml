@@ -62,3 +62,27 @@
     "https://content.tfl.gov.uk/2011-gla-data-extract-casualty.csv",
     "https://content.tfl.gov.uk/2011-gla-data-extract-attendant.csv"
   ]
+
+  collision_columns:
+    collision_index:
+      - "arefno"
+      - "accident_ref"
+      - "collision_id"
+    borough:
+      - "borough"
+      - "borough_name"
+    easting:
+      - "easting"
+    northing:
+      - "northing"
+    location:
+      - "location"
+      - "collision_location"
+    collision_severity:
+      - "accident_severity"
+      - "collision_severity"
+    date:
+      - "accident_date"
+      - "collision_date"
+    time:
+      - "time"
