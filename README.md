@@ -8,6 +8,8 @@ Automatically identified junctions: [**interactive dangerous junctions map**](ht
 
 ## The Approach
 
+*__TODO__ - update this with new approach*
+
 The current method used to identify dangerous junctions works as follows:
 1. Filter to only 'severe' and 'fatal' collisions
 2. Weight collisions so more recent and severe ones are upweighted:
@@ -34,13 +36,14 @@ An interactive app with junctions identified with this approach is [here](https:
 
 To run and develop on this code:
 - Clone the repo
-- Make sure both R & Python* are installed
+- Make sure Python installed
 - Setup a virtual environment, e.g: ```python3 -m venv venv```
 - Activate the virtual environment: `source/venv/activate`
 - Install the packages using: `pip install -r requirements.txt`
-- Run `Rscript src/01-format-data.R` file to download and format the DfT data (you'll need to download the relevant R packages for this)
-- Run `python src/02-filter-data.py` to filter the data to London etc.
+- Run the following:
+    - `python src/01-download-tfl-data.R` file to download and format the TfL data
+    - `python src/02-filter-data.py` to filter the data to London etc.
+    - `python src/03-build-junctions-graph.py` to build junctions graph for London
+    - `python src/04-map-collisions-to-graph.py` to map collision data to the closest junction in the London junction graph
 
 You should now be setup to run the notebooks in `notebooks/` and the streamlit app. The streamlit app locally can be done using: `streamlit run app.py` and navigating to the local host port.
-
-'* - it's not ideal having both Python and R code in one project, but I wanted to make use of the [stats19 package](https://github.com/ropensci/stats19), which makes processing the DfT data a lot easier.
