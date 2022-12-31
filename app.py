@@ -1,9 +1,8 @@
+import os
 import folium
-import geopandas
 import streamlit as st
 import numpy as np
 import pandas as pd
-import pydeck as pdk
 
 from scipy.stats import linregress
 from folium.plugins import BeautifyIcon, HeatMap
@@ -12,8 +11,12 @@ from streamlit_folium import st_folium, folium_static
 
 @st.experimental_memo
 def read_in_data(tolerance):
-    junctions = pd.read_csv(st.secrets[f"junctions_{tolerance}"])
-    collisions = pd.read_csv(st.secrets[f"collisions_{tolerance}"])
+    if os.getenv('HOME') == '/Users/Dan':
+        junctions = pd.read_csv(f'data/junctions-tolerance={tolerance}.csv')
+        collisions = pd.read_csv(f'data/collisions-tolerance={tolerance}.csv')
+    else:
+        junctions = pd.read_csv(st.secrets[f"junctions_{tolerance}"])
+        collisions = pd.read_csv(st.secrets[f"collisions_{tolerance}"])
     map_annotations = pd.read_csv(st.secrets["map_annotations"])
 
     return junctions, collisions, map_annotations
@@ -24,9 +27,9 @@ def combine_junctions_and_collisions(junctions, collisions, min_year, max_year, 
         junctions
         .merge(
             collisions[
-                (collisions['accident_year'] >= min_year) &
-                (collisions['accident_year'] <= max_year) &
-                (collisions['local_authority_district'].isin(boroughs))
+                (collisions['year'] >= min_year) &
+                (collisions['year'] <= max_year) &
+                (collisions['borough'].isin(boroughs))
             ],
             how='left',
             on=['junction_id', 'junction_index']
@@ -37,7 +40,7 @@ def combine_junctions_and_collisions(junctions, collisions, min_year, max_year, 
 
 
 def get_all_year_df(junction_collisions):
-    all_years = junction_collisions[['accident_year']].dropna().drop_duplicates()
+    all_years = junction_collisions[['year']].dropna().drop_duplicates()
     all_clusters = junction_collisions[['junction_cluster_id']].dropna().drop_duplicates()
     all_years['key'] = 0
     all_clusters['key'] = 0
@@ -58,7 +61,7 @@ def calculate_metric_trajectories(junction_collisions, dangerous_junctions):
 
     yearly_stats = (
         filtered_junction_collisions
-        .groupby(['junction_cluster_id', 'accident_year'])['danger_metric']
+        .groupby(['junction_cluster_id', 'year'])['danger_metric']
         .sum()
         .reset_index()
     )
@@ -68,10 +71,10 @@ def calculate_metric_trajectories(junction_collisions, dangerous_junctions):
         .merge(
             yearly_stats,
             how='left',
-            on=['accident_year', 'junction_cluster_id']
+            on=['year', 'junction_cluster_id']
         )
         .fillna(0)
-        .sort_values(by=['junction_cluster_id', 'accident_year'])
+        .sort_values(by=['junction_cluster_id', 'year'])
     )
 
     yearly_stats['rolling_danger_metric'] = (
@@ -83,7 +86,7 @@ def calculate_metric_trajectories(junction_collisions, dangerous_junctions):
     trajectories = (
         yearly_stats
         .groupby(['junction_cluster_id'])
-        .apply(lambda x: linregress(x['accident_year'], x['danger_metric'])[0])
+        .apply(lambda x: linregress(x['year'], x['danger_metric'])[0])
         .reset_index(name='danger_metric_trajectory')
     )
 
@@ -292,7 +295,7 @@ st.markdown('# LCC - Dangerous Junctions')
 
 tolerance = st.radio(
     label='Set tolerance for combining junctions in metres (to be removed)',
-    options=[28, 30, 32, 35, 40]
+    options=[25, 28, 30]
 )
 
 junctions, collisions, annotations = read_in_data(tolerance)
@@ -304,7 +307,7 @@ with col1:
         label='Number of dangerous junctions to show',
         min_value=0,
         max_value=100,  # not sure we'd ever need to view more then 100?
-        value=20,
+        value=20
     )
 
 with col3:
@@ -317,7 +320,7 @@ with col3:
 
 available_boroughs = sorted(
     list(
-        collisions['local_authority_district'].dropna().unique()
+        collisions['borough'].dropna().unique()
     )
 )
 
@@ -337,7 +340,6 @@ dangerous_junctions = calculate_dangerous_junctions(junction_collisions, n_junct
 filtered_annotations = annotations[
     annotations['borough'].isin(boroughs)
 ]
-
 
 # set default to worst junction...
 chosen_point = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
@@ -388,7 +390,6 @@ output_cols = [
     'junction_cluster_id',
     'id',
     'date',
-    'police_force',
     'max_cyclist_severity',
     'fatal_cyclist_casualties',
     'serious_cyclist_casualties',

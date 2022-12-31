@@ -6,22 +6,66 @@
   max_longitude: 0.037394
 
   # junction types to include from the junction_detail field
-  valid_junction_types: [
-    # 'Not at junction or within 20 metres',
-    'Other junction',
-    'Crossroads',
-    'T or staggered junction',
-    'More than 4 arms (not roundabout)',
-    # 'Private drive or entrance',
-    'Roundabout',
-    'Mini-roundabout',
-    'Slip road',
-    # 'Data missing or out of range',
-    # 'unknown (self reported)'
-  ]
+  valid_junction_types:
+    # - no_junction_in_20m
+    - roundabout
+    - mini_roundabout
+    - t_or_staggered_junction
+    - slip_road
+    - crossroads
+    - multi_junction
+    # - private_drive
+    - other_junction
+    - unknown
   
   # tolerance level to determine which junctions to combine (in metres)
-  tolerance: 28
+  tolerance: 30
 
   number_of_dangerous_collisions: 100
   distance_to_junction_threshold: .001
+
+  # links to TfL csv data - shame they couldn't have chosen a consistent pattern!!
+  data_links:
+    - "https://content.tfl.gov.uk/jan-dec-2021-gla-data-extract-casualty.csv"
+    - "https://content.tfl.gov.uk/jan-dec-2021-gla-data-extract-attendant.csv"
+    - "https://content.tfl.gov.uk/2020-gla-data-extract-casualty.csv"
+    - "https://content.tfl.gov.uk/2020-gla-data-extract-attendant.csv"
+    - "https://content.tfl.gov.uk/2019-gla-data-extract-attendant.csv"
+    - "https://content.tfl.gov.uk/2019-gla-data-extract-casualty.csv"
+    - "https://content.tfl.gov.uk/2018-data-files-casualty.csv"
+    - "https://content.tfl.gov.uk/2018-data-files-attendant.csv"
+    - "https://content.tfl.gov.uk/2017-data-casualty.csv"
+    - "https://content.tfl.gov.uk/2017-data-attendant.csv"
+    - "https://content.tfl.gov.uk/2016-gla-data-extract-casualty.csv"
+    - "https://content.tfl.gov.uk/2016-gla-data-extract-attendant.csv"
+    - "https://content.tfl.gov.uk/2015-gla-data-extract-casualty.csv"
+    - "https://content.tfl.gov.uk/2015-gla-data-extract-attendant.csv"
+    - "https://content.tfl.gov.uk/2014-gla-data-extract-casualty.csv"
+    - "https://content.tfl.gov.uk/2014-gla-data-extract-attendant.csv"
+    - "https://content.tfl.gov.uk/2013-gla-data-extract-casualty.csv"
+    - "https://content.tfl.gov.uk/2013-gla-data-extract-attendant.csv"
+    - "https://content.tfl.gov.uk/2012-gla-data-extract-casualty.csv"
+    - "https://content.tfl.gov.uk/2012-gla-data-extract-attendant.csv"
+    - "https://content.tfl.gov.uk/2011-gla-data-extract-casualty.csv"
+    - "https://content.tfl.gov.uk/2011-gla-data-extract-attendant.csv"
+
+  # columns required from raw data
+  collision_columns:
+    - collision_id
+    - borough
+    - easting
+    - northing
+    - location
+    - collision_severity
+    - junction_detail
+    - date
+    - time
+
+  casualty_columns:
+    - collision_id
+    - casualty_id
+    - casualty_class
+    - number_of_casualties
+    - casualty_severity
+    - mode_of_travel
+      
