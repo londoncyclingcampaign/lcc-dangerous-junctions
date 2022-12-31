@@ -34,15 +34,15 @@ def main():
     # collisions = collisions[collisions['max_cyclist_severity'] != 'slight']
 
     # loop through tolerance options.
-    for tolerance in [28, 30, 32, 35, 40]:
+    for tolerance in [25, 28, 30]:
 
         print(f'tolerance={tolerance}')
 
         # read in data
         collisions = (
             pd
-            .read_csv('data/collision-data/london-crashes.csv')
-            .rename(columns={'accident_index': 'id'})
+            .read_csv('data/cycling-collisions.csv')
+            .rename(columns={'collision_id': 'id'})
         )
         collisions = collisions[collisions['max_cyclist_severity'] != 'slight']
 
@@ -93,7 +93,6 @@ def main():
         junction_stats['scaled_metric'] = (
             junction_stats['recency_danger_metric'] / junction_stats['slight_cyclist_casualties']
         )
-
 
         collisions = collisions[
             collisions['distance_to_junction'] <= distance_threshold

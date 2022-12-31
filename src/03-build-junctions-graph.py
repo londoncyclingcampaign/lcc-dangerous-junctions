@@ -3,7 +3,6 @@ This script is based on notebooks/junctions-graph.ipynb
 It builds a graph of London junctions, simplifies this and then creates a dataset for this.
 """
 import yaml
-import geopandas
 import pandas as pd
 import osmnx as ox
 
@@ -41,7 +40,7 @@ def main():
     )
 
     # loop through tolerance options.
-    for tolerance in [28, 30, 32, 35, 40]:
+    for tolerance in [25, 28, 30]:
         print(f'tolerance={tolerance}')
 
         # simplify graph using the consolidate_intersections()
@@ -143,7 +142,7 @@ def main():
             )
         )
 
-        print('Outputing data: data/junctions-tolerance={tolerance}.csv')
+        print(f'Outputing data: data/junctions-tolerance={tolerance}.csv')
         df.to_csv(f'data/junctions-tolerance={tolerance}.csv', index=False)
 
 
