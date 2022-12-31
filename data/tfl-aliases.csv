@@ -1,0 +1,101 @@
+type,consistent_name,alias
+column,collision_id,AREFNO
+column,collision_id,Accident Ref.
+column,collision_id,Accident Ref
+column,collision_id,_Collision Id
+column,borough,Borough
+column,borough,Borough Name
+column,easting,Easting
+column,northing,Northing
+column,location,Location
+column,location,Collision Location
+column,collision_severity,Accident Severity
+column,collision_severity,_Collision Severity
+column,junction_detail,Junction Detail
+column,date,Accident Date
+column,date,_Collision Date
+column,time,Time
+column,casualty_id,CREFNO
+column,casualty_id,_Casualty Id
+column,casualty_class,Casualty Class
+column,casualty_class,_Casualty Class
+column,number_of_casualties,No. of Casualties
+column,number_of_casualties,_Casualty Count
+column,casualty_severity,Casualty Severity
+column,casualty_severity,_Casualty Severity
+column,mode_of_travel,Casualty Mode of Travel
+column,mode_of_travel,Mode of Travel
+value,fatal,1 FATAL
+value,fatal,1 Fatal
+value,fatal,Fatal
+value,serious,2 SERIOUS
+value,serious,2 Serious
+value,serious,Serious
+value,slight,3 Slight
+value,slight,3 SLIGHT
+value,slight,Slight
+value,no_junction_in_20m,0 No Jun In 20m
+value,no_junction_in_20m,00 NO JUN IN 20M
+value,no_junction_in_20m,No Jun In 20m
+value,roundabout,1 Roundabout
+value,roundabout,01 ROUNDABOUT
+value,roundabout,Roundabout
+value,mini_roundabout,2 Mini
+value,mini_roundabout,02 MINI
+value,mini_roundabout,Mini
+value,t_or_staggered_junction,3 T/Stag Jun
+value,t_or_staggered_junction,03 T/STAG JUN
+value,t_or_staggered_junction,T/Stag Jun
+value,slip_road,5 Slip Road
+value,slip_road,05 SLIP ROAD
+value,slip_road,Slip Road
+value,crossroads,6 Crossroads
+value,crossroads,06 CROSSROADS
+value,crossroads,Croassroads
+value,multi_junction,7 Multi Jun
+value,multi_junction,07 MULTI JUN
+value,multi_junction,Multi Jun
+value,private_drive,8 Priv Drive
+value,private_drive,08 PRIV DRIVE
+value,private_drive,Priv Drive
+value,other_junction,9 Other Jun
+value,other_junction,09 OTHER JUN
+value,other_junction,Other Jun
+value,unknown,99 Unknown (S/R)
+value,unknown,99 UNKNOWN (S/R)
+value,unknown,Unknown (S/R)
+value,driver_or_rider,1 DRIVER/RIDER
+value,driver_or_rider,1 Driver/Rider
+value,driver_or_rider,Driver/Rider
+value,passenger,2 PASSENGER
+value,passenger,2 Passenger
+value,passenger,Passenger
+value,pedestrian,3 PEDESTRIAN
+value,pedestrian,3 Pedestrian
+value,pedestrian,Pedestrian
+value,pedestrian,1 PEDESTRIAN
+value,pedestrian,1 Pedestrian
+value,pedestrian,Pedestrian
+value,pedal_cycle,2 PEDAL CYCLE
+value,pedal_cycle,2 Pedal Cycle
+value,pedal_cycle,Pedal Cycle
+value,powered_2_wheeler,3 POWERED 2 WHEELER
+value,powered_2_wheeler,3 Powered 2 Wheeler
+value,powered_2_wheeler,Powered 2 Wheeler
+value,car,4 CAR
+value,car,4 Car
+value,car,Car
+value,taxi,5 TAXI
+value,taxi,5 Taxi
+value,taxi,Taxi
+value,bus_or_coach,6 BUS OR COACH
+value,bus_or_coach,6 Bus Or Coach
+value,bus_or_coach,Bus Or Coach
+value,goods_vehicle,7 GOODS VEHICLE
+value,goods_vehicle,7 Goods Vehicle
+value,goods_vehicle,Goods Vehicle
+value,other_vehicle,8 OTHER VEHICLE
+value,other_vehicle,8 Other Vehicle
+value,other_vehicle,Other Vehicle
+value,private_hire,9 PRIVATE HIRE
+value,private_hire,Private Hire
