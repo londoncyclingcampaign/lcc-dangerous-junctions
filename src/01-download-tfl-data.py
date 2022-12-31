@@ -160,8 +160,8 @@ def main():
     print(casualties.head())
 
     # output data
-    collisions.to_csv('data/tfl-collisions.csv', index=False)
-    casualties.to_csv('data/tfl-casualties.csv', index=False)
+    collisions.to_csv('data/collisions.csv', index=False)
+    casualties.to_csv('data/casualties.csv', index=False)
 
 
 if __name__ == "__main__":

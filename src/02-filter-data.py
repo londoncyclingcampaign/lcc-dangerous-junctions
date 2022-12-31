@@ -105,8 +105,8 @@ def main():
     params = yaml.load(open("params.yaml", 'r'), Loader=Loader)
 
     print('Reading in data')
-    collisions = pd.read_csv('data/tfl-collisions.csv', low_memory=False)
-    casualties = pd.read_csv('data/tfl-casualties.csv', low_memory=False)
+    collisions = pd.read_csv('data/collisions.csv', low_memory=False)
+    casualties = pd.read_csv('data/casualties.csv', low_memory=False)
 
     # filter to junctions
     print('Filter to Junctions')
