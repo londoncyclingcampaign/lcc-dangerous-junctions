@@ -42,7 +42,7 @@ def main():
         collisions = (
             pd
             .read_csv('data/cycling-collisions.csv')
-            .rename(columns={'collision_id': 'id'})
+            .rename(columns={'collision_id': 'collision_index'})
         )
         collisions = collisions[collisions['max_cyclist_severity'] != 'slight']
 
