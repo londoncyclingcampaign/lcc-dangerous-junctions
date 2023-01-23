@@ -99,7 +99,7 @@ def main():
         # Combine datasets
         df = df_lower.merge(
             df_higher,
-            how='left',
+            how='inner',
             on='osmid_original',
             suffixes=['_original', '_cluster']
         )
