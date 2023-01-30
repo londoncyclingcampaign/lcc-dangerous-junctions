@@ -34,7 +34,7 @@ def main():
     # collisions = collisions[collisions['max_cyclist_severity'] != 'slight']
 
     # loop through tolerance options.
-    for tolerance in [25, 28, 30]:
+    for tolerance in [15]:
 
         print(f'tolerance={tolerance}')
 
@@ -46,7 +46,7 @@ def main():
         )
         collisions = collisions[collisions['max_cyclist_severity'] != 'slight']
 
-        junctions = pd.read_csv(f'data/junctions-tolerance={tolerance}.csv')
+        junctions = pd.read_csv(f'data/junctions-tolerance={tolerance}.csv', low_memory=False)
 
         # Find nearest junction to each collision
         # Use BallTree algorithm.
