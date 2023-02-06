@@ -4,6 +4,7 @@ It builds a graph of London junctions, simplifies this and then creates a datase
 """
 import yaml
 import pandas as pd
+import numpy as np
 import osmnx as ox
 
 from yaml import Loader
@@ -13,7 +14,7 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
-def convert_strings_list(x):
+def convert_strings_list(x: str) -> list:
     '''
     Function to convert a list stored in a string to a list.
     '''
@@ -21,6 +22,101 @@ def convert_strings_list(x):
         return [x]
     else:
         return x.strip('][').split(', ')
+
+
+def combine_names(names) -> list:
+    '''
+    Takes a list of names, flattens them and returns unique list
+    '''
+    if type(names) == str:
+        return [names]
+    
+    flat_names = []
+    for n in names:
+        if type(n) == list:
+            for m in n:
+                flat_names.append(m)
+        else:
+            flat_names.append(n)
+    
+    unique_names = list(set(flat_names))
+
+    return unique_names
+
+
+def list_to_string_name(names: list) -> str:
+    '''
+    Convert list of names for junction to a string
+    '''
+    names = [name for name in names if (name != '') & (name == name)]
+        
+    name = '-'.join(names)
+    if name == '':
+        name = 'Unknown'
+    return name
+
+
+def name_junctions(lower_level_graph, nodes_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Create names for junctions using the edge names from graph
+    """
+    junction_names = (
+        ox
+        .graph_to_gdfs(lower_level_graph, nodes=False)
+        .reset_index()
+        [['u', 'name']]
+        .fillna('')
+    )
+
+    junction_names['name'] = junction_names['name'].apply(combine_names)
+
+    nodes_df = nodes_df.merge(
+        junction_names,
+        how='left',
+        left_on='junction_id',
+        right_on='u'
+    )
+
+    cluster_names = (
+        nodes_df
+        .groupby('junction_cluster_id')['name']
+        .apply(combine_names)
+        .reset_index()
+    )
+
+    nodes_df = nodes_df.merge(
+        cluster_names,
+        how='left',
+        on='junction_cluster_id',
+        suffixes=['', '_cluster']
+    )
+
+    nodes_df['junction_cluster_name'] = nodes_df['name_cluster'].apply(list_to_string_name)
+
+    nodes_df['name_rank'] = (
+        nodes_df
+        .groupby(['junction_cluster_name'])['junction_cluster_id']
+        .transform('rank', method='dense')
+    )
+
+    nodes_df['name_max_rank'] = (
+        nodes_df
+        .groupby(['junction_cluster_name'])['name_rank']
+        .transform('max')
+    )
+
+    nodes_df['junction_cluster_name'] = np.where(
+        nodes_df['name_max_rank'] == 1,
+        nodes_df['junction_cluster_name'],
+        nodes_df['junction_cluster_name'] + '-' + nodes_df['name_rank'].astype(int).astype(str)
+    )
+
+    nodes_df.drop(columns=['name', 'u', 'name_rank', 'name_cluster'], inplace=True)
+
+    # finally, drop dups
+    nodes_df = nodes_df.drop_duplicates()
+
+    return nodes_df
 
 
 def main():
@@ -33,11 +129,17 @@ def main():
     # build initial junctions graph
     print('Building initial junction graph')
     G1 = ox.graph_from_place(
-        'London, UK',
+        'Greater London, UK',  # critical to use greater london, the city of London is not included otherwsie!!
         network_type='drive',
         simplify=True,
         clean_periphery=True
     )
+    # for testing use:
+    # G1 = ox.graph_from_address(
+    #     'Greater London, UK',
+    #     network_type='drive',
+    #     dist=1000
+    # )
 
     # loop through tolerance options.
     for tolerance in [18, 20, 22]:
@@ -62,7 +164,7 @@ def main():
                 node_geometry=True,
                 fill_edge_geometry=False
             )
-            .drop(columns=['highway', 'street_count', 'ref'])
+            .drop(columns=['highway', 'street_count'])
             .reset_index()
             .rename(columns={'y': 'lat', 'x': 'lon', 'osmid': 'osmid_original'})
         )
@@ -91,15 +193,14 @@ def main():
         df_higher = (
             df_higher
             .reset_index()
-            .drop(columns=['x', 'y', 'street_count', 'highway', 'lon', 'lat', 'ref'])
+            .drop(columns=['x', 'y', 'street_count', 'highway', 'lon', 'lat'])
             .rename(columns={'osmid': 'osmid_cluster'})
         )
-
 
         # Combine datasets
         df = df_lower.merge(
             df_higher,
-            how='left',
+            how='inner',
             on='osmid_original',
             suffixes=['_original', '_cluster']
         )
@@ -141,6 +242,10 @@ def main():
                 }
             )
         )
+
+        # finally, name junctions
+        print('Naming junctions')
+        df = name_junctions(G1, df)
 
         print(f'Outputing data: data/junctions-tolerance={tolerance}.csv')
         df.to_csv(f'data/junctions-tolerance={tolerance}.csv', index=False)

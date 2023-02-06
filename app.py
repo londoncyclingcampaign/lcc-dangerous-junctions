@@ -12,11 +12,23 @@ from streamlit_folium import st_folium, folium_static
 @st.experimental_memo
 def read_in_data(tolerance):
     if os.getenv('HOME') == '/Users/Dan':
-        junctions = pd.read_csv(f'data/junctions-tolerance={tolerance}.csv')
-        collisions = pd.read_csv(f'data/collisions-tolerance={tolerance}.csv')
+        junctions = pd.read_csv(
+            f'data/junctions-tolerance={tolerance}.csv',
+            low_memory=False
+        )
+        collisions = pd.read_csv(
+            f'data/collisions-tolerance={tolerance}.csv',
+            low_memory=False
+        )
     else:
-        junctions = pd.read_csv(st.secrets[f"junctions_{tolerance}"])
-        collisions = pd.read_csv(st.secrets[f"collisions_{tolerance}"])
+        junctions = pd.read_csv(
+            st.secrets[f"junctions_{tolerance}"],
+            low_memory=False
+        )
+        collisions = pd.read_csv(
+            st.secrets[f"collisions_{tolerance}"],    
+            low_memory=False
+        )
     map_annotations = pd.read_csv(st.secrets["map_annotations"])
 
     return junctions, collisions, map_annotations
@@ -102,6 +114,7 @@ def calculate_metric_trajectories(junction_collisions, dangerous_junctions):
 
 def create_junction_labels(row):
     cluster_id = int(row['junction_cluster_id'])
+    junction_name = row['junction_cluster_name']
     rank = int(row['junction_rank'])
     recency_metric = np.round(row['recency_danger_metric'], 2)
     trajectory = np.round(row['danger_metric_trajectory'], 2)
@@ -116,6 +129,7 @@ def create_junction_labels(row):
         trajectory_colour = 'black'
 
     label = f"""
+        <h3>{junction_name}<h3>
         <h3>Cluster: {cluster_id}</h3>
         Dangerous Junction Rank: <b>{rank}</b> <br>
         Recency Danger Metric: <b>{recency_metric}</b> <br>
@@ -135,7 +149,7 @@ def calculate_dangerous_junctions(junction_collisions, n_junctions):
     ]
     dangerous_junctions = (
         junction_collisions
-        .groupby(['junction_cluster_id', 'latitude_cluster', 'longitude_cluster'])[agg_cols]
+        .groupby(['junction_cluster_id', 'junction_cluster_name', 'latitude_cluster', 'longitude_cluster'])[agg_cols]
         .sum()
         .reset_index()
         .sort_values(by=['recency_danger_metric', 'fatal_cyclist_casualties'], ascending=[False, False])
@@ -206,8 +220,8 @@ def high_level_map(dangerous_junctions, map_data, annotations):
                 }
                 </style>
             ''' + label,
-            width=200,
-            height=160
+            width=250,
+            height=250
         )
         marker = folium.Marker(
             location=[lat, lon],
@@ -392,6 +406,7 @@ output_cols = [
     'collision_index',
     'junction_id',
     'junction_cluster_id',
+    'id',
     'date',
     'location',
     'max_cyclist_severity',

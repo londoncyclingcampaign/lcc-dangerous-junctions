@@ -46,7 +46,7 @@ def main():
         )
         collisions = collisions[collisions['max_cyclist_severity'] != 'slight']
 
-        junctions = pd.read_csv(f'data/junctions-tolerance={tolerance}.csv')
+        junctions = pd.read_csv(f'data/junctions-tolerance={tolerance}.csv', low_memory=False)
 
         # Find nearest junction to each collision
         # Use BallTree algorithm.
