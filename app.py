@@ -34,19 +34,21 @@ def read_in_data(tolerance):
     return junctions, collisions, map_annotations
 
 
-def combine_junctions_and_collisions(junctions, collisions, min_year, max_year, boroughs):
+def combine_junctions_and_collisions(junctions, collisions, min_year, max_year, borough):
     junction_collisions = (
         junctions
         .merge(
             collisions[
                 (collisions['year'] >= min_year) &
-                (collisions['year'] <= max_year) &
-                (collisions['borough'].isin(boroughs))
+                (collisions['year'] <= max_year)
             ],
             how='left',
             on=['junction_id', 'junction_index']
         )
     )
+
+    if borough != 'All':
+        junction_collisions = junction_collisions[junction_collisions['borough'] == borough]
 
     return junction_collisions
 
@@ -309,7 +311,8 @@ st.markdown('# LCC - Dangerous Junctions')
 
 tolerance = st.radio(
     label='Set tolerance for combining junctions in metres (to be removed)',
-    options=[18, 20, 22]
+    options=[18, 20, 22],
+    index=2
 )
 
 junctions, collisions, annotations = read_in_data(tolerance)
@@ -339,21 +342,21 @@ available_boroughs = sorted(
 )
 
 with col5:
-    boroughs = st.multiselect(
+    borough = st.selectbox(
         label='Filter by borough',
         options=['All'] + available_boroughs,
-        default=['All']
+        index=0
     )
-    if "All" in boroughs:
-        boroughs = available_boroughs
 
-
-junction_collisions = combine_junctions_and_collisions(junctions, collisions, min_year, max_year, boroughs)
+junction_collisions = combine_junctions_and_collisions(junctions, collisions, min_year, max_year, borough)
 dangerous_junctions = calculate_dangerous_junctions(junction_collisions, n_junctions)
 
-filtered_annotations = annotations[
-    annotations['borough'].isin(boroughs)
-]
+if borough != 'All':
+    filtered_annotations = annotations[
+        annotations['borough'] == borough
+    ]
+else:
+    filtered_annotations = annotations
 
 # set default to worst junction...
 chosen_point = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
@@ -400,21 +403,21 @@ st.markdown('''
     Individual collision data for chosen junction above.
 ''')
 output_cols = [
+    'collision_index',
     'junction_id',
     'junction_cluster_id',
-    'location',
     'id',
     'date',
+    'location',
     'max_cyclist_severity',
     'fatal_cyclist_casualties',
     'serious_cyclist_casualties',
-    'slight_cyclist_casualties',
     'danger_metric',
     'recency_danger_metric'
 ]
 st.dataframe(
     low_junction_collisions[output_cols]
-    .dropna(subset=['id'])
+    .dropna(subset=['collision_index'])
     .sort_values(by='date', ascending=False)
 )
 

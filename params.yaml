@@ -51,7 +51,7 @@
 
   # columns required from raw data
   collision_columns:
-    - collision_id
+    - raw_collision_id
     - borough
     - easting
     - northing
@@ -62,7 +62,7 @@
     - time
 
   casualty_columns:
-    - collision_id
+    - raw_collision_id
     - casualty_id
     - casualty_class
     - number_of_casualties

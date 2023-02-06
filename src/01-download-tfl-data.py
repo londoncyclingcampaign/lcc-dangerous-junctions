@@ -36,6 +36,15 @@ def format_name(name: str) -> str:
     return name
 
 
+def clean_collision_id(raw_collision_id: str, year: int) -> str:
+    """
+    Make TfL collision ids match the stats19 ones
+    """
+    collision_id = str(year)[0:2] + str(raw_collision_id)[-9:]
+    collision_id = str(collision_id)
+    return collision_id
+
+
 def format_category(val: str, categories: list) -> str:
     """
     Format category names to be consistent
@@ -131,6 +140,10 @@ def main():
     )
     collisions['year'] = collisions['date'].dt.year
 
+    collisions['collision_id'] = collisions.apply(
+        lambda row: clean_collision_id(row['raw_collision_id'], row['year']), axis=1
+    )
+
     collisions['time'] = collisions['time'].apply(format_time)
     collisions['time'] = pd.to_datetime(collisions['time']).dt.time
 
@@ -153,6 +166,13 @@ def main():
         casualty_links,
         casualty_cols,
         column_aliases
+    )
+
+    # join to get the valid collision id from collision data
+    casualties = casualties.merge(
+        collisions[['raw_collision_id', 'collision_id']],
+        how='inner',
+        on='raw_collision_id'
     )
 
     casualties.replace(value_aliases, inplace=True)

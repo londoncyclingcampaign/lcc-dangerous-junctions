@@ -118,7 +118,7 @@ def main():
         casualties['mode_of_travel'] == 'pedal_cycle'
     ]['collision_id'].unique()
 
-    print(f'Filter to cyclist collisiions, {len(cyclist_crash_ids)} crash IDs in data')
+    print(f'Filter to cyclist collisions, {len(cyclist_crash_ids)} crash IDs in data')
 
     collisions = collisions[collisions.collision_id.isin(cyclist_crash_ids)]
     casualties = casualties[casualties.collision_id.isin(cyclist_crash_ids)]

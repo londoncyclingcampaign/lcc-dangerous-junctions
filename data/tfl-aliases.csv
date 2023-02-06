@@ -1,8 +1,8 @@
 type,consistent_name,alias
-column,collision_id,AREFNO
-column,collision_id,Accident Ref.
-column,collision_id,Accident Ref
-column,collision_id,_Collision Id
+column,raw_collision_id,AREFNO
+column,raw_collision_id,Accident Ref.
+column,raw_collision_id,Accident Ref
+column,raw_collision_id,_Collision Id
 column,borough,Borough
 column,borough,Borough Name
 column,easting,Easting
