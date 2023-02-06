@@ -309,7 +309,7 @@ st.markdown('# LCC - Dangerous Junctions')
 
 tolerance = st.radio(
     label='Set tolerance for combining junctions in metres (to be removed)',
-    options=[15, 18, 20, 22]
+    options=[18, 20, 22]
 )
 
 junctions, collisions, annotations = read_in_data(tolerance)
@@ -402,6 +402,7 @@ st.markdown('''
 output_cols = [
     'junction_id',
     'junction_cluster_id',
+    'location',
     'id',
     'date',
     'max_cyclist_severity',

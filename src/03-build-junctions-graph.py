@@ -129,20 +129,20 @@ def main():
     # build initial junctions graph
     print('Building initial junction graph')
     G1 = ox.graph_from_place(
-        'London, UK',
+        'Greater London, UK',  # critical to use greater london, the city of London is not included otherwsie!!
         network_type='drive',
         simplify=True,
         clean_periphery=True
     )
     # for testing use:
     # G1 = ox.graph_from_address(
-    #     'London, UK',
+    #     'Greater London, UK',
     #     network_type='drive',
     #     dist=1000
     # )
 
     # loop through tolerance options.
-    for tolerance in [20]:
+    for tolerance in [18, 20, 22]:
         print(f'tolerance={tolerance}')
 
         # simplify graph using the consolidate_intersections()
@@ -244,7 +244,8 @@ def main():
         )
 
         # finally, name junctions
-        # df = name_junctions(G1, df)
+        print('Naming junctions')
+        df = name_junctions(G1, df)
 
         print(f'Outputing data: data/junctions-tolerance={tolerance}.csv')
         df.to_csv(f'data/junctions-tolerance={tolerance}.csv', index=False)
