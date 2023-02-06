@@ -34,7 +34,7 @@ def main():
     # collisions = collisions[collisions['max_cyclist_severity'] != 'slight']
 
     # loop through tolerance options.
-    for tolerance in [20, 22]:
+    for tolerance in [18, 20, 22]:
 
         print(f'tolerance={tolerance}')
 
