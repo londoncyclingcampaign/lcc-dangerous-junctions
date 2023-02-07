@@ -403,10 +403,10 @@ st.markdown('''
     Individual collision data for chosen junction above.
 ''')
 output_cols = [
-    'collision_index',
+    'id',
+    # 'collision_index',  # need to add back in when available
     'junction_id',
     'junction_cluster_id',
-    'id',
     'date',
     'location',
     'max_cyclist_severity',
