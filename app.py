@@ -1,6 +1,6 @@
 import streamlit as st
 
-from app_functions import *
+from src.app_functions import *
 from streamlit_folium import st_folium
 
 
