@@ -3,9 +3,11 @@ import folium
 import streamlit as st
 import numpy as np
 import pandas as pd
+import seaborn as sns
 
 from scipy.stats import linregress
-from folium.plugins import BeautifyIcon, HeatMap
+from folium.features import DivIcon
+from folium.plugins import BeautifyIcon
 from streamlit_folium import st_folium, folium_static
 
 
@@ -188,26 +190,41 @@ def calculate_dangerous_junctions(junction_collisions: pd.DataFrame, n_junctions
     return dangerous_junctions
 
 
-def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, annotations: pd.DataFrame) -> folium.Map:
+def get_html_colors(n: int) -> list:
+    """
+    Function to get n html colour codes along a continuous gradient
+    """
+    p = sns.color_palette("flare_r", n)
+    p.as_hex()
+    
+    p = [[int(i * 255) for i in c] for c in p[:]]
+    html_p = ["#{0:02x}{1:02x}{2:02x}".format(c[0], c[1], c[2]) for c in p[:]]
+    
+    return html_p
+
+
+def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, annotations: pd.DataFrame, n_junctions: int) -> folium.Map:
     """
     Function to generate the junction map
 
     TODO - split this out into separate functions.
     """
 
-#     m = folium.Map(
-#         tiles='https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png',
-#         attr='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-#     )
-    m = folium.Map()
+    # m = folium.Map(
+    #     tiles='https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png',
+    #     attr='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+    # )
+    m = folium.Map(tiles='cartodbpositron')
 
     map_data = map_data[
         map_data['junction_cluster_id'].isin(dangerous_junctions['junction_cluster_id'])
     ]
 
+    pal = get_html_colors(n_junctions)
+
     # add annotation layer
-    cols = ['latitude', 'longitude', 'map_label', 'label_icon', 'colour']
-    for lat, lon, label, icon, colour in annotations[cols].values:
+    cols = ['latitude', 'longitude', 'map_label', 'colour']
+    for lat, lon, label, colour in annotations[cols].values:
         iframe = folium.IFrame(
             html='''
                 <style>
@@ -220,24 +237,27 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, an
             width=200,
             height=50
         )
-        marker = folium.Marker(
+        folium.CircleMarker(
             location=[lat, lon],
-            popup=folium.Popup(iframe)
+            radius=4,    
+            color=colour,
+            fill_color=colour,
+            fill_opacity=1
         ).add_to(m)
-        BeautifyIcon(
-            icon=icon,
-            icon_size=[15, 15],
-            # icon_anchor=[0, 10],
-            icon_shape='circle',
-            background_color='transparent',
-            border_color='transparent'
-        ).add_to(marker)
+        folium.Marker(
+            location=[lat, lon],
+            popup=folium.Popup(iframe),
+            icon=DivIcon(
+                icon_size=(30,30),
+                icon_anchor=(3,7),
+                html='<div style="font-size: 7pt; font-family: monospace; color: white">I</div>',
+            ),
+        ).add_to(m)
 
     # add junction markers
-    cols = ['junction_cluster_id', 'latitude_cluster', 'longitude_cluster', 'label']
-    # map_points = map_data[cols].drop_duplicates().values
+    cols = ['latitude_cluster', 'longitude_cluster', 'label', 'junction_rank']
 
-    for cluster_id, lat, lon, label in dangerous_junctions[cols].values:
+    for lat, lon, label, rank in dangerous_junctions[cols].values[::-1]:
         iframe = folium.IFrame(
             html='''
                 <style>
@@ -250,22 +270,31 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, an
             width=250,
             height=250
         )
-        marker = folium.Marker(
+        folium.CircleMarker(
             location=[lat, lon],
-            popup=folium.Popup(iframe)
+            radius=10,
+            color=pal[rank - 1],
+            fill_color=pal[rank - 1],
+            fill_opacity=1,
+            z_index_offset=1000 + (100 - rank)
         ).add_to(m)
-        BeautifyIcon(
-            icon='exclamation',
-            icon_size=[20, 20],
-            icon_anchor=[10, 10],
-            icon_shape='circle',
-            background_color='#9B59B6',
-            border_color='#9B59B6',
-            font_color='white'
-        ).add_to(marker)
+
+        if rank < 10:
+            i = 3
+        else:
+            i = 8
+        folium.Marker(
+            location=[lat, lon],
+            popup=folium.Popup(iframe),
+            icon=DivIcon(
+                icon_size=(30,30),
+                icon_anchor=(i,11),
+                html=f'<div style="font-size: 10pt; font-family: monospace; color: white">%s</div>' % str(rank),
+            ),
+            z_index_offset=1000 + (100 - rank)
+        ).add_to(m)
 
     # adjust map bounds
-
     sw = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].min().values.tolist()
     ne = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].max().values.tolist()
     m.fit_bounds([sw, ne])
@@ -273,33 +302,39 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, an
     return m
 
 
-def low_level_map(map_data: pd.DataFrame) -> folium.Map:
+def low_level_map(map_data: pd.DataFrame, junction_rank: int, n_junctions: int) -> folium.Map:
     """
     Function to generate the lower level collision map
 
     TODO - split this out into separate functions.
     """
-#     m = folium.Map(
-#         tiles='https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png',
-#         attr='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-#     )
-    m = folium.Map()
+    m = folium.Map(tiles='cartodbpositron')
+
+    pal = get_html_colors(n_junctions)
 
     cols = ['junction_cluster_id', 'latitude_cluster', 'longitude_cluster']
     map_points = map_data[cols].drop_duplicates().values
     for cluster_id, lat, lon in map_points:
-        marker = folium.Marker(
+        folium.CircleMarker(
             location=[lat, lon],
+            radius=10,    
+            color=pal[junction_rank - 1],
+            fill_color=pal[junction_rank - 1],
+            fill_opacity=1
         ).add_to(m)
-        BeautifyIcon(
-            icon='exclamation',
-            icon_size=[20, 20],
-            icon_anchor=[10, 10],
-            icon_shape='circle',
-            background_color='#9B59B6',
-            border_color='#9B59B6',
-            font_color='white'
-        ).add_to(marker)
+
+        if junction_rank < 10:
+            i = 3
+        else:
+            i = 8
+        folium.map.Marker(
+            location=[lat, lon],
+            icon=DivIcon(
+                icon_size=(30,30),
+                icon_anchor=(i,11),
+                html=f'<div style="font-size: 10pt; font-family: monospace; color: white">%s</div>' % str(junction_rank)
+            )
+        ).add_to(m)
 
         # filter lower level data to cluster
         id_collisions = map_data[map_data['junction_cluster_id'] == cluster_id]
@@ -313,6 +348,7 @@ def low_level_map(map_data: pd.DataFrame) -> folium.Map:
                     fill=True,
                     color='#D35400',
                     fill_color='#D35400',
+                    fill_opacity=0,
                     radius=8
                 ).add_to(m)
             elif severity == 'serious':
@@ -321,6 +357,7 @@ def low_level_map(map_data: pd.DataFrame) -> folium.Map:
                     fill=True,
                     color='#F39C12',
                     fill_color='#F39C12',
+                    fill_opacity=0,
                     radius=8
                 ).add_to(m)
 

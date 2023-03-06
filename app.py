@@ -69,7 +69,7 @@ else:
 
             Identified junctions in purple.
         ''')
-        high_map = high_level_map(dangerous_junctions, junction_collisions, filtered_annotations)
+        high_map = high_level_map(dangerous_junctions, junction_collisions, filtered_annotations, n_junctions)
         map_click = st_folium(high_map, returned_objects=["last_object_clicked"], width=600, height=600)
 
         if map_click['last_object_clicked']:
@@ -93,8 +93,12 @@ else:
             (junction_collisions['latitude_cluster'] == chosen_point[0]) &
             (junction_collisions['longitude_cluster'] == chosen_point[1])
         ]
+        junction_rank = dangerous_junctions[
+            (dangerous_junctions['latitude_cluster'] == chosen_point[0]) &
+            (dangerous_junctions['longitude_cluster'] == chosen_point[1])
+        ]['junction_rank'].values.tolist()[0]
 
-        low_map = low_level_map(low_junction_collisions)
+        low_map = low_level_map(low_junction_collisions, junction_rank, n_junctions)
         st_folium(low_map, width=600, height=600)
 
     st.markdown('''
