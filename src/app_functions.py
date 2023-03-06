@@ -11,7 +11,7 @@ from folium.plugins import BeautifyIcon
 from streamlit_folium import st_folium, folium_static
 
 
-@st.experimental_memo
+@st.cache_data
 def read_in_data(tolerance: int) -> tuple:
     """
     Function to read in different data depending on tolerance requests.
