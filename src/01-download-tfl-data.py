@@ -123,7 +123,7 @@ def main():
     casualty_cols = params['casualty_columns']
 
     collision_links = [link for link in params['data_links'] if 'attendant' in link]
-    casualty_links = [link for link in params['data_links'] if 'casualty' in link]
+    casualty_links = [link for link in params['data_links'] if ('casualty' in link) or ('casualties' in link)]
 
     # ====================== COLLISIONS ===================================== #
 

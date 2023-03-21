@@ -44,7 +44,7 @@ def main():
             .read_csv('data/cycling-collisions.csv')
             .rename(columns={'collision_id': 'collision_index'})
         )
-        collisions = collisions[collisions['max_cyclist_severity'] != 'slight']
+        # collisions = collisions[collisions['max_cyclist_severity'] != 'slight']
 
         junctions = pd.read_csv(f'data/junctions-tolerance={tolerance}.csv', low_memory=False)
 

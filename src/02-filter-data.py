@@ -31,8 +31,9 @@ def get_danger_metric(row):
     '''
     fatal = row['fatal_cyclist_casualties']
     serious = row['serious_cyclist_casualties']
+    slight = row['slight_cyclist_casualties']
     
-    danger_meric = 3 * fatal + serious
+    danger_meric = 5 * fatal + 3 * serious + slight
         
     return danger_meric
 
