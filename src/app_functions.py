@@ -42,17 +42,23 @@ def read_in_data(tolerance: int) -> tuple:
 
 def combine_junctions_and_collisions(
     junctions: pd.DataFrame, collisions: pd.DataFrame, min_year: int,
-    max_year: int, boroughs: str
+    max_year: int, boroughs: str, include_slight: bool
     ) -> pd.DataFrame:
     """
     Combines the junction and collision datasets, as well as filters by years chosen in app.
     """
+    if include_slight:
+        severities = ['fatal', 'serious', 'slight']
+    else:
+        severities = ['fatal', 'serious']
+
     junction_collisions = (
         junctions
         .merge(
             collisions[
                 (collisions['year'] >= min_year) &
-                (collisions['year'] <= max_year)
+                (collisions['year'] <= max_year) &
+                (collisions['max_cyclist_severity'].isin(severities))
             ],
             how='left',
             on=['junction_id', 'junction_index']
@@ -130,7 +136,7 @@ def calculate_metric_trajectories(junction_collisions: pd.DataFrame, dangerous_j
     return dangerous_junctions
 
 
-def create_junction_labels(row: pd.DataFrame) -> str:
+def create_junction_labels(row: pd.DataFrame, include_slight: bool) -> str:
     """
     Takes a row of data from a dataframe and extracts info for maps labels
     """
@@ -141,6 +147,8 @@ def create_junction_labels(row: pd.DataFrame) -> str:
     trajectory = np.round(row['danger_metric_trajectory'], 2)
     n_fatal = int(row['fatal_cyclist_casualties'])
     n_serious = int(row['serious_cyclist_casualties'])
+    if include_slight:
+        n_slight = int(row['slight_cyclist_casualties'])
 
     if trajectory > 0:
         trajectory_colour = 'red'
@@ -157,12 +165,14 @@ def create_junction_labels(row: pd.DataFrame) -> str:
         Danger Metric Trajectory: <b style="color:{trajectory_colour};">{trajectory}</b> <br>
         <hr>
         Fatal casualties: <b>{n_fatal}</b> <br>
-        Serious casualties: <b>{n_serious}</b>
+        Serious casualties: <b>{n_serious}</b> <br>
     """
+    if include_slight:
+        label = label + f"Slight casualties: <b>{n_slight}</b>"
     return label
 
 
-def calculate_dangerous_junctions(junction_collisions: pd.DataFrame, n_junctions: int) -> pd.DataFrame:
+def calculate_dangerous_junctions(junction_collisions: pd.DataFrame, n_junctions: int, include_slight: bool) -> pd.DataFrame:
     """
     Calculate most dangerous junctions in data and return n worst.
     """
@@ -170,6 +180,7 @@ def calculate_dangerous_junctions(junction_collisions: pd.DataFrame, n_junctions
         'recency_danger_metric',
         'fatal_cyclist_casualties',
         'serious_cyclist_casualties',
+        'slight_cyclist_casualties'
     ]
     dangerous_junctions = (
         junction_collisions
@@ -185,7 +196,10 @@ def calculate_dangerous_junctions(junction_collisions: pd.DataFrame, n_junctions
 
     dangerous_junctions = calculate_metric_trajectories(junction_collisions, dangerous_junctions)
 
-    dangerous_junctions['label'] = dangerous_junctions.apply(create_junction_labels, axis=1)
+    dangerous_junctions['label'] = dangerous_junctions.apply(
+        lambda row: create_junction_labels(row, include_slight),
+        axis=1
+    )
 
     return dangerous_junctions
 
@@ -242,7 +256,7 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, an
             radius=4,    
             color=colour,
             fill_color=colour,
-            fill_opacity=1
+            fill_opacity=1,
         ).add_to(m)
         folium.Marker(
             location=[lat, lon],
@@ -357,6 +371,15 @@ def low_level_map(map_data: pd.DataFrame, junction_rank: int, n_junctions: int) 
                     fill=True,
                     color='#F39C12',
                     fill_color='#F39C12',
+                    fill_opacity=0,
+                    radius=8
+                ).add_to(m)
+            elif severity == 'slight':
+                folium.CircleMarker(
+                    location=[collision_lat, collision_lon],
+                    fill=True,
+                    color='#F7E855',
+                    fill_color='#F7E855',
                     fill_opacity=0,
                     radius=8
                 ).add_to(m)
