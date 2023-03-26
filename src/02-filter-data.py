@@ -25,31 +25,14 @@ def accident_severity_counts(row):
     return fatal, serious, slight
 
 
-def get_danger_metric(row):
-    '''
-    Upweights more severe collisions for junction comparison.
-    '''
-    fatal = row['fatal_cyclist_casualties']
-    serious = row['serious_cyclist_casualties']
-    slight = row['slight_cyclist_casualties']
-    
-    danger_meric = 5 * fatal + 3 * serious + slight
-        
-    return danger_meric
-
-
-def get_recency_danger_metric(row, min_year):
+def get_recency_weight(row, min_year):
     '''
     Upweights more severe collisions for junction comparison.
     '''
     year = row['year']
-    danger_metric = row['danger_metric']
-    
     recency_weight = np.log10(year - min_year + 2)
-    
-    recency_danger_metric = danger_metric * recency_weight
         
-    return recency_danger_metric
+    return recency_weight
 
 
 def get_max_cyclist_severity(row):
@@ -66,7 +49,7 @@ def get_max_cyclist_severity(row):
         return None
 
 
-def recalculate_severity(casualties, min_year):
+def recalculate_severity(casualties):
     '''
     recalculate severities based on cyclists only + apply weightings
     '''
@@ -87,9 +70,6 @@ def recalculate_severity(casualties, min_year):
         index=recalculated_severities.index
     )
 
-    recalculated_severities['danger_metric'] = recalculated_severities.apply(
-        get_danger_metric, axis=1
-    )
     recalculated_severities['max_cyclist_severity'] = recalculated_severities.apply(
         get_max_cyclist_severity, axis=1
     )
@@ -112,7 +92,10 @@ def main():
     # filter to junctions
     print('Filter to Junctions')
     junction_types = params['valid_junction_types']
-    collisions = collisions[collisions.junction_detail.isin(junction_types)]
+
+    mask = collisions.junction_detail.isin(junction_types)
+    collisions.loc[mask, 'is_junction'] = True
+    collisions.loc[~mask, 'is_junction'] = False
 
     # pull out all cyclist crash ids
     cyclist_crash_ids = casualties[
@@ -126,14 +109,13 @@ def main():
 
     print('Recalculate severities and danger metrics')
     min_year = min(collisions['year'])
-    recalculated_severities = recalculate_severity(casualties, min_year)
+    recalculated_severities = recalculate_severity(casualties)
 
     # # join back to the datasets with severity in it
     collisions = collisions.merge(recalculated_severities, how='left', on='collision_id')
-    # casualties = casualties.merge(recalculated_severities, how='left', on='collision_id')
     
-    collisions['recency_danger_metric'] = collisions.apply(
-        lambda row: get_recency_danger_metric(row, min_year), axis=1
+    collisions['recency_weight'] = collisions.apply(
+        lambda row: get_recency_weight(row, min_year), axis=1
     )
 
     print(collisions)
@@ -141,7 +123,6 @@ def main():
     # output csvs
     print('Output to csv')
     collisions.to_csv('data/cycling-collisions.csv', index=False)
-    # casualties.to_csv('data/collision-data/london-casualties.csv', index=False)
 
 
 if __name__ == "__main__":
