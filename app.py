@@ -36,6 +36,10 @@ include_slight = form.checkbox(
     label='Include slight collisions'
 )
 
+include_non_junctions = form.checkbox(
+    label='Include collisions not at junction'
+)
+
 available_boroughs = sorted(
     list(
         collisions['borough'].dropna().unique()
@@ -59,7 +63,8 @@ else:
         min_year,
         max_year,
         boroughs,
-        include_slight
+        include_slight,
+        include_non_junctions
     )
     dangerous_junctions = calculate_dangerous_junctions(
         junction_collisions,
@@ -123,13 +128,13 @@ else:
     ''')
     output_cols = [
         'collision_index',
-        'junction_id',
-        'junction_cluster_id',
         'date',
         'location',
+        'junction_detail',
         'max_cyclist_severity',
         'fatal_cyclist_casualties',
         'serious_cyclist_casualties',
+        'slight_cyclist_casualties',
         'danger_metric',
         'recency_danger_metric'
     ]
