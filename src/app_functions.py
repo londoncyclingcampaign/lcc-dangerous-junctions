@@ -77,6 +77,9 @@ def combine_junctions_and_collisions(
     junction_collisions['recency_danger_metric'] = (
         junction_collisions['danger_metric'] * junction_collisions['recency_weight']
     )
+    junction_collisions['collision_label'] = junction_collisions.apply(
+        create_collision_labels, axis=1
+    )
 
     return junction_collisions
 
@@ -162,9 +165,27 @@ def calculate_metric_trajectories(junction_collisions: pd.DataFrame, dangerous_j
     return dangerous_junctions
 
 
+def create_collision_labels(row: pd.DataFrame) -> str:
+    """
+    Takes a row of data from a dataframe and extracts info for collision map labels
+    """
+    collision_index = row['collision_index']
+    date = row['date']
+    severity = row['max_cyclist_severity']
+    link = f'https://www.cyclestreets.net/collisions/reports/{collision_index}/'
+
+    label = f"""
+        <h3>{collision_index}</h3>
+        Date: <b>{date}</b> <br>
+        Max cyclist severity: <b>{severity}</b> <br>
+        <a href="{link}" target="_blank">Stats19 report</a>
+    """
+    return label
+
+
 def create_junction_labels(row: pd.DataFrame, include_slight: bool) -> str:
     """
-    Takes a row of data from a dataframe and extracts info for maps labels
+    Takes a row of data from a dataframe and extracts info for junction map labels
     """
     cluster_id = int(row['junction_cluster_id'])
     junction_name = row['junction_cluster_name']
@@ -356,6 +377,60 @@ def low_level_map(map_data: pd.DataFrame, junction_rank: int, n_junctions: int) 
     cols = ['junction_cluster_id', 'latitude_cluster', 'longitude_cluster']
     map_points = map_data[cols].drop_duplicates().values
     for cluster_id, lat, lon in map_points:
+        # filter lower level data to cluster
+        id_collisions = map_data[map_data['junction_cluster_id'] == cluster_id]
+
+        collision_coords = id_collisions[['latitude', 'longitude', 'max_cyclist_severity', 'collision_label']].dropna().values
+
+        for collision_lat, collision_lon, severity, label in collision_coords:
+            # draw lines between central point and collisions
+            lines = folium.PolyLine(locations=[[[collision_lat, collision_lon], [lat, lon]]], weight=.8, color='grey')
+            m.add_child(lines)
+
+            iframe = folium.IFrame(
+                html='''
+                    <style>
+                    body {
+                    font-family: Tahoma, sans-serif;
+                    font-size: 12px;
+                    }
+                    </style>
+                ''' + label,
+                width=180,
+                height=100
+            )
+
+            if severity == 'fatal':
+                folium.CircleMarker(
+                    location=[collision_lat, collision_lon],
+                    popup=folium.Popup(iframe),
+                    fill=True,
+                    color='#D35400',
+                    fill_color='#D35400',
+                    fill_opacity=1,
+                    radius=3
+                ).add_to(m)
+            elif severity == 'serious':
+                folium.CircleMarker(
+                    location=[collision_lat, collision_lon],
+                    popup=folium.Popup(iframe),
+                    fill=True,
+                    color='#F39C12',
+                    fill_color='#F39C12',
+                    fill_opacity=1,
+                    radius=3
+                ).add_to(m)
+            elif severity == 'slight':
+                folium.CircleMarker(
+                    location=[collision_lat, collision_lon],
+                    popup=folium.Popup(iframe),
+                    fill=True,
+                    color='#F7E855',
+                    fill_color='#F7E855',
+                    fill_opacity=1,
+                    radius=3
+                ).add_to(m)
+
         folium.CircleMarker(
             location=[lat, lon],
             radius=10,    
@@ -376,44 +451,6 @@ def low_level_map(map_data: pd.DataFrame, junction_rank: int, n_junctions: int) 
                 html=f'<div style="font-size: 10pt; font-family: monospace; color: white">%s</div>' % str(junction_rank)
             )
         ).add_to(m)
-
-        # filter lower level data to cluster
-        id_collisions = map_data[map_data['junction_cluster_id'] == cluster_id]
-
-        collision_coords = id_collisions[['latitude', 'longitude', 'max_cyclist_severity']].dropna().values
-
-        for collision_lat, collision_lon, severity in collision_coords:
-            if severity == 'fatal':
-                folium.CircleMarker(
-                    location=[collision_lat, collision_lon],
-                    fill=True,
-                    color='#D35400',
-                    fill_color='#D35400',
-                    fill_opacity=0,
-                    radius=8
-                ).add_to(m)
-            elif severity == 'serious':
-                folium.CircleMarker(
-                    location=[collision_lat, collision_lon],
-                    fill=True,
-                    color='#F39C12',
-                    fill_color='#F39C12',
-                    fill_opacity=0,
-                    radius=8
-                ).add_to(m)
-            elif severity == 'slight':
-                folium.CircleMarker(
-                    location=[collision_lat, collision_lon],
-                    fill=True,
-                    color='#F7E855',
-                    fill_color='#F7E855',
-                    fill_opacity=0,
-                    radius=8
-                ).add_to(m)
-
-            # draw lines between central point and collisions
-            lines = folium.PolyLine(locations=[[[collision_lat, collision_lon], [lat, lon]]], weight=1.5, color='grey')
-            m.add_child(lines)
 
     sw = map_data[['latitude', 'longitude']].min().values.tolist()
     ne = map_data[['latitude', 'longitude']].max().values.tolist()
