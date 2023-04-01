@@ -40,8 +40,10 @@ def clean_collision_id(raw_collision_id: str, year: int) -> str:
     """
     Make TfL collision ids match the stats19 ones
     """
-    collision_id = str(year)[0:2] + str(raw_collision_id)[-9:]
-    collision_id = str(collision_id)
+    if year < 2017:
+        collision_id = str(year) + str(raw_collision_id)[0:2] + str(raw_collision_id)[-7:]
+    else:
+        collision_id = str(year) + '01' + str(raw_collision_id)[-7:]
     return collision_id
 
 
@@ -123,7 +125,7 @@ def main():
     casualty_cols = params['casualty_columns']
 
     collision_links = [link for link in params['data_links'] if 'attendant' in link]
-    casualty_links = [link for link in params['data_links'] if 'casualty' in link]
+    casualty_links = [link for link in params['data_links'] if ('casualty' in link) or ('casualties' in link)]
 
     # ====================== COLLISIONS ===================================== #
 

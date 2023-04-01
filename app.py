@@ -28,8 +28,16 @@ n_junctions = form.slider(
 min_year, max_year = form.slider(
     label='Select date period',
     min_value=2011,
-    max_value=2021,
-    value=(2011, 2021)
+    max_value=2022,
+    value=(2012, 2022)
+)
+
+include_slight = form.checkbox(
+    label='Include slight collisions'
+)
+
+include_non_junctions = form.checkbox(
+    label='Include collisions not at junction'
 )
 
 available_boroughs = sorted(
@@ -49,8 +57,20 @@ submit = form.form_submit_button(label='Recalculate Junctions')
 if len(boroughs) == 0:
     st.warning('Please select at least one borough and recalculate', icon="⚠️")
 else:
-    junction_collisions = combine_junctions_and_collisions(junctions, collisions, min_year, max_year, boroughs)
-    dangerous_junctions = calculate_dangerous_junctions(junction_collisions, n_junctions)
+    junction_collisions = combine_junctions_and_collisions(
+        junctions,
+        collisions,
+        min_year,
+        max_year,
+        boroughs,
+        include_slight,
+        include_non_junctions
+    )
+    dangerous_junctions = calculate_dangerous_junctions(
+        junction_collisions,
+        n_junctions,
+        include_slight
+    )
 
     if 'ALL' not in boroughs:
         filtered_annotations = annotations[
@@ -108,13 +128,13 @@ else:
     ''')
     output_cols = [
         'collision_index',
-        'junction_id',
-        'junction_cluster_id',
         'date',
         'location',
+        'junction_detail',
         'max_cyclist_severity',
         'fatal_cyclist_casualties',
         'serious_cyclist_casualties',
+        'slight_cyclist_casualties',
         'danger_metric',
         'recency_danger_metric'
     ]

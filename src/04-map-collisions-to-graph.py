@@ -44,7 +44,7 @@ def main():
             .read_csv('data/cycling-collisions.csv')
             .rename(columns={'collision_id': 'collision_index'})
         )
-        collisions = collisions[collisions['max_cyclist_severity'] != 'slight']
+        # collisions = collisions[collisions['max_cyclist_severity'] != 'slight']
 
         junctions = pd.read_csv(f'data/junctions-tolerance={tolerance}.csv', low_memory=False)
 
@@ -81,25 +81,21 @@ def main():
             junction_collisions['distance_to_junction'] <= distance_threshold
         ]
 
-        junction_stats = (
-            junction_collisions
-            .groupby(['junction_cluster_id', 'latitude_cluster', 'longitude_cluster'])
-            .agg({'recency_danger_metric': 'sum', 'slight_cyclist_casualties': 'sum'})
-            .sort_values(by='recency_danger_metric', ascending=False)
-            .head(top_n)
-            .reset_index()
-        )
-
-        junction_stats['scaled_metric'] = (
-            junction_stats['recency_danger_metric'] / junction_stats['slight_cyclist_casualties']
-        )
+        # junction_stats = (
+        #     junction_collisions
+        #     .groupby(['junction_cluster_id', 'latitude_cluster', 'longitude_cluster'])
+        #     .agg({'recency_danger_metric': 'sum', 'slight_cyclist_casualties': 'sum'})
+        #     .sort_values(by='recency_danger_metric', ascending=False)
+        #     .head(top_n)
+        #     .reset_index()
+        # )
 
         collisions = collisions[
             collisions['distance_to_junction'] <= distance_threshold
         ]
 
         # output data
-        junction_stats.to_csv(f'data/dangerous-junctions-tolerance={tolerance}.csv', index=False)
+        # junction_stats.to_csv(f'data/dangerous-junctions-tolerance={tolerance}.csv', index=False)
         collisions.to_csv(f'data/collisions-tolerance={tolerance}.csv', index=False)
 
 
