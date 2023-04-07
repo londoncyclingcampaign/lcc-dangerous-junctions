@@ -7,7 +7,6 @@ import seaborn as sns
 
 from scipy.stats import linregress
 from folium.features import DivIcon
-from streamlit_folium import st_folium, folium_static
 
 
 @st.cache_data()
@@ -265,6 +264,32 @@ def get_html_colors(n: int) -> list:
     return html_p
 
 
+@st.cache_data
+def get_junction_rank(dangerous_junctions: pd.DataFrame, chosen_point: list) -> int:
+    """
+    Given a chosen map point, get the junction rank for that point.
+    """
+    rank = dangerous_junctions[
+        (dangerous_junctions['latitude_cluster'] == chosen_point[0]) &
+        (dangerous_junctions['longitude_cluster'] == chosen_point[1])
+    ]['junction_rank'].values.tolist()[0]
+
+    return rank
+
+
+@st.cache_data
+def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point: list) -> pd.DataFrame:
+    """
+    Given a chosen junction get the low level collision data for that junction
+    """
+    low_junction_collisions = junction_collisions[
+        (junction_collisions['latitude_cluster'] == chosen_point[0]) &
+        (junction_collisions['longitude_cluster'] == chosen_point[1])
+    ]
+    return low_junction_collisions
+
+
+@st.cache_resource
 def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, annotations: pd.DataFrame, n_junctions: int) -> folium.Map:
     """
     Function to generate the junction map
@@ -297,7 +322,7 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, an
                 </style>
             ''' + label,
             width=200,
-            height=50
+            height=80
         )
         folium.CircleMarker(
             location=[lat, lon],
@@ -364,7 +389,10 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, an
     return m
 
 
-def low_level_map(map_data: pd.DataFrame, junction_rank: int, n_junctions: int) -> folium.Map:
+@st.cache_resource
+def low_level_map(
+    map_data: pd.DataFrame, junction_rank: int, n_junctions: int
+    ) -> folium.Map:
     """
     Function to generate the lower level collision map
 
@@ -458,3 +486,27 @@ def low_level_map(map_data: pd.DataFrame, junction_rank: int, n_junctions: int) 
 
     return m
 
+
+@st.cache_data
+def get_table(low_junction_collisions: pd.DataFrame) -> pd.DataFrame:
+    """
+    Filter cols and order for output in app
+    """
+    output_cols = [
+        'collision_index',
+        'date',
+        'location',
+        'junction_detail',
+        'max_cyclist_severity',
+        'fatal_cyclist_casualties',
+        'serious_cyclist_casualties',
+        'slight_cyclist_casualties',
+        'danger_metric',
+        'recency_danger_metric'
+    ]
+    table_data = (
+        low_junction_collisions[output_cols]
+        .dropna(subset=['collision_index'])
+        .sort_values(by='date', ascending=False)
+    )
+    return table_data
