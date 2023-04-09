@@ -108,12 +108,11 @@ else:
 
             Select a point on the left map and drill down into it here.
         ''')
-
         low_junction_collisions = get_low_level_junction_data(junction_collisions, st.session_state['chosen_point'])
         junction_rank = get_junction_rank(dangerous_junctions, st.session_state['chosen_point'])
 
         low_map = low_level_map(low_junction_collisions, junction_rank, n_junctions)
-        st_folium(low_map, width=600, height=600)
+        st_folium(low_map, returned_objects=[], width=600, height=600)
 
 
 

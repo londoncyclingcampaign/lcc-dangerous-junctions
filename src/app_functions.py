@@ -9,7 +9,7 @@ from scipy.stats import linregress
 from folium.features import DivIcon
 
 
-@st.cache_data()
+@st.cache_data(show_spinner=False)
 def read_in_data(tolerance: int) -> tuple:
     """
     Function to read in different data depending on tolerance requests.
@@ -38,7 +38,7 @@ def read_in_data(tolerance: int) -> tuple:
     return junctions, collisions, map_annotations
 
 
-@st.cache_data()
+@st.cache_data(show_spinner=False)
 def combine_junctions_and_collisions(
     junctions: pd.DataFrame, collisions: pd.DataFrame, min_year: int,
     max_year: int, boroughs: str, include_slight: bool, include_non_junctions: bool
@@ -89,12 +89,8 @@ def get_danger_metric(row, include_slight):
     '''
     fatal = row['fatal_cyclist_casualties']
     serious = row['serious_cyclist_casualties']
-    slight = row['slight_cyclist_casualties']
     
-    if include_slight:
-        danger_meric = 3 * fatal + serious + .2 * slight
-    else:
-        danger_meric = 3 * fatal + serious
+    danger_meric = 3 * fatal + serious
         
     return danger_meric
 
@@ -218,7 +214,7 @@ def create_junction_labels(row: pd.DataFrame, include_slight: bool) -> str:
     return label
 
 
-@st.cache_data()
+@st.cache_data(show_spinner=False)
 def calculate_dangerous_junctions(junction_collisions: pd.DataFrame, n_junctions: int, include_slight: bool) -> pd.DataFrame:
     """
     Calculate most dangerous junctions in data and return n worst.
@@ -264,7 +260,7 @@ def get_html_colors(n: int) -> list:
     return html_p
 
 
-@st.cache_data
+@st.cache_data(show_spinner=False)
 def get_junction_rank(dangerous_junctions: pd.DataFrame, chosen_point: list) -> int:
     """
     Given a chosen map point, get the junction rank for that point.
@@ -277,7 +273,7 @@ def get_junction_rank(dangerous_junctions: pd.DataFrame, chosen_point: list) -> 
     return rank
 
 
-@st.cache_data
+@st.cache_data(show_spinner=False)
 def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point: list) -> pd.DataFrame:
     """
     Given a chosen junction get the low level collision data for that junction
@@ -289,7 +285,7 @@ def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point:
     return low_junction_collisions
 
 
-@st.cache_resource
+@st.cache_resource(show_spinner=False)
 def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, annotations: pd.DataFrame, n_junctions: int) -> folium.Map:
     """
     Function to generate the junction map
@@ -302,6 +298,15 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, an
     #     attr='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
     # )
     m = folium.Map(tiles='cartodbpositron')
+
+    borough_geo = "london_boroughs.geojson"
+    folium.Choropleth(
+        geo_data=borough_geo,
+        line_color='#5DADE2', 
+        fill_opacity=0, 
+        line_opacity=.4,
+        overlay=False,
+    ).add_to(m)
 
     map_data = map_data[
         map_data['junction_cluster_id'].isin(dangerous_junctions['junction_cluster_id'])
@@ -389,7 +394,7 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, an
     return m
 
 
-@st.cache_resource
+@st.cache_resource(show_spinner=False)
 def low_level_map(
     map_data: pd.DataFrame, junction_rank: int, n_junctions: int
     ) -> folium.Map:
@@ -399,6 +404,16 @@ def low_level_map(
     TODO - split this out into separate functions.
     """
     m = folium.Map(tiles='cartodbpositron', max_zoom=20, zoom_start=16)
+
+    borough_geo = "london_boroughs.geojson"
+    folium.Choropleth(
+        geo_data=borough_geo,
+        line_color='#5DADE2', 
+        fill_opacity=0, 
+        line_opacity=.4,
+        overlay=False,
+    ).add_to(m)
+
 
     pal = get_html_colors(n_junctions)
 
