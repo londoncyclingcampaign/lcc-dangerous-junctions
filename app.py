@@ -54,6 +54,7 @@ boroughs = form.multiselect(
 
 
 submit = form.form_submit_button(label='Recalculate Junctions')
+
 if len(boroughs) == 0:
     st.warning('Please select at least one borough and recalculate', icon="⚠️")
 else:
@@ -73,14 +74,13 @@ else:
     )
 
     if 'ALL' not in boroughs:
-        filtered_annotations = annotations[
-            annotations['borough'].isin(boroughs)
-        ]
+        filtered_annotations = annotations[annotations['borough'].isin(boroughs)]
     else:
         filtered_annotations = annotations
 
     # set default to worst junction...
-    chosen_point = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
+    if 'chosen_point' not in st.session_state:
+        st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
 
     col1, col2 = st.columns([6, 6])
     with col1:
@@ -89,57 +89,54 @@ else:
 
             Identified junctions in purple.
         ''')
+
         high_map = high_level_map(dangerous_junctions, junction_collisions, filtered_annotations, n_junctions)
         map_click = st_folium(high_map, returned_objects=["last_object_clicked"], width=600, height=600)
 
         if map_click['last_object_clicked']:
-            # hacky way to test what kind of point clicked..
             if len(annotations[
                     (annotations['latitude'] == map_click['last_object_clicked']['lat']) &
                     (annotations['longitude'] == map_click['last_object_clicked']['lng'])
-                ]) == 0:
-                chosen_point = [
+            ]) == 0:
+                st.session_state['chosen_point'] = [
                     map_click['last_object_clicked']['lat'],
                     map_click['last_object_clicked']['lng']
                 ]
+
     with col2:
         st.markdown('''
             ### Investigate Junction
 
             Select a point on the left map and drill down into it here.
         ''')
+        low_map = low_level_map(
+            dangerous_junctions, junction_collisions, st.session_state["chosen_point"], n_junctions
+        )
+        st_folium(
+            low_map,
+            center=st.session_state["chosen_point"],
+            zoom=18,
+            returned_objects=[],
+            width=600,
+            height=600
+        )
 
-        low_junction_collisions = junction_collisions[
-            (junction_collisions['latitude_cluster'] == chosen_point[0]) &
-            (junction_collisions['longitude_cluster'] == chosen_point[1])
-        ]
-        junction_rank = dangerous_junctions[
-            (dangerous_junctions['latitude_cluster'] == chosen_point[0]) &
-            (dangerous_junctions['longitude_cluster'] == chosen_point[1])
-        ]['junction_rank'].values.tolist()[0]
+st.markdown('''
+    ### Collisions data
 
-        low_map = low_level_map(low_junction_collisions, junction_rank, n_junctions)
-        st_folium(low_map, width=600, height=600)
+    Individual collision data for chosen junction above.
+''')
 
-    st.markdown('''
-        ### Collisions data
+st.dataframe(get_table(get_low_level_junction_data(junction_collisions, st.session_state['chosen_point'])))
 
-        Individual collision data for chosen junction above.
-    ''')
-    output_cols = [
-        'collision_index',
-        'date',
-        'location',
-        'junction_detail',
-        'max_cyclist_severity',
-        'fatal_cyclist_casualties',
-        'serious_cyclist_casualties',
-        'slight_cyclist_casualties',
-        'danger_metric',
-        'recency_danger_metric'
-    ]
-    st.dataframe(
-        low_junction_collisions[output_cols]
-        .dropna(subset=['collision_index'])
-        .sort_values(by='date', ascending=False)
-    )
+st.markdown('''
+    ### Dangerous Junctions Data
+
+    List of the most dangerous junctions, for testing purposes only.
+''')
+
+st.dataframe(dangerous_junctions[[
+    'junction_cluster_id', 'junction_cluster_name', 'recency_danger_metric', 'danger_metric_trajectory',
+    'fatal_cyclist_casualties', 'serious_cyclist_casualties', 'slight_cyclist_casualties',
+    'junction_rank'
+]])
