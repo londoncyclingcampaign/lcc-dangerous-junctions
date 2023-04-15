@@ -54,6 +54,7 @@ boroughs = form.multiselect(
 
 
 submit = form.form_submit_button(label='Recalculate Junctions')
+
 if len(boroughs) == 0:
     st.warning('Please select at least one borough and recalculate', icon="⚠️")
 else:
@@ -108,19 +109,34 @@ else:
 
             Select a point on the left map and drill down into it here.
         ''')
-        low_junction_collisions = get_low_level_junction_data(junction_collisions, st.session_state['chosen_point'])
-        junction_rank = get_junction_rank(dangerous_junctions, st.session_state['chosen_point'])
+        low_map = low_level_map(
+            dangerous_junctions, junction_collisions, st.session_state["chosen_point"], n_junctions
+        )
+        st_folium(
+            low_map,
+            center=st.session_state["chosen_point"],
+            zoom=18,
+            returned_objects=[],
+            width=600,
+            height=600
+        )
 
-        low_map = low_level_map(low_junction_collisions, junction_rank, n_junctions)
-        st_folium(low_map, returned_objects=[], width=600, height=600)
+st.markdown('''
+    ### Collisions data
 
+    Individual collision data for chosen junction above.
+''')
 
+st.dataframe(get_table(get_low_level_junction_data(junction_collisions, st.session_state['chosen_point'])))
 
-    st.markdown('''
-        ### Collisions data
+st.markdown('''
+    ### Dangerous Junctions Data
 
-        Individual collision data for chosen junction above.
-    ''')
+    List of the most dangerous junctions, for testing purposes only.
+''')
 
-    st.dataframe(get_table(low_junction_collisions))
-
+st.dataframe(dangerous_junctions[[
+    'junction_cluster_id', 'junction_cluster_name', 'recency_danger_metric', 'danger_metric_trajectory',
+    'fatal_cyclist_casualties', 'serious_cyclist_casualties', 'slight_cyclist_casualties',
+    'junction_rank'
+]])

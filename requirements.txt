@@ -130,7 +130,7 @@ snuggs==1.4.7
 soupsieve==2.3.2.post1
 stack-data==0.2.0
 streamlit==1.19.0
-streamlit-folium==0.7.0
+streamlit-folium==0.11.1
 tenacity==8.0.1
 terminado==0.15.0
 threadpoolctl==3.1.0
