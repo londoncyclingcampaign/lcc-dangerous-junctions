@@ -79,7 +79,6 @@ def combine_junctions_and_collisions(
     junction_collisions['collision_label'] = junction_collisions.apply(
         create_collision_labels, axis=1
     )
-
     return junction_collisions
 
 
@@ -89,8 +88,13 @@ def get_danger_metric(row, include_slight):
     '''
     fatal = row['fatal_cyclist_casualties']
     serious = row['serious_cyclist_casualties']
+    slight = row['slight_cyclist_casualties']
     
-    danger_meric = 3 * fatal + serious
+    if include_slight:
+        danger_meric = 3 * fatal + serious + .2 * slight
+    else:
+        danger_meric = 3 * fatal + serious
+        
         
     return danger_meric
 
@@ -261,19 +265,6 @@ def get_html_colors(n: int) -> list:
 
 
 @st.cache_data(show_spinner=False)
-def get_junction_rank(dangerous_junctions: pd.DataFrame, chosen_point: list) -> int:
-    """
-    Given a chosen map point, get the junction rank for that point.
-    """
-    rank = dangerous_junctions[
-        (dangerous_junctions['latitude_cluster'] == chosen_point[0]) &
-        (dangerous_junctions['longitude_cluster'] == chosen_point[1])
-    ]['junction_rank'].values.tolist()[0]
-
-    return rank
-
-
-@st.cache_data(show_spinner=False)
 def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point: list) -> pd.DataFrame:
     """
     Given a chosen junction get the low level collision data for that junction
@@ -285,18 +276,12 @@ def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point:
     return low_junction_collisions
 
 
-@st.cache_resource(show_spinner=False)
 def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, annotations: pd.DataFrame, n_junctions: int) -> folium.Map:
     """
     Function to generate the junction map
 
     TODO - split this out into separate functions.
     """
-
-    # m = folium.Map(
-    #     tiles='https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png',
-    #     attr='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-    # )
     m = folium.Map(tiles='cartodbpositron')
 
     borough_geo = "london_boroughs.geojson"
@@ -304,7 +289,7 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, an
         geo_data=borough_geo,
         line_color='#5DADE2', 
         fill_opacity=0, 
-        line_opacity=.4,
+        line_opacity=.5,
         overlay=False,
     ).add_to(m)
 
@@ -394,38 +379,40 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, an
     return m
 
 
-@st.cache_resource(show_spinner=False)
 def low_level_map(
-    map_data: pd.DataFrame, junction_rank: int, n_junctions: int
-    ) -> folium.Map:
+    dangerous_junctions: pd.DataFrame, junction_collisions: pd.DataFrame,
+    initial_location: list, n_junctions: int) -> folium.Map:
     """
     Function to generate the lower level collision map
 
     TODO - split this out into separate functions.
     """
-    m = folium.Map(tiles='cartodbpositron', max_zoom=20, zoom_start=16)
+    m = folium.Map(
+        tiles='cartodbpositron',
+        location=initial_location,
+        zoom_start=18,
+        max_zoom=20
+    )
 
     borough_geo = "london_boroughs.geojson"
     folium.Choropleth(
         geo_data=borough_geo,
         line_color='#5DADE2', 
         fill_opacity=0, 
-        line_opacity=.4,
+        line_opacity=.5,
         overlay=False,
     ).add_to(m)
 
-
     pal = get_html_colors(n_junctions)
 
-    cols = ['junction_cluster_id', 'latitude_cluster', 'longitude_cluster']
-    map_points = map_data[cols].drop_duplicates().values
-    for cluster_id, lat, lon in map_points:
+    cols = ['junction_cluster_id', 'latitude_cluster', 'longitude_cluster', 'junction_rank']
+    for id, lat, lon, junction_rank in dangerous_junctions[cols].values:
+
         # filter lower level data to cluster
-        id_collisions = map_data[map_data['junction_cluster_id'] == cluster_id]
+        id_collisions = junction_collisions[junction_collisions['junction_cluster_id'] == id]
 
-        collision_coords = id_collisions[['latitude', 'longitude', 'max_cyclist_severity', 'collision_label']].dropna().values
-
-        for collision_lat, collision_lon, severity, label in collision_coords:
+        cols = ['latitude', 'longitude', 'max_cyclist_severity', 'collision_label']
+        for collision_lat, collision_lon, severity, label in id_collisions[cols].dropna().values:
             # draw lines between central point and collisions
             lines = folium.PolyLine(locations=[[[collision_lat, collision_lon], [lat, lon]]], weight=.8, color='grey')
             m.add_child(lines)
@@ -474,15 +461,22 @@ def low_level_map(
                     radius=3
                 ).add_to(m)
 
+        rank = int(junction_rank)
         folium.CircleMarker(
             location=[lat, lon],
             radius=10,    
-            color=pal[junction_rank - 1],
-            fill_color=pal[junction_rank - 1],
             fill_opacity=1
         ).add_to(m)
 
-        if junction_rank < 10:
+        folium.CircleMarker(
+            location=[lat, lon],
+            radius=10,    
+            color=pal[rank - 1],
+            fill_color=pal[rank - 1],
+            fill_opacity=1
+        ).add_to(m)
+
+        if rank < 10:
             i = 3
         else:
             i = 8
@@ -491,13 +485,9 @@ def low_level_map(
             icon=DivIcon(
                 icon_size=(30,30),
                 icon_anchor=(i,11),
-                html=f'<div style="font-size: 10pt; font-family: monospace; color: white">%s</div>' % str(junction_rank)
+                html=f'<div style="font-size: 10pt; font-family: monospace; color: white">%s</div>' % str(rank)
             )
         ).add_to(m)
-
-    sw = map_data[['latitude', 'longitude']].min().values.tolist()
-    ne = map_data[['latitude', 'longitude']].max().values.tolist()
-    m.fit_bounds([sw, ne])
 
     return m
 
