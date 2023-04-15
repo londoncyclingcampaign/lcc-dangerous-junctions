@@ -81,6 +81,10 @@ else:
     # set default to worst junction...
     if 'chosen_point' not in st.session_state:
         st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
+    elif boroughs != st.session_state['previous_boroughs']:
+        st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
+
+    st.session_state['previous_boroughs'] = boroughs
 
     col1, col2 = st.columns([6, 6])
     with col1:
