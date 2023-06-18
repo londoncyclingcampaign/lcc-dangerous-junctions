@@ -142,7 +142,7 @@ def main():
     # )
 
     # loop through tolerance options.
-    for tolerance in [18, 20, 22]:
+    for tolerance in [15, 20, 25, 30]:
         print(f'tolerance={tolerance}')
 
         # simplify graph using the consolidate_intersections()
