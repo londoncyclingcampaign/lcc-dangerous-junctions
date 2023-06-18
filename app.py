@@ -13,9 +13,32 @@ form = st.sidebar.form(key='my_form')
 
 tolerance = form.radio(
     label='Set tolerance for combining junctions in metres (to be removed)',
-    options=[18, 20, 22],
+    options=[15, 20, 25, 30],
     index=1
 )
+
+weight_fatal = form.slider(
+    label='Fatal collision weight',
+    min_value=1.,
+    max_value=10.,
+    value=3.,
+    step=.1
+)
+weight_serious = form.slider(
+    label='Serious collision weight',
+    min_value=1.,
+    max_value=10.,
+    value=1.,
+    step=.1
+)
+weight_slight = form.slider(
+    label='Slight collision weight',
+    min_value=0.,
+    max_value=1.,
+    value=0.,
+    step=.01
+)
+
 junctions, collisions, annotations = read_in_data(tolerance)
 
 n_junctions = form.slider(
@@ -25,19 +48,15 @@ n_junctions = form.slider(
     value=20
 )
 
-min_year, max_year = form.slider(
-    label='Select date period',
-    min_value=2011,
-    max_value=2022,
-    value=(2012, 2022)
-)
+# min_year, max_year = form.slider(
+#     label='Select date period',
+#     min_value=2011,
+#     max_value=2022,
+#     value=(2012, 2022)
+# )
 
 include_slight = form.checkbox(
-    label='Include slight collisions'
-)
-
-include_non_junctions = form.checkbox(
-    label='Include collisions not at junction'
+    label='Include slight collisions in metric & map'
 )
 
 available_boroughs = sorted(
@@ -61,11 +80,11 @@ else:
     junction_collisions = combine_junctions_and_collisions(
         junctions,
         collisions,
-        min_year,
-        max_year,
         boroughs,
         include_slight,
-        include_non_junctions
+        weight_fatal,
+        weight_serious,
+        weight_slight
     )
     dangerous_junctions = calculate_dangerous_junctions(
         junction_collisions,
