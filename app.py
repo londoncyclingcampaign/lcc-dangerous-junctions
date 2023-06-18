@@ -13,8 +13,8 @@ form = st.sidebar.form(key='my_form')
 
 tolerance = form.radio(
     label='Set tolerance for combining junctions in metres (to be removed)',
-    options=[15, 20, 25, 30],
-    index=1
+    options=[15, 18, 20, 22, 25, 30],
+    index=2
 )
 
 weight_fatal = form.slider(
