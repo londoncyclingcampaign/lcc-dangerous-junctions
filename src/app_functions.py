@@ -40,8 +40,13 @@ def read_in_data(tolerance: int) -> tuple:
 
 @st.cache_data(show_spinner=False)
 def combine_junctions_and_collisions(
-    junctions: pd.DataFrame, collisions: pd.DataFrame, min_year: int,
-    max_year: int, boroughs: str, include_slight: bool, include_non_junctions: bool
+    junctions: pd.DataFrame,
+    collisions: pd.DataFrame,
+    boroughs: str,
+    include_slight: bool,
+    weight_fatal: float,
+    weight_serious: float,
+    weight_slight: float
     ) -> pd.DataFrame:
     """
     Combines the junction and collision datasets, as well as filters by years chosen in app.
@@ -51,15 +56,10 @@ def combine_junctions_and_collisions(
     else:
         severities = ['fatal', 'serious']
 
-    if not include_non_junctions:
-        collisions = collisions[collisions['is_junction']]
-
     junction_collisions = (
         junctions
         .merge(
             collisions[
-                (collisions['year'] >= min_year) &
-                (collisions['year'] <= max_year) &
                 (collisions['max_cyclist_severity'].isin(severities))
             ],
             how='left',
@@ -71,7 +71,7 @@ def combine_junctions_and_collisions(
         junction_collisions = junction_collisions[junction_collisions['borough'].isin(boroughs)]
 
     junction_collisions['danger_metric'] = junction_collisions.apply(
-        lambda row: get_danger_metric(row, include_slight), axis=1
+        lambda row: get_danger_metric(row, include_slight, weight_fatal, weight_serious, weight_slight), axis=1
     )
     junction_collisions['recency_danger_metric'] = (
         junction_collisions['danger_metric'] * junction_collisions['recency_weight']
@@ -82,7 +82,7 @@ def combine_junctions_and_collisions(
     return junction_collisions
 
 
-def get_danger_metric(row, include_slight):
+def get_danger_metric(row, include_slight, weight_fatal, weight_serious, weight_slight):
     '''
     Upweights more severe collisions for junction comparison.
     '''
@@ -91,11 +91,10 @@ def get_danger_metric(row, include_slight):
     slight = row['slight_cyclist_casualties']
     
     if include_slight:
-        danger_meric = 3 * fatal + serious + .2 * slight
+        danger_meric = weight_fatal * fatal + weight_serious * serious + weight_slight * slight
     else:
-        danger_meric = 3 * fatal + serious
-        
-        
+        danger_meric = weight_fatal * fatal + weight_serious * serious
+          
     return danger_meric
 
 
