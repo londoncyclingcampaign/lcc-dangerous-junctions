@@ -34,7 +34,7 @@ def main():
     # collisions = collisions[collisions['max_cyclist_severity'] != 'slight']
 
     # loop through tolerance options.
-    for tolerance in [18, 20, 22]:
+    for tolerance in [15, 20, 25, 30]:
 
         print(f'tolerance={tolerance}')
 
@@ -80,6 +80,9 @@ def main():
         junction_collisions = junction_collisions[
             junction_collisions['distance_to_junction'] <= distance_threshold
         ]
+        collisions = collisions[
+            collisions['distance_to_junction'] <= distance_threshold
+        ]
 
         # junction_stats = (
         #     junction_collisions
@@ -89,10 +92,6 @@ def main():
         #     .head(top_n)
         #     .reset_index()
         # )
-
-        collisions = collisions[
-            collisions['distance_to_junction'] <= distance_threshold
-        ]
 
         # output data
         # junction_stats.to_csv(f'data/dangerous-junctions-tolerance={tolerance}.csv', index=False)

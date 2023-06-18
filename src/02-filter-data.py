@@ -30,7 +30,7 @@ def get_recency_weight(row, min_year):
     Upweights more severe collisions for junction comparison.
     '''
     year = row['year']
-    recency_weight = np.log10(year - min_year + 2)
+    recency_weight = np.log10(year - min_year + 5)
         
     return recency_weight
 
@@ -94,8 +94,7 @@ def main():
     junction_types = params['valid_junction_types']
 
     mask = collisions.junction_detail.isin(junction_types)
-    collisions.loc[mask, 'is_junction'] = True
-    collisions.loc[~mask, 'is_junction'] = False
+    collisions = collisions.loc[mask, :]
 
     # pull out all cyclist crash ids
     cyclist_crash_ids = casualties[
