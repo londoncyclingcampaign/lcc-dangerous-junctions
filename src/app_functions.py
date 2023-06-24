@@ -1,12 +1,18 @@
 import os
+import yaml
 import folium
 import streamlit as st
 import numpy as np
 import pandas as pd
 import seaborn as sns
 
+from yaml import Loader
 from scipy.stats import linregress
 from folium.features import DivIcon
+
+
+# read in data params
+params = yaml.load(open("params.yaml", 'r'), Loader=Loader)
 
 
 @st.cache_data(show_spinner=False)
@@ -22,7 +28,8 @@ def read_in_data(tolerance: int) -> tuple:
         )
         collisions = pd.read_csv(
             f'data/collisions-tolerance={tolerance}.csv',
-            low_memory=False
+            low_memory=False,
+            dtype={'collision_index': int}
         )
     else:
         junctions = pd.read_csv(
@@ -31,8 +38,10 @@ def read_in_data(tolerance: int) -> tuple:
         )
         collisions = pd.read_csv(
             st.secrets[f"collisions_{tolerance}"],    
-            low_memory=False
+            low_memory=False,
+            dtype={'collision_index': int}
         )
+
     map_annotations = pd.read_csv(st.secrets["map_annotations"])
 
     return junctions, collisions, map_annotations
@@ -43,26 +52,16 @@ def combine_junctions_and_collisions(
     junctions: pd.DataFrame,
     collisions: pd.DataFrame,
     boroughs: str,
-    include_slight: bool,
-    weight_fatal: float,
-    weight_serious: float,
-    weight_slight: float
     ) -> pd.DataFrame:
     """
     Combines the junction and collision datasets, as well as filters by years chosen in app.
     """
-    if include_slight:
-        severities = ['fatal', 'serious', 'slight']
-    else:
-        severities = ['fatal', 'serious']
 
     junction_collisions = (
         junctions
         .merge(
-            collisions[
-                (collisions['max_cyclist_severity'].isin(severities))
-            ],
-            how='left',
+            collisions,
+            how='inner',  # inner as we don't care about junctions with no collisions
             on=['junction_id', 'junction_index']
         )
     )
@@ -71,7 +70,7 @@ def combine_junctions_and_collisions(
         junction_collisions = junction_collisions[junction_collisions['borough'].isin(boroughs)]
 
     junction_collisions['danger_metric'] = junction_collisions.apply(
-        lambda row: get_danger_metric(row, include_slight, weight_fatal, weight_serious, weight_slight), axis=1
+        lambda row: get_danger_metric(row), axis=1
     )
     junction_collisions['recency_danger_metric'] = (
         junction_collisions['danger_metric'] * junction_collisions['recency_weight']
@@ -82,7 +81,7 @@ def combine_junctions_and_collisions(
     return junction_collisions
 
 
-def get_danger_metric(row, include_slight, weight_fatal, weight_serious, weight_slight):
+def get_danger_metric(row, params=params):
     '''
     Upweights more severe collisions for junction comparison.
     '''
@@ -90,10 +89,7 @@ def get_danger_metric(row, include_slight, weight_fatal, weight_serious, weight_
     serious = row['serious_cyclist_casualties']
     slight = row['slight_cyclist_casualties']
     
-    if include_slight:
-        danger_meric = weight_fatal * fatal + weight_serious * serious + weight_slight * slight
-    else:
-        danger_meric = weight_fatal * fatal + weight_serious * serious
+    danger_meric = params['weight_fatal'] * fatal + params['weight_serious'] * serious + params['weight_slight'] * slight
           
     return danger_meric
 
@@ -181,7 +177,7 @@ def create_collision_labels(row: pd.DataFrame) -> str:
     return label
 
 
-def create_junction_labels(row: pd.DataFrame, include_slight: bool) -> str:
+def create_junction_labels(row: pd.DataFrame) -> str:
     """
     Takes a row of data from a dataframe and extracts info for junction map labels
     """
@@ -192,8 +188,7 @@ def create_junction_labels(row: pd.DataFrame, include_slight: bool) -> str:
     trajectory = np.round(row['danger_metric_trajectory'], 2)
     n_fatal = int(row['fatal_cyclist_casualties'])
     n_serious = int(row['serious_cyclist_casualties'])
-    if include_slight:
-        n_slight = int(row['slight_cyclist_casualties'])
+    n_slight = int(row['slight_cyclist_casualties'])
 
     if trajectory > 0:
         trajectory_colour = 'red'
@@ -211,14 +206,13 @@ def create_junction_labels(row: pd.DataFrame, include_slight: bool) -> str:
         <hr>
         Fatal casualties: <b>{n_fatal}</b> <br>
         Serious casualties: <b>{n_serious}</b> <br>
+        Slight casualties: <b>{n_slight}</b>
     """
-    if include_slight:
-        label = label + f"Slight casualties: <b>{n_slight}</b>"
     return label
 
 
 @st.cache_data(show_spinner=False)
-def calculate_dangerous_junctions(junction_collisions: pd.DataFrame, n_junctions: int, include_slight: bool) -> pd.DataFrame:
+def calculate_dangerous_junctions(junction_collisions: pd.DataFrame, n_junctions: int) -> pd.DataFrame:
     """
     Calculate most dangerous junctions in data and return n worst.
     """
@@ -243,7 +237,7 @@ def calculate_dangerous_junctions(junction_collisions: pd.DataFrame, n_junctions
     dangerous_junctions = calculate_metric_trajectories(junction_collisions, dangerous_junctions)
 
     dangerous_junctions['label'] = dangerous_junctions.apply(
-        lambda row: create_junction_labels(row, include_slight),
+        lambda row: create_junction_labels(row),
         axis=1
     )
 
