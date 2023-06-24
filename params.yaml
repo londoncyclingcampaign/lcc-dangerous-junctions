@@ -19,10 +19,15 @@
     - unknown
   
   # tolerance level to determine which junctions to combine (in metres)
-  tolerance: 30
+  tolerance: 15
 
   number_of_dangerous_collisions: 100
   distance_to_junction_threshold: .001
+
+  # collision severity weights
+  weight_fatal: 6.8
+  weight_serious: 1.
+  weight_slight: .06
 
   # links to TfL csv data - shame they couldn't have chosen a consistent pattern!!
   data_links:
