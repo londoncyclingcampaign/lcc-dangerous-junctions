@@ -4,7 +4,7 @@ This is a volunteer project aiming to help LCC better identify dangerous junctio
 
 The aim of this project is to use the [open source DfT collision data](https://www.data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data) to do this automatically. This is not a trivial problem since the collisions in the data are not tied to an identifiable junction name or code. Instead they are recorded using coordinates, which may vary even for collisison at the same junction. So the challenge is being able to link together collisions that happen at the same junction so that we can create some kind of danger metric at each junction.
 
-Automatically identified junctions: [**interactive dangerous junctions map**](https://danielhills-lcc-dangerous-junctions-app-b63snl.streamlitapp.com/)
+Automatically identified junctions: [**interactive dangerous junctions map**](https://lcc-dangerous-junctions.streamlit.app/)
 
 ## The Approach
 
@@ -30,7 +30,7 @@ The main notebooks to follow for the above are:
 - [dft-collision-data.ipynb](https://github.com/danielhills/lcc-dangerous-junctions/blob/main/notebooks/dft-collision-data.ipynb)
 - [clustering-collisions.ipynb](https://github.com/danielhills/lcc-dangerous-junctions/blob/main/notebooks/clustering-collisions.ipynb) (probably won't render on GitHub)
 
-An interactive app with junctions identified with this approach is [here](https://danielhills-lcc-dangerous-junctions-app-b63snl.streamlitapp.com/).
+An interactive app with junctions identified with this approach is [here](https://lcc-dangerous-junctions.streamlit.app/).
 
 ## Using this code
 
