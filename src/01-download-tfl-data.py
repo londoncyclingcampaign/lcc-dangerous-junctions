@@ -36,7 +36,7 @@ def format_name(name: str) -> str:
     return name
 
 
-def clean_collision_id(raw_collision_id: str, year: int) -> str:
+def clean_collision_id(raw_collision_id: str, year: int) -> int:
     """
     Make TfL collision ids match the stats19 ones
     """
@@ -44,6 +44,7 @@ def clean_collision_id(raw_collision_id: str, year: int) -> str:
         collision_id = str(year) + str(raw_collision_id)[0:2] + str(raw_collision_id)[-7:]
     else:
         collision_id = str(year) + '01' + str(raw_collision_id)[-7:]
+    collision_id = int(collision_id)
     return collision_id
 
 
@@ -113,8 +114,28 @@ def process_yearly_data(links: list, required_cols, aliases) -> pd.DataFrame:
     return combined_df
 
 
+def correct_data(df: pd.DataFrame, corrections: dict) -> pd.DataFrame:
+    """
+    Data is sometimes incorrect in stats19, this function updates values
+    """
+    for collision_id, corrections in corrections.items():
+        print(f'Correcting collision id: {collision_id}')
+        
+        print(f'Data pre-correction:')
+        print(df.loc[df['collision_id'] == collision_id, ].T)
+
+        for col, val in corrections.items():
+            df.loc[df['collision_id'] == collision_id, [col]] = val
+
+        print(f'Data post-correction:')
+        print(df.loc[df['collision_id'] == collision_id, ].T)
+
+    return df
+
+
 def main():
     params = yaml.load(open("params.yaml", 'r'), Loader=Loader)
+    data_corrections = yaml.load(open("data_corrections.yaml", 'r'), Loader=Loader)
 
     aliases = pd.read_csv('data/tfl-aliases.csv')
 
@@ -180,6 +201,8 @@ def main():
     casualties.replace(value_aliases, inplace=True)
 
     print(casualties.head())
+
+    collisions = correct_data(collisions, data_corrections)
 
     # output data
     collisions.to_csv('data/collisions.csv', index=False)
