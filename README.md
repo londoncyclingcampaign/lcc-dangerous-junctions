@@ -41,7 +41,7 @@ To run and develop on this code:
 - Activate the virtual environment: `source/venv/activate`
 - Install the packages using: `pip install -r requirements.txt`
 - Run the following:
-    - `python src/01-download-tfl-data.R` file to download and format the TfL data
+    - `python src/01-download-tfl-data.py` file to download and format the TfL data
     - `python src/02-filter-data.py` to filter the data to London etc.
     - `python src/03-build-junctions-graph.py` to build junctions graph for London
     - `python src/04-map-collisions-to-graph.py` to map collision data to the closest junction in the London junction graph
