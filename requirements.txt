@@ -101,6 +101,7 @@ pyasn1-modules==0.2.8
 pycparser==2.21
 pydeck==0.7.1
 Pygments==2.12.0
+pyinstrument==4.1.1
 Pympler==1.0.1
 pyparsing==3.0.8
 pyproj==3.4.1
@@ -131,6 +132,7 @@ soupsieve==2.3.2.post1
 stack-data==0.2.0
 streamlit==1.19.0
 streamlit-folium==0.11.1
+streamlit-profiler==0.2.4
 tenacity==8.0.1
 terminado==0.15.0
 threadpoolctl==3.1.0
