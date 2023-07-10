@@ -22,7 +22,7 @@
   tolerance: 15
 
   number_of_dangerous_collisions: 100
-  distance_to_junction_threshold: .0016
+  distance_to_junction_threshold: .001
 
   # collision severity weights
   weight_fatal: 6.8
