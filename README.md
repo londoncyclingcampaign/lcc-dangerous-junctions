@@ -38,7 +38,7 @@ To run and develop on this code:
 - Clone the repo
 - Make sure Python installed
 - Setup a virtual environment, e.g: ```python3 -m venv venv```
-- Activate the virtual environment: `source/venv/activate`
+- Activate the virtual environment: `source venv/bin/activate`
 - Install the packages using: `pip install -r requirements.txt`
 - Run the following:
     - `python src/01-download-tfl-data.py` file to download and format the TfL data
