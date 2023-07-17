@@ -67,6 +67,11 @@ def format_time(time: str) -> str:
     """
     if time[0] == "'":
         time = f'{time[1:3]}:{time[3:]}'
+
+    # for when time in format '00:00' rather than '00:00:00'
+    split_time = time.split(':')
+    if len(split_time) == 2:
+        time = time + ':00'
     
     return time
 
@@ -158,7 +163,7 @@ def main():
 
     collisions['date'] = pd.to_datetime(
         collisions['date'],
-        infer_datetime_format=True,
+        format='mixed',
         dayfirst=True
     )
     collisions['year'] = collisions['date'].dt.year
@@ -168,7 +173,10 @@ def main():
     )
 
     collisions['time'] = collisions['time'].apply(format_time)
-    collisions['time'] = pd.to_datetime(collisions['time']).dt.time
+    collisions['time'] = pd.to_datetime(
+        collisions['time'],
+        format='%H:%M:%S',
+    ).dt.time
 
     collisions.replace(value_aliases, inplace=True)
 
