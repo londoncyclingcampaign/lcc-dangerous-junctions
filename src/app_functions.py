@@ -75,9 +75,15 @@ def combine_junctions_and_collisions(
     junction_collisions['recency_danger_metric'] = (
         junction_collisions['danger_metric'] * junction_collisions['recency_weight']
     )
+
+    # add stats19 link column
+    junction_collisions['stats19_link'] = junction_collisions['collision_index'].apply(
+        lambda x: f'https://www.cyclestreets.net/collisions/reports/{x}/'
+    )
     junction_collisions['collision_label'] = junction_collisions.apply(
         create_collision_labels, axis=1
     )
+
     return junction_collisions
 
 
@@ -166,7 +172,7 @@ def create_collision_labels(row: pd.DataFrame) -> str:
     collision_index = row['collision_index']
     date = row['date']
     severity = row['max_cyclist_severity']
-    link = f'https://www.cyclestreets.net/collisions/reports/{collision_index}/'
+    link = row['stats19_link']
 
     label = f"""
         <h3>{collision_index}</h3>

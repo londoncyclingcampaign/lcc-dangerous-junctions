@@ -4,7 +4,7 @@ from src.app_functions import *
 from streamlit_folium import st_folium
 
 
-st.set_page_config(layout="wide")
+st.set_page_config(layout='wide')
 st.markdown('# LCC - Dangerous Junctions')
 
 st.sidebar.markdown('## Map Options')
@@ -36,7 +36,7 @@ boroughs = form.multiselect(
 submit = form.form_submit_button(label='Recalculate Junctions')
 
 if len(boroughs) == 0:
-    st.warning('Please select at least one borough and recalculate', icon="⚠️")
+    st.warning('Please select at least one borough and recalculate', icon='⚠️')
 else:
     junction_collisions = combine_junctions_and_collisions(
         junctions,
@@ -70,7 +70,12 @@ else:
         ''')
 
         high_map = high_level_map(dangerous_junctions, junction_collisions, filtered_annotations, n_junctions)
-        map_click = st_folium(high_map, returned_objects=["last_object_clicked"], width=600, height=600)
+        map_click = st_folium(
+            high_map,
+            returned_objects=['last_object_clicked'],
+            use_container_width=True,
+            height=600
+        )
 
         if map_click['last_object_clicked']:
             if len(annotations[
@@ -89,14 +94,14 @@ else:
             Select a point on the left map and drill down into it here.
         ''')
         low_map = low_level_map(
-            dangerous_junctions, junction_collisions, st.session_state["chosen_point"], n_junctions
+            dangerous_junctions, junction_collisions, st.session_state['chosen_point'], n_junctions
         )
         st_folium(
             low_map,
-            center=st.session_state["chosen_point"],
+            center=st.session_state['chosen_point'],
             zoom=18,
             returned_objects=[],
-            width=600,
+            use_container_width=True,
             height=600
         )
 
@@ -106,16 +111,51 @@ st.markdown('''
     Individual collision data for chosen junction above.
 ''')
 
-st.dataframe(get_table(get_low_level_junction_data(junction_collisions, st.session_state['chosen_point'])))
-
-st.markdown('''
-    ### Dangerous Junctions Data
-
-    List of the most dangerous junctions, for testing purposes only.
-''')
-
-st.dataframe(dangerous_junctions[[
-    'junction_cluster_id', 'junction_cluster_name', 'recency_danger_metric', 'danger_metric_trajectory',
-    'fatal_cyclist_casualties', 'serious_cyclist_casualties', 'slight_cyclist_casualties',
-    'junction_rank'
-]])
+st.dataframe(
+    data=get_table(get_low_level_junction_data(junction_collisions, st.session_state['chosen_point'])),
+    hide_index=True,
+    column_order=[
+        'collision_index',
+        'date',
+        'location',
+        'junction_detail',
+        'max_cyclist_severity',
+        'danger_metric',
+        'recency_danger_metric'
+    ],
+    column_config={
+        'collision_index': st.column_config.NumberColumn(
+            'Collision Index',
+            help='Collision index from stats19 data',
+            step=1,
+            format='%i',
+        ),
+        'date': st.column_config.DateColumn(
+            'Date',
+            help='Date of collision',
+            format='DD/MM/YYYY',
+        ),
+        'location': st.column_config.TextColumn(
+            'Location',
+            help='Location of collision'
+        ),
+        'junction_detail': st.column_config.TextColumn(
+            'Junction Type',
+            help='Type of junction collision occured at'
+        ),
+        'max_cyclist_severity': st.column_config.TextColumn(
+            'Max Cyclist Severity',
+            help='Maximum injury severity of cyclist in collision'
+        ),
+        'danger_metric': st.column_config.NumberColumn(
+            'Collision Metric',
+            help='Danger metric value based on the number of each casualty severity type',
+            format='%.2f',
+        ),
+        'recency_danger_metric': st.column_config.NumberColumn(
+            'Recency Collision Metric',
+            help='Collision danger metric scaled by how recent the collision was',
+            format='%.2f',
+        )
+    }
+)
