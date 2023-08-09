@@ -53,69 +53,106 @@ else:
     else:
         filtered_annotations = annotations
 
-    # set default to worst junction...
-    if 'chosen_point' not in st.session_state:
-        st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
-    elif boroughs != st.session_state['previous_boroughs']:
-        st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
+    if 'last_object_clicked' not in st.session_state:
+        st.session_state['last_object_clicked'] = None
 
-    st.session_state['previous_boroughs'] = boroughs
+    if 'zoom' not in st.session_state:
+        st.session_state['zoom'] = None
 
-    col1, col2 = st.columns([6, 6])
-    with col1:
-        st.markdown('''
-            ### Most dangerous junctions
+    st.markdown('''
+        ### Most dangerous junctions
 
-            Identified junctions in purple.
-        ''')
+        Identified junctions in purple.
+    ''')
 
-        high_map = high_level_map(dangerous_junctions, junction_collisions, filtered_annotations, n_junctions)
-        map_click = st_folium(high_map, returned_objects=["last_object_clicked"], width=600, height=600)
+    m = folium.Map(tiles='cartodbpositron')
 
-        if map_click['last_object_clicked']:
-            if len(annotations[
-                    (annotations['latitude'] == map_click['last_object_clicked']['lat']) &
-                    (annotations['longitude'] == map_click['last_object_clicked']['lng'])
-            ]) == 0:
-                st.session_state['chosen_point'] = [
-                    map_click['last_object_clicked']['lat'],
-                    map_click['last_object_clicked']['lng']
-                ]
+    if not st.session_state['last_object_clicked']:
+        sw = [dangerous_junctions['latitude_cluster'].min(), dangerous_junctions['longitude_cluster'].min()]
+        ne = [dangerous_junctions['latitude_cluster'].max(), dangerous_junctions['longitude_cluster'].max()]
 
-    with col2:
-        st.markdown('''
-            ### Investigate Junction
+        m.fit_bounds([sw, ne])
 
-            Select a point on the left map and drill down into it here.
-        ''')
-        low_map = low_level_map(
-            dangerous_junctions, junction_collisions, st.session_state["chosen_point"], n_junctions
-        )
-        st_folium(
-            low_map,
-            center=st.session_state["chosen_point"],
-            zoom=18,
-            returned_objects=[],
-            width=600,
-            height=600
+    fg = folium.FeatureGroup(name="junctions")
+
+    cols = ['latitude_cluster', 'longitude_cluster', 'label', 'junction_rank']
+    for lat, lon, label, rank in dangerous_junctions[cols].values[::-1]:
+        fg.add_child(
+            folium.CircleMarker(
+                location=[lat, lon],
+                radius=10,
+                # color=pal[rank - 1],
+                # fill_color=pal[rank - 1],
+                fill_opacity=1,
+                z_index_offset=1000 + (100 - rank)
+            )
         )
 
-st.markdown('''
-    ### Collisions data
+    center = None
+    if st.session_state['last_object_clicked']:
+        center = (
+            st.session_state['last_object_clicked']['lat'],
+            st.session_state['last_object_clicked']['lng']
+        )
+    if st.session_state['zoom']:
+        zoom = 15
+    else:
+        zoom = 8
 
-    Individual collision data for chosen junction above.
-''')
+    print(zoom)
+    map_click = st_folium(
+        m,
+        feature_group_to_add=fg,
+        returned_objects=['last_object_clicked', 'zoom'],
+        center=center,
+        width=600,
+        height=600,
+        zoom=zoom
+    )
+    # print(map_click['zoom'])
+    # print(st.session_state['zoom'])
 
-st.dataframe(get_table(get_low_level_junction_data(junction_collisions, st.session_state['chosen_point'])))
+    if map_click['last_object_clicked']:
+        if (map_click['last_object_clicked'] != st.session_state['last_object_clicked']):
+            st.session_state['last_object_clicked'] = map_click['last_object_clicked']
+            st.session_state['zoom'] = 15
+            st.experimental_rerun()
 
-st.markdown('''
-    ### Dangerous Junctions Data
 
-    List of the most dangerous junctions, for testing purposes only.
-''')
+    # with col2:
+    #     st.markdown('''
+    #         ### Investigate Junction
 
-st.dataframe(dangerous_junctions[[
-    'junction_cluster_id', 'junction_cluster_name', 'recency_danger_metric', 'danger_metric_trajectory',
-    'fatal_cyclist_casualties', 'serious_cyclist_casualties', 'slight_cyclist_casualties',
-    'junction_rank'
-]])
+    #         Select a point on the left map and drill down into it here.
+    #     ''')
+        # low_map = low_level_map(
+        #     dangerous_junctions, junction_collisions, st.session_state["chosen_point"], n_junctions
+        # )
+        # st_folium(
+        #     low_map,
+        #     center=st.session_state["chosen_point"],
+        #     zoom=18,
+        #     returned_objects=[],
+        #     width=600,
+        #     height=600
+        # )
+
+# st.markdown('''
+#     ### Collisions data
+
+#     Individual collision data for chosen junction above.
+# ''')
+
+# st.dataframe(get_table(get_low_level_junction_data(junction_collisions, st.session_state['chosen_point'])))
+
+# st.markdown('''
+#     ### Dangerous Junctions Data
+
+#     List of the most dangerous junctions, for testing purposes only.
+# ''')
+
+# st.dataframe(dangerous_junctions[[
+#     'junction_cluster_id', 'junction_cluster_name', 'recency_danger_metric', 'danger_metric_trajectory',
+#     'fatal_cyclist_casualties', 'serious_cyclist_casualties', 'slight_cyclist_casualties',
+#     'junction_rank'
+# ]])
