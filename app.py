@@ -57,7 +57,7 @@ else:
         st.session_state['last_object_clicked'] = None
 
     if 'zoom' not in st.session_state:
-        st.session_state['zoom'] = None
+        st.session_state['zoom'] = 8
 
     st.markdown('''
         ### Most dangerous junctions
@@ -65,28 +65,10 @@ else:
         Identified junctions in purple.
     ''')
 
-    m = folium.Map(tiles='cartodbpositron')
 
-    if not st.session_state['last_object_clicked']:
-        sw = [dangerous_junctions['latitude_cluster'].min(), dangerous_junctions['longitude_cluster'].min()]
-        ne = [dangerous_junctions['latitude_cluster'].max(), dangerous_junctions['longitude_cluster'].max()]
+    map = base_map(dangerous_junctions)
 
-        m.fit_bounds([sw, ne])
-
-    fg = folium.FeatureGroup(name="junctions")
-
-    cols = ['latitude_cluster', 'longitude_cluster', 'label', 'junction_rank']
-    for lat, lon, label, rank in dangerous_junctions[cols].values[::-1]:
-        fg.add_child(
-            folium.CircleMarker(
-                location=[lat, lon],
-                radius=10,
-                # color=pal[rank - 1],
-                # fill_color=pal[rank - 1],
-                fill_opacity=1,
-                z_index_offset=1000 + (100 - rank)
-            )
-        )
+    fg = add_junctions_to_map(dangerous_junctions, n_junctions)
 
     center = None
     if st.session_state['last_object_clicked']:
@@ -94,28 +76,27 @@ else:
             st.session_state['last_object_clicked']['lat'],
             st.session_state['last_object_clicked']['lng']
         )
-    if st.session_state['zoom']:
-        zoom = 15
-    else:
-        zoom = 8
 
-    print(zoom)
     map_click = st_folium(
-        m,
+        map,
         feature_group_to_add=fg,
         returned_objects=['last_object_clicked', 'zoom'],
         center=center,
-        width=600,
+        width=1200,
         height=600,
-        zoom=zoom
+        zoom=st.session_state['zoom']
     )
-    # print(map_click['zoom'])
-    # print(st.session_state['zoom'])
 
     if map_click['last_object_clicked']:
         if (map_click['last_object_clicked'] != st.session_state['last_object_clicked']):
             st.session_state['last_object_clicked'] = map_click['last_object_clicked']
-            st.session_state['zoom'] = 15
+
+            # can't get this to work after initial zoom!
+            # if st.session_state['zoom'] == 8:
+            #     st.session_state['zoom'] = 15
+            # else:
+            #     st.session_state['zoom'] += .00000000001
+
             st.experimental_rerun()
 
 
