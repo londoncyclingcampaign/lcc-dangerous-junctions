@@ -269,6 +269,81 @@ def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point:
     return low_junction_collisions
 
 
+def base_map(dangerous_junctions):
+    
+    map = folium.Map(tiles='cartodbpositron', zoom_start=8)
+    
+    folium.Choropleth(
+        geo_data="london_boroughs.geojson",
+        line_color='#5DADE2', 
+        fill_opacity=0, 
+        line_opacity=.5,
+        overlay=False,
+    ).add_to(map)
+
+    sw = [
+        dangerous_junctions['latitude_cluster'].min(),
+        dangerous_junctions['longitude_cluster'].min()
+    ]
+    ne = [
+        dangerous_junctions['latitude_cluster'].max(),
+        dangerous_junctions['longitude_cluster'].max()
+    ]
+    map.fit_bounds([sw, ne])
+
+    return map
+
+
+def add_junctions_to_map(dangerous_junctions, n_junctions):
+    
+    fg = folium.FeatureGroup(name="junctions")
+    pal = get_html_colors(n_junctions)
+
+    cols = ['latitude_cluster', 'longitude_cluster', 'label', 'junction_rank']
+    for lat, lon, label, rank in dangerous_junctions[cols].values[::-1]:
+        iframe = folium.IFrame(
+            html='''
+                <style>
+                body {
+                  font-family: Tahoma, sans-serif;
+                  font-size: 12px;
+                }
+                </style>
+            ''' + label,
+            width=250,
+            height=250
+        )
+        fg.add_child(
+            folium.CircleMarker(
+                location=[lat, lon],
+                radius=10,
+                color=pal[rank - 1],
+                fill_color=pal[rank - 1],
+                fill_opacity=1,
+                z_index_offset=1000 + (100 - rank)
+            )
+        )
+
+        if rank < 10:
+            i = 3
+        else:
+            i = 8
+        fg.add_child(
+            folium.Marker(
+                location=[lat, lon],
+                popup=folium.Popup(iframe),
+                icon=DivIcon(
+                    icon_size=(30,30),
+                    icon_anchor=(i,11),
+                    html=f'<div style="font-size: 10pt; font-family: monospace; color: white">%s</div>' % str(rank),
+                ),
+                z_index_offset=1000 + (100 - rank)
+            )
+        )
+    
+    return fg
+
+
 def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, annotations: pd.DataFrame, n_junctions: int) -> folium.Map:
     """
     Function to generate the junction map
