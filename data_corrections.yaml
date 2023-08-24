@@ -1,0 +1,11 @@
+---
+# this file specifies data corrections that need to be made to stats19 data
+# the structure is
+# collision_id:
+#   field_to_be_changed: updated_value
+
+  2018010106912:
+    junction_detail: other_junction
+
+  2018010115338:
+    junction_detail: other_junction

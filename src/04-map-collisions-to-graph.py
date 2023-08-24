@@ -53,35 +53,11 @@ def main():
         on='junction_index'
     )
 
-    # combine datasets
-    junction_collisions = (
-        junctions
-        .merge(
-            collisions,
-            how='left',
-            on=['junction_id', 'junction_index']
-        )
-    )
-
     # filter to those within certain distance
-    junction_collisions = junction_collisions[
-        junction_collisions['distance_to_junction'] <= distance_threshold
-    ]
     collisions = collisions[
         collisions['distance_to_junction'] <= distance_threshold
     ]
 
-    # junction_stats = (
-    #     junction_collisions
-    #     .groupby(['junction_cluster_id', 'latitude_cluster', 'longitude_cluster'])
-    #     .agg({'recency_danger_metric': 'sum', 'slight_cyclist_casualties': 'sum'})
-    #     .sort_values(by='recency_danger_metric', ascending=False)
-    #     .head(top_n)
-    #     .reset_index()
-    # )
-
-    # output data
-    # junction_stats.to_csv(f'data/dangerous-junctions-tolerance={tolerance}.csv', index=False)
     collisions.to_csv(f'data/collisions-tolerance={tolerance}.csv', index=False)
 
 
