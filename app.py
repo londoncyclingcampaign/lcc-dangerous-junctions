@@ -15,6 +15,7 @@ with col1:
 with col2:
     st.image('img/LCC_Logo_horizontal_red.png', width=200)
 
+
 st.sidebar.markdown('### Map Options')
 
 form = st.sidebar.form(key='my_form')
