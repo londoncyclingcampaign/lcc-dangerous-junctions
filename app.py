@@ -13,7 +13,7 @@ col1, col2 = st.columns([10, 2])
 with col1:
     st.markdown('# Dangerous Junctions App')
 with col2:
-    st.image('LCC_Logo_horizontal_red.png', width=200)
+    st.image('img/LCC_Logo_horizontal_red.png', width=200)
 
 st.sidebar.markdown('### Map Options')
 
