@@ -147,7 +147,7 @@ def main():
         ox.project_graph(G1),
         tolerance=tolerance,
         rebuild_graph=True,
-        dead_ends=False,
+        dead_ends=True,  # true means we don't filter out dead ends.
         reconnect_edges=True
     )
 
