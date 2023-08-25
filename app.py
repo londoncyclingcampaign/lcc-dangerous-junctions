@@ -5,9 +5,18 @@ from streamlit_folium import st_folium
 
 
 st.set_page_config(layout='wide')
-st.markdown('# LCC - Dangerous Junctions')
 
-st.sidebar.markdown('## Map Options')
+# hack to remove padding at page top
+st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
+
+col1, col2 = st.columns([10, 2])
+with col1:
+    st.markdown('# Dangerous Junctions App')
+with col2:
+    st.image(st.secrets['logo'], width=200)
+
+
+st.sidebar.markdown('### Map Options')
 
 form = st.sidebar.form(key='my_form')
 
@@ -63,10 +72,14 @@ else:
 
     col1, col2 = st.columns([6, 6])
     with col1:
-        st.markdown('''
-            ### Most dangerous junctions
+        if 'ALL' in boroughs:
+            borough_msg = 'all boroughs'
+        else:
+            borough_msg = ', '.join([b.capitalize() for b in boroughs])
+        st.markdown(f'''
+            ### Dangerous Junctions
 
-            Identified junctions in purple.
+            Map shows the {n_junctions} most dangerous junctions in {borough_msg}.
         ''')
 
         high_map = high_level_map(dangerous_junctions, junction_collisions, filtered_annotations, n_junctions)
@@ -105,57 +118,10 @@ else:
             height=600
         )
 
-st.markdown('''
-    ### Collisions data
 
-    Individual collision data for chosen junction above.
-''')
-
-st.dataframe(
-    data=get_table(get_low_level_junction_data(junction_collisions, st.session_state['chosen_point'])),
-    hide_index=True,
-    column_order=[
-        'collision_index',
-        'date',
-        'location',
-        'junction_detail',
-        'max_cyclist_severity',
-        'danger_metric',
-        'recency_danger_metric'
-    ],
-    column_config={
-        'collision_index': st.column_config.NumberColumn(
-            'Collision Index',
-            help='Collision index from stats19 data',
-            step=1,
-            format='%i',
-        ),
-        'date': st.column_config.DateColumn(
-            'Date',
-            help='Date of collision',
-            format='DD/MM/YYYY',
-        ),
-        'location': st.column_config.TextColumn(
-            'Location',
-            help='Location of collision'
-        ),
-        'junction_detail': st.column_config.TextColumn(
-            'Junction Type',
-            help='Type of junction collision occured at'
-        ),
-        'max_cyclist_severity': st.column_config.TextColumn(
-            'Max Cyclist Severity',
-            help='Maximum injury severity of cyclist in collision'
-        ),
-        'danger_metric': st.column_config.NumberColumn(
-            'Collision Metric',
-            help='Danger metric value based on the number of each casualty severity type',
-            format='%.2f',
-        ),
-        'recency_danger_metric': st.column_config.NumberColumn(
-            'Recency Collision Metric',
-            help='Collision danger metric scaled by how recent the collision was',
-            format='%.2f',
-        )
-    }
-)
+with st.expander("### About this app"):
+    st.write("""
+        This is an explanation for how the app works, notes on the data and how to find out more.
+             
+        TBC.
+    """)
