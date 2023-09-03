@@ -55,7 +55,7 @@ def recalculate_severity(casualties):
     '''
     recalculated_severities = (
         casualties
-        [casualties['mode_of_travel'] == 'pedal_cycle']
+        [casualties['mode_of_travel'] == 'pedestrian']
         .groupby(['collision_id'])
         .apply(accident_severity_counts)
         .reset_index()
@@ -98,7 +98,7 @@ def main():
 
     # pull out all cyclist crash ids
     cyclist_crash_ids = casualties[
-        casualties['mode_of_travel'] == 'pedal_cycle'
+        casualties['mode_of_travel'] == 'pedestrian'
     ]['collision_id'].unique()
 
     print(f'Filter to cyclist collisions, {len(cyclist_crash_ids)} crash IDs in data')
