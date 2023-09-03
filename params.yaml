@@ -1,10 +1,4 @@
 ---
-  # min, max coordinates to define grid covering London area
-  min_latitude: 51.404683
-  max_latitude: 51.571305
-  min_longitude: -0.332720
-  max_longitude: 0.037394
-
   # junction types to include from the junction_detail field
   valid_junction_types:
     # - no_junction_in_20m
@@ -17,6 +11,10 @@
     # - private_drive
     - other_junction
     - unknown
+
+  valid_casualty_types:
+    - pedal_cycle
+    - pedestrian
   
   # tolerance level to determine which junctions to combine (in metres)
   tolerance: 15
