@@ -23,13 +23,12 @@ def main():
     params = yaml.load(open("params.yaml", 'r'), Loader=Loader)
 
     tolerance = params['tolerance']
-    # top_n = params['number_of_dangerous_collisions']
     distance_threshold = params['distance_to_junction_threshold']
 
     # read in data
     collisions = (
         pd
-        .read_csv('data/cycling-collisions.csv')
+        .read_csv('data/pedestrian-and-cyclist-collisions.csv')
         .rename(columns={'collision_id': 'collision_index'})
     )
 

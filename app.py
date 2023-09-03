@@ -20,7 +20,13 @@ st.sidebar.markdown('### Map Options')
 
 form = st.sidebar.form(key='my_form')
 
-junctions, collisions, annotations = read_in_data(tolerance=15)
+junctions, collisions, annotations, notes = read_in_data(tolerance=15)
+
+casualty_type = form.radio(
+    label='Select casualty type',
+    options=['cyclist', 'pedestrian'],
+    format_func=lambda x: f'{x}s'
+)
 
 n_junctions = form.slider(
     label='Number of dangerous junctions to show',
@@ -50,11 +56,14 @@ else:
     junction_collisions = combine_junctions_and_collisions(
         junctions,
         collisions,
+        notes,
+        casualty_type,
         boroughs
     )
     dangerous_junctions = calculate_dangerous_junctions(
         junction_collisions,
-        n_junctions
+        n_junctions,
+        casualty_type
     )
 
     if 'ALL' not in boroughs:
@@ -107,7 +116,11 @@ else:
             Select a point on the left map and drill down into it here.
         ''')
         low_map = low_level_map(
-            dangerous_junctions, junction_collisions, st.session_state['chosen_point'], n_junctions
+            dangerous_junctions,
+            junction_collisions,
+            st.session_state['chosen_point'],
+            n_junctions,
+            casualty_type
         )
         st_folium(
             low_map,
