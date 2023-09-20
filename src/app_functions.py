@@ -103,14 +103,21 @@ def combine_junctions_and_collisions(
 def get_danger_metric(row, casualty_type, params=params):
     '''
     Upweights more severe collisions for junction comparison.
+    Only take worst severity, so if multiple casualties involved we have to ignore less severe.
     '''
     fatal = row[f'fatal_{casualty_type}_casualties']
     serious = row[f'serious_{casualty_type}_casualties']
     slight = row[f'slight_{casualty_type}_casualties']
+
+    danger_metric = None
+    if fatal > 0:
+        danger_metric = params['weight_fatal']
+    elif serious > 0:
+        danger_metric = params['weight_serious']
+    elif slight > 0:
+        danger_metric = params['weight_slight']
     
-    danger_meric = params['weight_fatal'] * fatal + params['weight_serious'] * serious + params['weight_slight'] * slight
-          
-    return danger_meric
+    return danger_metric
 
 
 def get_all_year_df(junction_collisions: pd.DataFrame) -> pd.DataFrame:
@@ -249,15 +256,20 @@ def calculate_dangerous_junctions(
     """
     Calculate most dangerous junctions in data and return n worst.
     """
+    grp_cols = [
+        'junction_cluster_id', 'junction_cluster_name',
+        'latitude_cluster', 'longitude_cluster', 'notes'
+    ]
     agg_cols = [
         'recency_danger_metric',
         f'fatal_{casualty_type}_casualties',
         f'serious_{casualty_type}_casualties',
         f'slight_{casualty_type}_casualties',
     ]
+
     dangerous_junctions = (
         junction_collisions
-        .groupby(['junction_cluster_id', 'junction_cluster_name', 'latitude_cluster', 'longitude_cluster', 'notes'])[agg_cols]
+        .groupby(grp_cols)[agg_cols]
         .sum()
         .reset_index()
         .sort_values(by=['recency_danger_metric', f'fatal_{casualty_type}_casualties'], ascending=[False, False])
