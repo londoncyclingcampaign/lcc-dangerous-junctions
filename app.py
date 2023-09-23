@@ -144,9 +144,9 @@ fig = px.bar(
     y="recency_danger_metric",
     hover_name="junction_cluster_name",
     hover_data=[
-        'fatal_cyclist_casualties',
-        'serious_cyclist_casualties',
-        'slight_cyclist_casualties',
+        f'fatal_{casualty_type}_casualties',
+        f'serious_{casualty_type}_casualties',
+        f'slight_{casualty_type}_casualties',
         'latitude_cluster',
         'longitude_cluster'
     ],
