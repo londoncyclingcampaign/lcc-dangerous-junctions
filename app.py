@@ -1,4 +1,5 @@
 import streamlit as st
+import plotly.express as px
 
 from src.app_functions import *
 from streamlit_folium import st_folium
@@ -96,7 +97,7 @@ else:
             high_map,
             returned_objects=['last_object_clicked'],
             use_container_width=True,
-            height=600
+            height=500
         )
 
         if map_click['last_object_clicked']:
@@ -128,8 +129,41 @@ else:
             zoom=18,
             returned_objects=[],
             use_container_width=True,
-            height=600
+            height=500
         )
+
+
+st.markdown(f'''
+    ### Danger Metrics
+            
+    Junctions ranked from most to least dangerous
+''')
+fig = px.bar(
+    dangerous_junctions, 
+    x="junction_rank",
+    y="recency_danger_metric",
+    hover_name="junction_cluster_name",
+    hover_data=[
+        'fatal_cyclist_casualties',
+        'serious_cyclist_casualties',
+        'slight_cyclist_casualties',
+        'latitude_cluster',
+        'longitude_cluster'
+    ],
+    text="recency_danger_metric",
+    text_auto='.1f',
+    height=320
+)
+fig.update_xaxes(title='Junction danger rank')
+fig.update_yaxes(title='Recency danger metric')
+fig.update_layout(
+    hovermode="x",
+    margin=dict(l=20, r=20, t=20, b=20)
+)
+fig.update_traces(
+    marker_color='#e30613',
+)
+st.plotly_chart(fig, use_container_width=True, theme="streamlit")
 
 
 with st.expander("### About this app"):
