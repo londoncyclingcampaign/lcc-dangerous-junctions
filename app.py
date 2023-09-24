@@ -1,6 +1,5 @@
 import streamlit as st
 import plotly.express as px
-import hydralit_components as hc
 
 from src.app_functions import *
 from streamlit_folium import st_folium
