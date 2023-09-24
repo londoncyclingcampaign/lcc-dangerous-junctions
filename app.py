@@ -1,55 +1,84 @@
 import streamlit as st
 import plotly.express as px
+import hydralit_components as hc
 
 from src.app_functions import *
 from streamlit_folium import st_folium
 
-
 st.set_page_config(layout='wide')
 
+st.markdown(
+    """
+        <header class="css-18ni7ap ezrtsby2" tabindex="-1" data-testid=""stHeader="" style="background-color:#FFFFFF;">
+        <div class="header" style="background-color:#FFFFFF;">
+        <a href="https://lcc.org.uk/">
+        <img src="https://drive.google.com/uc?export=view&id=1LBf9FFWct3zCAFWenBhFPr3eNEf8BSXm" alt="London Cycling Campaign" width="15%">
+        </a>
+        <h1 class="title">Dangerous Junctions App</h1>
+        </div>
+        </header>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    '''
+        <style>
+        .header img {
+        position: fixed;
+        top: 10px;
+        left: 20px;
+        height: 4rem;
+        z-index: 99999;
+        }
+        .header h1 {
+        position: relative;
+        text-align: center;
+        }
+        </style> 
+    ''',
+    unsafe_allow_html=True
+)
+
+
 # hack to remove padding at page top
-st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
+# st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
 
-col1, col2 = st.columns([10, 2])
-with col1:
-    st.markdown('# Dangerous Junctions App')
-with col2:
-    st.image('./img/LCC_logo_horizontal_red.png', width=200)
-
-
-st.sidebar.markdown('### Map Options')
-
-form = st.sidebar.form(key='my_form')
 
 junctions, collisions, annotations, notes = read_in_data(tolerance=15)
 
-casualty_type = form.radio(
-    label='Select casualty type',
-    options=['cyclist', 'pedestrian'],
-    format_func=lambda x: f'{x}s'
-)
+with st.expander("### App settings", expanded=True):
 
-n_junctions = form.slider(
-    label='Number of dangerous junctions to show',
-    min_value=0,
-    max_value=100,  # not sure we'd ever need to view more then 100?
-    value=20
-)
+    with st.form(key='form'):
+        col1, col2, col3, col4 = st.columns([2, 4, 4, 2])
 
-available_boroughs = sorted(
-    list(
-        collisions['borough'].dropna().unique()
-    )
-)
-
-boroughs = form.multiselect(
-    label='Filter by borough',
-    options=['ALL'] + available_boroughs,
-    default='ALL'
-)
-
-
-submit = form.form_submit_button(label='Recalculate Junctions')
+        with col1:
+            casualty_type = st.radio(
+                label='Select casualty type',
+                options=['cyclist', 'pedestrian'],
+                format_func=lambda x: f'{x}s',
+                horizontal=True
+            )
+        with col2:
+            n_junctions = st.slider(
+                label='Number of dangerous junctions to show',
+                min_value=0,
+                max_value=100,  # not sure we'd ever need to view more then 100?
+                value=20
+            )
+        with col3:
+            available_boroughs = sorted(
+                list(
+                    collisions['borough'].dropna().unique()
+                )
+            )
+            boroughs = st.multiselect(
+                label='Filter by borough',
+                options=['ALL'] + available_boroughs,
+                default='ALL'
+            )
+        with col4:
+            submit = st.form_submit_button(label='Recalculate Junctions')
 
 if len(boroughs) == 0:
     st.warning('Please select at least one borough and recalculate', icon='⚠️')
@@ -97,7 +126,7 @@ else:
             high_map,
             returned_objects=['last_object_clicked'],
             use_container_width=True,
-            height=500
+            height=550
         )
 
         if map_click['last_object_clicked']:
@@ -129,7 +158,7 @@ else:
             zoom=18,
             returned_objects=[],
             use_container_width=True,
-            height=500
+            height=550
         )
 
 
@@ -152,7 +181,7 @@ fig = px.bar(
     ],
     text="recency_danger_metric",
     text_auto='.1f',
-    height=320
+    height=340
 )
 fig.update_xaxes(title='Junction danger rank')
 fig.update_yaxes(title='Recency danger metric')
