@@ -9,10 +9,10 @@ st.set_page_config(layout='wide')
 
 st.markdown(
     """
-        <header class="css-18ni7ap ezrtsby2" tabindex="-1" data-testid=""stHeader="" style="background-color:#FFFFFF;">
+        <header class="css-18ni7ap ezrtsby2" tabindex="-1" data-testid=""stHeader="">
         <div class="header" style="background-color:#FFFFFF;">
         <a href="https://lcc.org.uk/">
-        <img src="https://drive.google.com/uc?export=view&id=1LBf9FFWct3zCAFWenBhFPr3eNEf8BSXm" alt="London Cycling Campaign" width="15%">
+        <img src="https://lcc.org.uk/wp-content/themes/lcc/src/img/svgs/logo-white.svg" alt="London Cycling Campaign logo" class="logo">
         </a>
         <h1 class="title">Dangerous Junctions App</h1>
         </div>
@@ -26,14 +26,17 @@ st.markdown(
         <style>
         .header img {
         position: fixed;
-        top: 10px;
-        left: 20px;
-        height: 4rem;
+        top: 0px;
+        left: 0px;
+        height: 6.5rem;
         z-index: 99999;
+        background-color: #e30613;
+        border: solid 25px #e30613;
         }
         .header h1 {
         position: relative;
         text-align: center;
+        height: 6.5rem;
         }
         </style> 
     ''',
