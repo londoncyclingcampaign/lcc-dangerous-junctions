@@ -12,7 +12,7 @@ The junctions identified via this 'automatic' approach can be viewed in this [in
 
 The current method used to identify dangerous junctions works as follows:
 
-1. Pull TfL data for the last 5 years, filter to collisions involving either a cyclist or pedestrian
+1. Pull TfL data for the last 5 years, filter to collisions involving either a cyclist or pedestrian that occured at a junction
 2. Generate junctions network for London, generated using the [OSMnx](https://github.com/gboeing/osmnx/tree/main). See example below for the junction network for Trafalgar Square.
 
 ![Junctions pre consolidation](img/junctions-pre-consolidation.png)
@@ -21,32 +21,19 @@ The current method used to identify dangerous junctions works as follows:
 
 ![Junctions post consolidation](img/junctions-post-consolidation.png)
 
-4. Map collisions to the nearest junction.
+4. Map each collision to their nearest junction using the [k-d tree algorithm](https://en.wikipedia.org/wiki/K-d_tree) with haversine distances
 
-*__TODO__ - update this with new approach*
+5. Weight each collision based on the most severe casualty type involved in the collision. The weights are consistent with those used by the Department for Transport, and are as follows:
+    - Fatal - 6.8
+    - Serious - 1
+    - Slight - .06
+      
+6. Weight each collision based on how recent the collision was, since junctions may have changed in the last few years. The exact formula in Python is: `recency_weight = np.log10(year - min_year + 5)`. For example, a collision in 2020 where the minimum year in the data was 2018 would be weighted as: `log10(2020 - 2018 + 5) = log10(7) = .85`.
 
-The current method used to identify dangerous junctions works as follows:
-1. Filter to only 'severe' and 'fatal' collisions
-2. Weight collisions so more recent and severe ones are upweighted:
-    - If 'fatal': 3 * log(year - 1998)
-    - If 'serious': log(year - 1998)
-    
-![recency weight plot](plots/recency-weight.png)
+7. Aggregate the collisions across each junction to get a 'recency_danger_metric' for each junction. These are then ranked from highest to lowest to generate a list of the most dangerous junctions for either cyclists or pedestrians.
 
-3. Cluster the collisions together using the DBSCAN clustering algorithm
-
-![junctions](plots/junctions.png)
-
-4. Aggregate the collision weights at each junction to get a 'danger rank'
-
-![ranked junctions](plots/ranked-junctions.png)
-
-The main notebooks to follow for the above are:
-- [dft-collision-data.ipynb](https://github.com/danielhills/lcc-dangerous-junctions/blob/main/notebooks/dft-collision-data.ipynb)
-- [clustering-collisions.ipynb](https://github.com/danielhills/lcc-dangerous-junctions/blob/main/notebooks/clustering-collisions.ipynb) (probably won't render on GitHub)
-
-An interactive app with junctions identified with this approach is [here](https://lcc-dangerous-junctions.streamlit.app/).
-
+8. This data is then visualised in the [app](https://lcc-dangerous-junctions.streamlit.app/).
+   
 ## Using this code
 
 To run and develop on this code:
