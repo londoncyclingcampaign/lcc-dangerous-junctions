@@ -47,7 +47,7 @@ st.markdown(
 # st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
 
 
-junctions, collisions, annotations, notes = read_in_data(tolerance=15)
+junctions, collisions, notes = read_in_data(tolerance=15)
 
 with st.expander("### App settings", expanded=True):
 
@@ -98,17 +98,15 @@ else:
         casualty_type
     )
 
-    if 'ALL' not in boroughs:
-        filtered_annotations = annotations[annotations['borough'].isin(boroughs)]
-    else:
-        filtered_annotations = annotations
-
     # set default to worst junction...
-    if 'chosen_point' not in st.session_state:
+    if ('chosen_point' not in st.session_state):
+        st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
+    elif casualty_type != st.session_state['previous_casualty_type']:
         st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
     elif boroughs != st.session_state['previous_boroughs']:
         st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
 
+    st.session_state['previous_casualty_type'] = casualty_type
     st.session_state['previous_boroughs'] = boroughs
 
     col1, col2 = st.columns([6, 6])
@@ -123,23 +121,13 @@ else:
             Map shows the {n_junctions} most dangerous junctions in {borough_msg}.
         ''')
 
-        high_map = high_level_map(dangerous_junctions, junction_collisions, filtered_annotations, n_junctions)
+        high_map = high_level_map(dangerous_junctions, junction_collisions, n_junctions)
         map_click = st_folium(
             high_map,
             returned_objects=['last_object_clicked'],
             use_container_width=True,
             height=550
         )
-
-        if map_click['last_object_clicked']:
-            if len(annotations[
-                    (annotations['latitude'] == map_click['last_object_clicked']['lat']) &
-                    (annotations['longitude'] == map_click['last_object_clicked']['lng'])
-            ]) == 0:
-                st.session_state['chosen_point'] = [
-                    map_click['last_object_clicked']['lat'],
-                    map_click['last_object_clicked']['lng']
-                ]
 
     with col2:
         st.markdown('''
