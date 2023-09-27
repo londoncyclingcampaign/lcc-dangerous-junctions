@@ -42,10 +42,9 @@ def read_in_data(tolerance: int) -> tuple:
             dtype={'collision_index': int}
         )
 
-    map_annotations = pd.read_csv(st.secrets["map_annotations"])
     junction_notes = pd.read_csv(st.secrets["junction_notes"])
 
-    return junctions, collisions, map_annotations, junction_notes
+    return junctions, collisions, junction_notes
 
 
 @st.cache_data(show_spinner=False)
@@ -314,7 +313,7 @@ def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point:
     return low_junction_collisions
 
 
-def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, annotations: pd.DataFrame, n_junctions: int) -> folium.Map:
+def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, n_junctions: int) -> folium.Map:
     """
     Function to generate the junction map
 
@@ -336,38 +335,6 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, an
     ]
 
     pal = get_html_colors(n_junctions)
-
-    # add annotation layer
-    cols = ['latitude', 'longitude', 'map_label', 'colour']
-    for lat, lon, label, colour in annotations[cols].values:
-        iframe = folium.IFrame(
-            html='''
-                <style>
-                body {
-                  font-family: Tahoma, sans-serif;
-                  font-size: 12px;
-                }
-                </style>
-            ''' + label,
-            width=200,
-            height=80
-        )
-        folium.CircleMarker(
-            location=[lat, lon],
-            radius=4,    
-            color=colour,
-            fill_color=colour,
-            fill_opacity=1,
-        ).add_to(m)
-        folium.Marker(
-            location=[lat, lon],
-            popup=folium.Popup(iframe),
-            icon=DivIcon(
-                icon_size=(30,30),
-                icon_anchor=(3,7),
-                html='<div style="font-size: 7pt; font-family: monospace; color: white">I</div>',
-            ),
-        ).add_to(m)
 
     # add junction markers
     cols = ['latitude_cluster', 'longitude_cluster', 'label', 'junction_rank']
