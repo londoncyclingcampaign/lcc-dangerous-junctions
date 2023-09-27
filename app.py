@@ -37,7 +37,7 @@ st.markdown(
         line-height: 4rem;
         text-align: center;
         height: 6.5rem;
-        font-size: 1.8em;
+        font-size: 1.6em;
         }
         </style> 
     ''',
@@ -45,13 +45,19 @@ st.markdown(
 )
 
 
-# hack to remove padding at page top
-# st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
+# this is basically so you can scroll past the maps on mobile
+st.write(
+    '''
+    <style>div.block-container{padding-left:1rem;}</style>
+    <style>div.block-container{padding-right:1rem;}</style>
+    ''',
+    unsafe_allow_html=True
+)
 
 
 junctions, collisions, notes = read_in_data(tolerance=15)
 
-with st.expander("### App settings", expanded=True):
+with st.expander("App settings", expanded=True):
 
     with st.form(key='form'):
         col1, col2, col3, col4 = st.columns([2, 4, 4, 2])
@@ -118,7 +124,7 @@ else:
         else:
             borough_msg = ', '.join([b.capitalize() for b in boroughs])
         st.markdown(f'''
-            ### Dangerous Junctions
+            #### Dangerous Junctions
 
             Map shows the {n_junctions} most dangerous junctions in {borough_msg}.
         ''')
@@ -128,11 +134,12 @@ else:
             high_map,
             returned_objects=['last_object_clicked'],
             use_container_width=True,
+            height=500
         )
 
     with col2:
         st.markdown('''
-            ### Investigate Junction
+            #### Investigate Junction
 
             Select a point on the left map and drill down into it here.
         ''')
@@ -148,12 +155,13 @@ else:
             center=st.session_state['chosen_point'],
             zoom=18,
             returned_objects=[],
-            use_container_width=True
+            use_container_width=True,
+            height=500
         )
 
 
 st.markdown(f'''
-    ### Danger Metrics
+    #### Danger Metrics
             
     Junctions ranked from most to least dangerous
 ''')
@@ -185,7 +193,7 @@ fig.update_traces(
 st.plotly_chart(fig, use_container_width=True, theme="streamlit")
 
 
-with st.expander("### About this app"):
+with st.expander("About this app"):
     st.write("""
         This is an explanation for how the app works, notes on the data and how to find out more.
              
