@@ -11,9 +11,9 @@ st.markdown(
         <header class="css-18ni7ap ezrtsby2" tabindex="-1" data-testid=""stHeader="">
         <div class="header" style="background-color:#FFFFFF;">
         <a href="https://lcc.org.uk/">
-        <img src="https://lcc.org.uk/wp-content/themes/lcc/src/img/svgs/logo-white.svg" alt="London Cycling Campaign logo" class="logo">
+        <img src="https://lcc.org.uk/wp-content/themes/lcc/src/img/svgs/logo-white.svg" alt="London Cycling Campaign logo" class="logo" style="max-width:20%;">
         </a>
-        <h1 class="title">Dangerous Junctions App</h1>
+        <h1 class="title">Dangerous Junctions</h1>
         </div>
         </header>
     """,
@@ -30,12 +30,14 @@ st.markdown(
         height: 6.5rem;
         z-index: 99999;
         background-color: #e30613;
-        border: solid 25px #e30613;
+        border: 1.5vw solid #e30613;
         }
         .header h1 {
         position: relative;
+        line-height: 4rem;
         text-align: center;
         height: 6.5rem;
+        font-size: 1.8em;
         }
         </style> 
     ''',
@@ -126,7 +128,6 @@ else:
             high_map,
             returned_objects=['last_object_clicked'],
             use_container_width=True,
-            height=550
         )
 
     with col2:
@@ -147,8 +148,7 @@ else:
             center=st.session_state['chosen_point'],
             zoom=18,
             returned_objects=[],
-            use_container_width=True,
-            height=550
+            use_container_width=True
         )
 
 
