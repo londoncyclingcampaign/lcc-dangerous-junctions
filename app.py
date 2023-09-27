@@ -13,7 +13,7 @@ st.markdown(
         <a href="https://lcc.org.uk/">
         <img src="https://lcc.org.uk/wp-content/themes/lcc/src/img/svgs/logo-white.svg" alt="London Cycling Campaign logo" class="logo" style="max-width:20%;">
         </a>
-        <h1 class="title">Dangerous Junctions</h1>
+        <h1 class="title">Dangerous <br/> Junctions App</h1>
         </div>
         </header>
     """,
@@ -34,10 +34,9 @@ st.markdown(
         }
         .header h1 {
         position: relative;
-        line-height: 4rem;
         text-align: center;
         height: 6.5rem;
-        font-size: 1.6em;
+        font-size: 2em;
         }
         </style> 
     ''',
@@ -58,10 +57,8 @@ st.write(
 junctions, collisions, notes = read_in_data(tolerance=15)
 
 with st.expander("App settings", expanded=True):
-
     with st.form(key='form'):
         col1, col2, col3, col4 = st.columns([2, 4, 4, 2])
-
         with col1:
             casualty_type = st.radio(
                 label='Select casualty type',
@@ -107,7 +104,7 @@ else:
     )
 
     # set default to worst junction...
-    if ('chosen_point' not in st.session_state):
+    if 'chosen_point' not in st.session_state:
         st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
     elif casualty_type != st.session_state['previous_casualty_type']:
         st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
@@ -136,6 +133,12 @@ else:
             use_container_width=True,
             height=500
         )
+
+        if map_click['last_object_clicked']:
+            st.session_state['chosen_point'] = [
+                map_click['last_object_clicked']['lat'],
+                map_click['last_object_clicked']['lng']
+            ]
 
     with col2:
         st.markdown('''
