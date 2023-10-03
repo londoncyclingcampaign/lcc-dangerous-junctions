@@ -35,6 +35,7 @@ st.markdown(
         .header h1 {
         position: relative;
         text-align: center;
+        vertical-align: middle;
         height: 6.5rem;
         font-size: 2em;
         }
@@ -198,7 +199,62 @@ st.plotly_chart(fig, use_container_width=True, theme="streamlit")
 
 with st.expander("About this app"):
     st.write("""
-        This is an explanation for how the app works, notes on the data and how to find out more.
+        Welcome to the London Cycling Campaign's Dangerous Junctions tool. The tool displays the most dangerous
+        junctions in London for either cyclists or pedestrians, depending on the settings you've selected. You can
+        also filter to specific boroughs or change the number of junctions displayed using the options in the panel at
+        the top of the page.
              
-        TBC.
+        It's designed to assist LCC and other organisations to campaign and advocate for improvements to road networks
+        in London, helping to make junctions safe for both cyclists and pedestrians.
+
+        The 'dangerous junctions' map to the top left plots the top junctions, ranked in descending order from most to least dangerous.
+        By clicking on a junction you can find more information about that junction, the number of casualties by severity
+        type and it's overall danger metric.
+             
+        The ranking can also be viewed via the bar chart below the maps. The bars are interactive and many of the same stats about
+        the junctions can be access from this view.
+
+        Selecting a junction on the 'dangerous junctions' map updates the 'investigate junction' map to
+        display the same junction, showing you the individual collisions that have been assigned
+        to that junction for further interogation. Selecting individual collisions
+        displays more info about the collision and a link to access the full collision report on the CycleStreets website.
+
+        #### How it works
+             
+        The difficulty in assessing the danger of junctions is that the data doesn't record the junction a
+        given collision occured at, just the coordinates. Therefore we have to map each collision to its nearest
+        junction based on these coordinates, which can mean a collision is ocassionally assigned to the wrong junction.
+             
+        The second challenge is determining how granular the junction information should be. For example, at Trafalgar Square
+        we'd ideally want to assess the danger of the junction as a whole, rather than each individual pedestrian crossing and intersection
+        that makes up the junction. To solve this, we have used a consolidation algorithm within the OSMNx packages that groups
+        any junctions within 15m of each other. This doesn't always each the ideal aggregation, but was the best compromise
+        based on our testing.
+             
+        Once each collision has been mapped to a junction it's fairly straightforward to aggregate the data to rank the junctions. Each collision
+        is given a 'danger metric score' based on the severity of the worst casualty involved in the collision and how recent the collision was.
+             
+        The weighting for each collision is as follows
+        - Fatal - `6.8`
+        - Serious - `1`
+        - Slight - `0.06`
+             
+        The recency weighting is designed to downweight less recent collisions as the road layout may have changed since the collision.
+        The 'recency' weight for a collision occuring 5 years ago would be X, rising to 1 for something in the latest year of data.
+            
+        The total danger metric score across all collisions at a junction is then the danger metric for that junction.
+             
+        It's important to note that due to the way the collisions are assigned and aggregated the exact ranking of
+        junctions may not be perfect. The ability to drill down into a junction and view the individual collision and their
+        location should allow users to assess.
+             
+        #### The data
+             
+        The collision data is sourced from the TfL collision extracts, which can be [access here]() and includes all
+        collisions involving a cyclist or pedestrian from 2018 to 2022. The junction data is generated using the
+        OSMNx package that relies on OpenStreetMap data.
+             
+        #### Contact
+
+        For any questions, feedback or bug reports, email: <LCC_EMAIL>
     """)
