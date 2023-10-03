@@ -134,7 +134,24 @@ def main():
     collisions.loc[~collisions['max_cyclist_severity'].isnull(), 'is_cyclist_collision'] = True
     collisions.loc[~collisions['max_pedestrian_severity'].isnull(), 'is_pedestrian_collision'] = True
 
+    print('Example data')
     print(collisions)
+
+    print('Cyclist collisions per year check')
+    print(
+        collisions[collisions['is_cyclist_collision']]
+        .groupby('year')
+        ['collision_id']
+        .nunique()
+    )
+
+    print('Pedestrian collisions per year check')
+    print(
+        collisions[collisions['is_pedestrian_collision']]
+        .groupby('year')
+        ['collision_id']
+        .nunique()
+    )
 
     # output csvs
     print('Output to csv')
