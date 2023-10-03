@@ -29,8 +29,8 @@
 
   # links to TfL csv data - shame they couldn't have chosen a consistent pattern!!
   data_links:
-    - "https://content.tfl.gov.uk/jan-sept-2022-gla-data-extract-casualties-provisional.csv"
-    - "https://content.tfl.gov.uk/jan-sept-2022-gla-data-extract-attendant-provisional.csv"
+    - "https://content.tfl.gov.uk/jan-dec-2022-gla-data-extract-casualties.csv"
+    - "https://content.tfl.gov.uk/jan-dec-2022-gla-data-extract-attendant.csv"
     - "https://content.tfl.gov.uk/jan-dec-2021-gla-data-extract-casualty.csv"
     - "https://content.tfl.gov.uk/jan-dec-2021-gla-data-extract-attendant.csv"
     - "https://content.tfl.gov.uk/2020-gla-data-extract-casualty.csv"
@@ -39,20 +39,6 @@
     - "https://content.tfl.gov.uk/2019-gla-data-extract-casualty.csv"
     - "https://content.tfl.gov.uk/2018-data-files-casualty.csv"
     - "https://content.tfl.gov.uk/2018-data-files-attendant.csv"
-    - "https://content.tfl.gov.uk/2017-data-casualty.csv"
-    - "https://content.tfl.gov.uk/2017-data-attendant.csv"
-    # - "https://content.tfl.gov.uk/2016-gla-data-extract-casualty.csv"
-    # - "https://content.tfl.gov.uk/2016-gla-data-extract-attendant.csv"
-    # - "https://content.tfl.gov.uk/2015-gla-data-extract-casualty.csv"
-    # - "https://content.tfl.gov.uk/2015-gla-data-extract-attendant.csv"
-    # - "https://content.tfl.gov.uk/2014-gla-data-extract-casualty.csv"
-    # - "https://content.tfl.gov.uk/2014-gla-data-extract-attendant.csv"
-    # - "https://content.tfl.gov.uk/2013-gla-data-extract-casualty.csv"
-    # - "https://content.tfl.gov.uk/2013-gla-data-extract-attendant.csv"
-    # - "https://content.tfl.gov.uk/2012-gla-data-extract-casualty.csv"
-    # - "https://content.tfl.gov.uk/2012-gla-data-extract-attendant.csv"
-    # - "https://content.tfl.gov.uk/2011-gla-data-extract-casualty.csv"
-    # - "https://content.tfl.gov.uk/2011-gla-data-extract-attendant.csv"
 
   # columns required from raw data
   collision_columns:
