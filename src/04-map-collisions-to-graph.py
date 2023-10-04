@@ -58,6 +58,7 @@ def main():
     ]
 
     collisions.to_csv(f'data/collisions-tolerance={tolerance}.csv', index=False)
+    collisions.to_parquet(f'data/collisions-tolerance={tolerance}.parquet', engine='pyarrow')
 
 
 if __name__ == "__main__":

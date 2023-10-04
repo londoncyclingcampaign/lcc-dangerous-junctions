@@ -245,6 +245,7 @@ def main():
 
     print(f'Outputing data: data/junctions-tolerance={tolerance}.csv')
     df.to_csv(f'data/junctions-tolerance={tolerance}.csv', index=False)
+    df.to_parquet(f'data/junctions-tolerance={tolerance}.parquet', engine='pyarrow')
 
 
 if __name__ == "__main__":

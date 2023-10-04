@@ -16,30 +16,32 @@ params = yaml.load(open("params.yaml", 'r'), Loader=Loader)
 
 
 @st.cache_data(show_spinner=False)
-def read_in_data(tolerance: int) -> tuple:
+def read_in_data(tolerance: int, params: dict = params) -> tuple:
     """
     Function to read in different data depending on tolerance requests.
     Reads from local if not on streamlit server, otherwise from google sheets.
     """
     if os.getenv('HOME') == '/Users/Dan':
-        junctions = pd.read_csv(
-            f'data/junctions-tolerance={tolerance}.csv',
-            low_memory=False
+        junctions = pd.read_parquet(
+            f'data/junctions-tolerance={tolerance}.parquet',
+            engine='pyarrow',
+            columns=params['junction_app_columns']
         )
-        collisions = pd.read_csv(
-            f'data/collisions-tolerance={tolerance}.csv',
-            low_memory=False,
-            dtype={'collision_index': int}
+        collisions = pd.read_parquet(
+            f'data/collisions-tolerance={tolerance}.parquet',
+            engine='pyarrow',
+            columns=params['collision_app_columns']
         )
     else:
-        junctions = pd.read_csv(
+        junctions = pd.read_parquet(
             st.secrets[f"junctions_{tolerance}"],
-            low_memory=False
+            engine='pyarrow',
+            columns=params['junction_app_columns']
         )
-        collisions = pd.read_csv(
+        collisions = pd.read_parquet(
             st.secrets[f"collisions_{tolerance}"],    
-            low_memory=False,
-            dtype={'collision_index': int}
+            engine='pyarrow',
+            columns=params['collision_app_columns']
         )
 
     junction_notes = pd.read_csv(st.secrets["junction_notes"])
