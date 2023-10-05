@@ -30,7 +30,7 @@ def get_recency_weight(row, min_year):
     Upweights more severe collisions for junction comparison.
     '''
     year = row['year']
-    recency_weight = np.log10(year - min_year + 5)
+    recency_weight = np.log10(year - min_year + 6)
         
     return recency_weight
 
