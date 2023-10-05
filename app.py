@@ -246,7 +246,7 @@ with st.expander("About this app"):
             3. Map each collision to its nearest junction based on coordinate data
             4. Assign each collision a 'danger metric' value based on the severity of the worst
             casualty involved (`6.8` for fatal, `1` for severe & `.06` for slight) and weight this by 
-            how recent the collision was (`.95` for 2022 down to `.7` for 2018)
+            how recent the collision was (`1` for 2022 down to `.78` for 2018)
             5. Aggregate the individual danger metrics across each junction to get an overall
             danger metric value for each junction
             6. Rank junctions from most to least dangerous based on this value
