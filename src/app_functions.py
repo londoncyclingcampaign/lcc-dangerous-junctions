@@ -188,7 +188,7 @@ def create_collision_labels(row: pd.DataFrame, casualty_type: str) -> str:
     """
     collision_index = row['collision_index']
     date = row['date']
-    danger_metric = row['danger_metric']
+    danger_metric = np.round(row['recency_danger_metric'], 2)
     n_fatal = int(row[f'fatal_{casualty_type}_casualties'])
     n_serious = int(row[f'serious_{casualty_type}_casualties'])
     n_slight = int(row[f'slight_{casualty_type}_casualties'])

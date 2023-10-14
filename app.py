@@ -54,6 +54,8 @@ st.write(
 )
 
 junctions, collisions, notes = read_in_data(tolerance=15)
+min_year = np.min(collisions['year'])
+max_year = np.max(collisions['year'])
 
 with st.expander("App settings", expanded=True):
     with st.form(key='form'):
@@ -123,7 +125,7 @@ else:
         st.markdown(f'''
             #### Dangerous Junctions
 
-            Map shows the {n_junctions} most dangerous junctions in {borough_msg}.
+            Map shows the {n_junctions} most dangerous junctions in {borough_msg} from {min_year} to {max_year}.
         ''')
 
         high_map = high_level_map(dangerous_junctions, junction_collisions, n_junctions)
