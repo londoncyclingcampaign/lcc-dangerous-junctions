@@ -204,11 +204,6 @@ st.dataframe(
 )
 
 with st.expander("About this app"):
-    st.write("""
-        This is an explanation for how the app works, notes on the data and how to find out more.
-             
-        TBC.
-    """)
     col1, col2 = st.columns(2)
 
     with col1:
