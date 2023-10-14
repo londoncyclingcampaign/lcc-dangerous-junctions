@@ -176,7 +176,7 @@ st.dataframe(
         'recency_danger_metric',
         f'fatal_{casualty_type}_casualties',
         f'serious_{casualty_type}_casualties',
-        f'slight_{casualty_type}_casualties'
+        f'slight_{casualty_type}_casualties',
         'yearly_danger_metrics'
     ],
     column_config={
