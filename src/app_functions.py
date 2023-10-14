@@ -236,7 +236,7 @@ def create_junction_labels(row: pd.DataFrame, casualty_type: str) -> str:
         <h3>{junction_name}<h3>
         <h3>Cluster: {cluster_id}</h3>
         Dangerous Junction Rank: <b>{rank}</b> <br>
-        Recency Danger Metric: <b>{recency_metric}</b> <br>
+        Danger Metric: <b>{recency_metric}</b> <br>
         Danger Metric Trajectory: <b style="color:{trajectory_colour};">{trajectory}</b> <br>
         <hr>
         Fatal {casualty_type} casualties: <b>{n_fatal}</b> <br>

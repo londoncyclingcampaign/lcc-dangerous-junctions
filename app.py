@@ -170,32 +170,27 @@ st.markdown(f'''
             
     Junctions ranked from most to least dangerous
 ''')
-fig = px.bar(
-    dangerous_junctions, 
-    x="junction_rank",
-    y="recency_danger_metric",
-    hover_name="junction_cluster_name",
-    hover_data=[
+
+st.dataframe(
+    dangerous_junctions[[
+        'junction_rank',
+        'junction_cluster_name',
+        'recency_danger_metric',
         f'fatal_{casualty_type}_casualties',
         f'serious_{casualty_type}_casualties',
-        f'slight_{casualty_type}_casualties',
-        'latitude_cluster',
-        'longitude_cluster'
-    ],
-    text="recency_danger_metric",
-    text_auto='.1f',
-    height=340
+        f'slight_{casualty_type}_casualties'
+    ]],
+    column_config={
+        'junction_rank': 'Junction rank',
+        'junction_cluster_name': 'Junction name',
+        'recency_danger_metric': 'Danger metric',
+        f'fatal_{casualty_type}_casualties': f'Fatal {casualty_type} collisions',
+        f'serious_{casualty_type}_casualties': f'Serious {casualty_type} collisions',
+        f'slight_{casualty_type}_casualties': f'Slight {casualty_type} collisions'
+    },
+    hide_index=True,
+    use_container_width=True
 )
-fig.update_xaxes(title='Junction danger rank')
-fig.update_yaxes(title='Recency danger metric')
-fig.update_layout(
-    hovermode="x",
-    margin=dict(l=20, r=20, t=20, b=20)
-)
-fig.update_traces(
-    marker_color='#e30613',
-)
-st.plotly_chart(fig, use_container_width=True, theme="streamlit")
 
 
 with st.expander("About this app"):
