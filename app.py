@@ -196,7 +196,9 @@ st.dataframe(
             y_min=0,
             y_max=10
         ),
-    }
+    },
+    use_container_width=True,
+    hide_index=True
 )
 
 with st.expander("About this app"):
