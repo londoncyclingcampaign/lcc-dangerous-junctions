@@ -170,7 +170,7 @@ st.markdown(f'''
 ''')
 
 st.dataframe(
-    dangerous_junctions[
+    dangerous_junctions[[
         'junction_rank',
         'junction_cluster_name',
         'recency_danger_metric',
@@ -178,7 +178,7 @@ st.dataframe(
         f'serious_{casualty_type}_casualties',
         f'slight_{casualty_type}_casualties',
         'yearly_danger_metrics'
-    ],
+    ]],
     column_config={
         'junction_rank': 'Junction rank',
         'junction_cluster_name': 'Junction name',
