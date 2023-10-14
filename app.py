@@ -12,7 +12,7 @@ st.markdown(
         <a href="https://lcc.org.uk/">
         <img src="https://lcc.org.uk/wp-content/themes/lcc/src/img/svgs/logo-white.svg" alt="London Cycling Campaign logo" class="logo" style="max-width:20%;">
         </a>
-        <h1 class="title">Dangerous <br/> Junctions App</h1>
+        <h1 class="title">Dangerous <br/> Junctions Tool</h1>
         </div>
         </header>
     """,
@@ -34,6 +34,7 @@ st.markdown(
         .header h1 {
         position: relative;
         text-align: center;
+        vertical-align: middle;
         height: 6.5rem;
         font-size: 2em;
         }
@@ -83,7 +84,8 @@ with st.expander("App settings", expanded=True):
                 default='ALL'
             )
         with col4:
-            submit = st.form_submit_button(label='Recalculate Junctions')
+            st.markdown('<br>', unsafe_allow_html=True)  # padding
+            submit = st.form_submit_button(label='Recalculate Junctions', type='primary', use_container_width=True)
 
 if len(boroughs) == 0:
     st.warning('Please select at least one borough and recalculate', icon='⚠️')
@@ -166,6 +168,7 @@ st.markdown(f'''
             
     Junctions ranked from most to least dangerous
 ''')
+
 st.dataframe(
     dangerous_junctions[
         'junction_rank',

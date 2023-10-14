@@ -1,5 +1,6 @@
 import os
 import yaml
+import time
 import folium
 import streamlit as st
 import numpy as np
@@ -9,6 +10,7 @@ import seaborn as sns
 from yaml import Loader
 from scipy.stats import linregress
 from folium.features import DivIcon
+from st_files_connection import FilesConnection
 
 
 # read in data params
@@ -21,6 +23,8 @@ def read_in_data(tolerance: int, params: dict = params) -> tuple:
     Function to read in different data depending on tolerance requests.
     Reads from local if not on streamlit server, otherwise from google sheets.
     """
+    conn = st.experimental_connection('gcs', type=FilesConnection)
+
     if os.getenv('HOME') == '/Users/Dan':
         junctions = pd.read_parquet(
             f'data/junctions-tolerance={tolerance}.parquet',
@@ -33,18 +37,20 @@ def read_in_data(tolerance: int, params: dict = params) -> tuple:
             columns=params['collision_app_columns']
         )
     else:
-        junctions = pd.read_parquet(
-            st.secrets[f"junctions_{tolerance}"],
+        junctions = conn.read(
+            "lcc-app-data/junctions-tolerance=15.parquet",
+            input_format="parquet",
             engine='pyarrow',
             columns=params['junction_app_columns']
         )
-        collisions = pd.read_parquet(
-            st.secrets[f"collisions_{tolerance}"],    
+        collisions = conn.read(
+            "lcc-app-data/collisions-tolerance=15.parquet",
+            input_format="parquet",
             engine='pyarrow',
             columns=params['collision_app_columns']
         )
 
-    junction_notes = pd.read_csv(st.secrets["junction_notes"])
+    junction_notes = conn.read("lcc-app-data/junction-notes.csv")
 
     return junctions, collisions, junction_notes
 
