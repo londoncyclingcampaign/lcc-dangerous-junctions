@@ -1,5 +1,4 @@
 import streamlit as st
-import plotly.express as px
 
 from src.app_functions import *
 from streamlit_folium import st_folium
@@ -52,7 +51,6 @@ st.write(
     ''',
     unsafe_allow_html=True
 )
-
 
 junctions, collisions, notes = read_in_data(tolerance=15)
 
@@ -168,33 +166,35 @@ st.markdown(f'''
             
     Junctions ranked from most to least dangerous
 ''')
-fig = px.bar(
-    dangerous_junctions, 
-    x="junction_rank",
-    y="recency_danger_metric",
-    hover_name="junction_cluster_name",
-    hover_data=[
+st.dataframe(
+    dangerous_junctions[
+        'junction_rank',
+        'junction_cluster_name',
+        'recency_danger_metric',
         f'fatal_{casualty_type}_casualties',
         f'serious_{casualty_type}_casualties',
-        f'slight_{casualty_type}_casualties',
-        'latitude_cluster',
-        'longitude_cluster'
+        f'slight_{casualty_type}_casualties'
+        'yearly_danger_metrics'
     ],
-    text="recency_danger_metric",
-    text_auto='.1f',
-    height=340
+    column_config={
+        'junction_rank': 'Junction rank',
+        'junction_cluster_name': 'Junction name',
+        'recency_danger_metric': st.column_config.NumberColumn(
+            'Danger metric',
+            format='%.2f',
+            help='Danger metric including recency scaling'
+        ),
+        f'fatal_{casualty_type}_casualties': f'Fatal {casualty_type} collisions',
+        f'serious_{casualty_type}_casualties': f'Serious {casualty_type} collisions',
+        f'slight_{casualty_type}_casualties': f'Slight {casualty_type} collisions',
+        'yearly_danger_metrics': st.column_config.LineChartColumn(
+            "Yearly danger metrics (past 5 years)",
+            help='Last 5 years of danger metrics (recency scaled removed)',
+            y_min=0,
+            y_max=10
+        ),
+    }
 )
-fig.update_xaxes(title='Junction danger rank')
-fig.update_yaxes(title='Recency danger metric')
-fig.update_layout(
-    hovermode="x",
-    margin=dict(l=20, r=20, t=20, b=20)
-)
-fig.update_traces(
-    marker_color='#e30613',
-)
-st.plotly_chart(fig, use_container_width=True, theme="streamlit")
-
 
 with st.expander("About this app"):
     st.write("""
@@ -202,3 +202,67 @@ with st.expander("About this app"):
              
         TBC.
     """)
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.write("""
+            ##### LCC's dangerous junctions tool
+                 
+            Welcome to the London Cycling Campaign's Dangerous Junctions tool. The tool displays the most dangerous
+            junctions in London for either cyclists or pedestrians, depending on the settings you've selected. You can
+            also filter to specific boroughs or change the number of junctions displayed using the options in the panel at
+            the top of the page. It's designed to assist LCC and other organisations to campaign and
+            advocate for improvements to road networks in London, helping to make junctions safer
+            for both cyclists and pedestrians.
+
+            The 'dangerous junctions' map to the top left plots the top junctions, ranked in descending order from most to least dangerous.
+            By clicking on a junction you can find more information about that junction. The ranking can also be viewed via
+            the bar chart below the maps. The bars are interactive and many of the same stats about
+            the junctions can be access from this view.
+
+            Selecting a junction on the 'dangerous junctions' map updates the 'investigate junction' map to
+            display the same junction, showing you the individual collisions that have been assigned
+            to that junction for further interogation. Selecting individual collisions
+            displays more info and a link to access the full collision report on the CycleStreets website.
+                
+            ##### The data
+                 
+            The collision data is sourced from the TfL collision extracts,
+            which can be [accessed here](https://tfl.gov.uk/corporate/publications-and-reports/road-safety) and includes all
+            collisions involving a cyclist or pedestrian from 2018 to 2022. The junction data is generated using the
+            [OSMnx package](https://github.com/gboeing/osmnx) that relies on OpenStreetMap data.
+                
+            ##### Contact
+                 
+            For any questions, feedback or bug reports, email: [djmapping@lcc.org.uk](mailto:djmapping@lcc.org.uk)
+        """)
+
+    with col2:
+        st.markdown("""
+            ##### The approach
+                    
+            The most dangerous junctions in London are identified as follows:
+            1. Generate a network of all junctions in London
+            2. Consolidate the junctions to a level that make sense. For example, at Trafalgar Square
+            we'd ideally want to assess the danger of the junction as a whole,
+            rather than each individual pedestrian crossings and intersections that make up the junction
+            3. Map each collision to its nearest junction based on coordinate data
+            4. Assign each collision a 'danger metric' value based on the severity of the worst
+            casualty involved (`6.8` for fatal, `1` for severe & `.06` for slight) and weight this by 
+            how recent the collision was (`1` for 2022 down to `.78` for 2018)
+            5. Aggregate the individual danger metrics across each junction to get an overall
+            danger metric value for each junction
+            6. Rank junctions from most to least dangerous based on this value
+                    
+            This process is done separately for both cycling and pedestrian collisions.
+                
+            ##### Limitations
+                    
+            Due to the way the collisions are assigned and aggregated the exact ranking of
+            junctions may not be perfect. Junctions are not weighted by how much cycling or
+            pedestrian volume they cater for, so this will also impact the ranking.
+                    
+            The ability to drill down into a junction and assess the individual collisions
+            in combination with user domain knowledge should still make this a very useful tool
+            in assessing the danger of junctions in London.
+        """)
