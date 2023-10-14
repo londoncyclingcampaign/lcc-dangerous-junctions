@@ -169,23 +169,13 @@ def calculate_metric_trajectories(junction_collisions: pd.DataFrame, dangerous_j
         )
         .fillna(0)
         .sort_values(by=['junction_cluster_id', 'year'])
-    )
-
-    yearly_stats['rolling_danger_metric'] = (
-        yearly_stats
-        .groupby(['junction_cluster_id'])['danger_metric']
-        .transform(lambda s: s.rolling(3, min_periods=3).mean())
-    )
-
-    trajectories = (
-        yearly_stats
-        .groupby(['junction_cluster_id'])
-        .apply(lambda x: linregress(x['year'], x['danger_metric'])[0])
-        .reset_index(name='danger_metric_trajectory')
+        .groupby('junction_cluster_id')['danger_metric']
+        .apply(list)
+        .reset_index(name='yearly_danger_metrics')
     )
 
     dangerous_junctions = dangerous_junctions.merge(
-        trajectories,
+        yearly_stats,
         how='left',
         on='junction_cluster_id'
     )
@@ -198,6 +188,7 @@ def create_collision_labels(row: pd.DataFrame, casualty_type: str) -> str:
     """
     collision_index = row['collision_index']
     date = row['date']
+    danger_metric = row['danger_metric']
     n_fatal = int(row[f'fatal_{casualty_type}_casualties'])
     n_serious = int(row[f'serious_{casualty_type}_casualties'])
     n_slight = int(row[f'slight_{casualty_type}_casualties'])
@@ -207,6 +198,7 @@ def create_collision_labels(row: pd.DataFrame, casualty_type: str) -> str:
     label = f"""
         <h3>{collision_index}</h3>
         Date: <b>{date}</b> <br>
+        Collision danger metric: <b>{danger_metric}</b> <br>
         Max {casualty_type} severity: <b>{severity}</b> <br>
         <a href="{link}" target="_blank">Stats19 report</a>
         <hr>
@@ -225,25 +217,16 @@ def create_junction_labels(row: pd.DataFrame, casualty_type: str) -> str:
     junction_name = row['junction_cluster_name']
     rank = int(row['junction_rank'])
     recency_metric = np.round(row['recency_danger_metric'], 2)
-    trajectory = np.round(row['danger_metric_trajectory'], 2)
     n_fatal = int(row[f'fatal_{casualty_type}_casualties'])
     n_serious = int(row[f'serious_{casualty_type}_casualties'])
     n_slight = int(row[f'slight_{casualty_type}_casualties'])
     notes = row['notes']
-
-    if trajectory > 0:
-        trajectory_colour = 'red'
-    elif trajectory < 0:
-        trajectory_colour = 'green'
-    else:
-        trajectory_colour = 'black'
 
     label = f"""
         <h3>{junction_name}<h3>
         <h3>Cluster: {cluster_id}</h3>
         Dangerous Junction Rank: <b>{rank}</b> <br>
         Danger Metric: <b>{recency_metric}</b> <br>
-        Danger Metric Trajectory: <b style="color:{trajectory_colour};">{trajectory}</b> <br>
         <hr>
         Fatal {casualty_type} casualties: <b>{n_fatal}</b> <br>
         Serious {casualty_type} casualties: <b>{n_serious}</b> <br>
@@ -300,7 +283,7 @@ def get_html_colors(n: int) -> list:
     """
     Function to get n html colour codes along a continuous gradient
     """
-    p = sns.color_palette("flare_r", n)
+    p = sns.color_palette("gist_heat", n)
     p.as_hex()
     
     p = [[int(i * 255) for i in c] for c in p[:]]
