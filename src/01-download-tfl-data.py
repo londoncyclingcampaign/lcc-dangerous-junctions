@@ -113,6 +113,15 @@ def process_yearly_data(links: list, required_cols, aliases) -> pd.DataFrame:
 
             df = df[required_cols]
 
+            if len(df[df.isnull().any(axis=1)]) > 0:
+                print('Rows to be deleted...')
+                print(df[df.isnull().any(axis=1)])
+                df = df[~df.isnull().any(axis=1)]
+
+            df.loc[:, 'raw_collision_id'] = df.loc[:, 'raw_collision_id'].astype(int)
+
+            print(f'Added {len(df)} rows')
+            
             dfs.append(df)
 
     combined_df = pd.concat(dfs)
@@ -189,6 +198,7 @@ def main():
         collisions['northing']
     )
 
+    print('Collision example rows:')
     print(collisions.head())
 
     # ====================== CASUALTIES ===================================== #
@@ -202,15 +212,16 @@ def main():
     # join to get the valid collision id from collision data
     casualties = casualties.merge(
         collisions[['raw_collision_id', 'collision_id']],
-        how='inner',
+        how='left',
         on='raw_collision_id'
     )
 
     casualties.replace(value_aliases, inplace=True)
 
-    print(casualties.head())
-
     collisions = correct_data(collisions, data_corrections)
+
+    print('Casualty example rows:')
+    print(casualties.head())
 
     # output data
     collisions.to_csv('data/collisions.csv', index=False)

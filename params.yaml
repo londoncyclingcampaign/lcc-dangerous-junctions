@@ -1,10 +1,4 @@
 ---
-  # min, max coordinates to define grid covering London area
-  min_latitude: 51.404683
-  max_latitude: 51.571305
-  min_longitude: -0.332720
-  max_longitude: 0.037394
-
   # junction types to include from the junction_detail field
   valid_junction_types:
     # - no_junction_in_20m
@@ -17,6 +11,10 @@
     # - private_drive
     - other_junction
     - unknown
+
+  valid_casualty_types:
+    - pedal_cycle
+    - pedestrian
   
   # tolerance level to determine which junctions to combine (in metres)
   tolerance: 15
@@ -31,8 +29,8 @@
 
   # links to TfL csv data - shame they couldn't have chosen a consistent pattern!!
   data_links:
-    - "https://content.tfl.gov.uk/jan-sept-2022-gla-data-extract-casualties-provisional.csv"
-    - "https://content.tfl.gov.uk/jan-sept-2022-gla-data-extract-attendant-provisional.csv"
+    - "https://content.tfl.gov.uk/jan-dec-2022-gla-data-extract-casualties.csv"
+    - "https://content.tfl.gov.uk/jan-dec-2022-gla-data-extract-attendant.csv"
     - "https://content.tfl.gov.uk/jan-dec-2021-gla-data-extract-casualty.csv"
     - "https://content.tfl.gov.uk/jan-dec-2021-gla-data-extract-attendant.csv"
     - "https://content.tfl.gov.uk/2020-gla-data-extract-casualty.csv"
@@ -41,20 +39,6 @@
     - "https://content.tfl.gov.uk/2019-gla-data-extract-casualty.csv"
     - "https://content.tfl.gov.uk/2018-data-files-casualty.csv"
     - "https://content.tfl.gov.uk/2018-data-files-attendant.csv"
-    - "https://content.tfl.gov.uk/2017-data-casualty.csv"
-    - "https://content.tfl.gov.uk/2017-data-attendant.csv"
-    # - "https://content.tfl.gov.uk/2016-gla-data-extract-casualty.csv"
-    # - "https://content.tfl.gov.uk/2016-gla-data-extract-attendant.csv"
-    # - "https://content.tfl.gov.uk/2015-gla-data-extract-casualty.csv"
-    # - "https://content.tfl.gov.uk/2015-gla-data-extract-attendant.csv"
-    # - "https://content.tfl.gov.uk/2014-gla-data-extract-casualty.csv"
-    # - "https://content.tfl.gov.uk/2014-gla-data-extract-attendant.csv"
-    # - "https://content.tfl.gov.uk/2013-gla-data-extract-casualty.csv"
-    # - "https://content.tfl.gov.uk/2013-gla-data-extract-attendant.csv"
-    # - "https://content.tfl.gov.uk/2012-gla-data-extract-casualty.csv"
-    # - "https://content.tfl.gov.uk/2012-gla-data-extract-attendant.csv"
-    # - "https://content.tfl.gov.uk/2011-gla-data-extract-casualty.csv"
-    # - "https://content.tfl.gov.uk/2011-gla-data-extract-attendant.csv"
 
   # columns required from raw data
   collision_columns:
@@ -76,3 +60,34 @@
     - casualty_severity
     - mode_of_travel
       
+  # only read in necessary cols to keep data size down
+  collision_app_columns:
+    - borough
+    - collision_index
+    - year
+    - longitude
+    - latitude
+    - is_cyclist_collision
+    - is_pedestrian_collision
+    - junction_id
+    - junction_index
+    - fatal_cyclist_casualties
+    - serious_cyclist_casualties
+    - slight_cyclist_casualties
+    - fatal_pedestrian_casualties
+    - serious_pedestrian_casualties
+    - slight_pedestrian_casualties
+    - recency_weight
+    - date
+    - max_cyclist_severity
+    - max_pedestrian_severity
+
+  junction_app_columns:
+    - latitude_junction
+    - longitude_junction
+    - junction_id
+    - junction_index
+    - junction_cluster_id
+    - junction_cluster_name
+    - latitude_cluster
+    - longitude_cluster

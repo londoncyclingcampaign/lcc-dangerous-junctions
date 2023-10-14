@@ -16,46 +16,54 @@ params = yaml.load(open("params.yaml", 'r'), Loader=Loader)
 
 
 @st.cache_data(show_spinner=False)
-def read_in_data(tolerance: int) -> tuple:
+def read_in_data(tolerance: int, params: dict = params) -> tuple:
     """
     Function to read in different data depending on tolerance requests.
     Reads from local if not on streamlit server, otherwise from google sheets.
     """
     if os.getenv('HOME') == '/Users/Dan':
-        junctions = pd.read_csv(
-            f'data/junctions-tolerance={tolerance}.csv',
-            low_memory=False
+        junctions = pd.read_parquet(
+            f'data/junctions-tolerance={tolerance}.parquet',
+            engine='pyarrow',
+            columns=params['junction_app_columns']
         )
-        collisions = pd.read_csv(
-            f'data/collisions-tolerance={tolerance}.csv',
-            low_memory=False,
-            dtype={'collision_index': int}
+        collisions = pd.read_parquet(
+            f'data/collisions-tolerance={tolerance}.parquet',
+            engine='pyarrow',
+            columns=params['collision_app_columns']
         )
     else:
-        junctions = pd.read_csv(
+        junctions = pd.read_parquet(
             st.secrets[f"junctions_{tolerance}"],
-            low_memory=False
+            engine='pyarrow',
+            columns=params['junction_app_columns']
         )
-        collisions = pd.read_csv(
+        collisions = pd.read_parquet(
             st.secrets[f"collisions_{tolerance}"],    
-            low_memory=False,
-            dtype={'collision_index': int}
+            engine='pyarrow',
+            columns=params['collision_app_columns']
         )
 
-    map_annotations = pd.read_csv(st.secrets["map_annotations"])
+    junction_notes = pd.read_csv(st.secrets["junction_notes"])
 
-    return junctions, collisions, map_annotations
+    return junctions, collisions, junction_notes
 
 
 @st.cache_data(show_spinner=False)
 def combine_junctions_and_collisions(
     junctions: pd.DataFrame,
     collisions: pd.DataFrame,
+    notes: pd.DataFrame,
+    casualty_type: str,
     boroughs: str,
     ) -> pd.DataFrame:
     """
     Combines the junction and collision datasets, as well as filters by years chosen in app.
     """
+    if casualty_type == 'cyclist':
+        collisions = collisions[collisions['is_cyclist_collision']]
+    elif casualty_type == 'pedestrian':
+        collisions = collisions[collisions['is_pedestrian_collision']]
 
     junction_collisions = (
         junctions
@@ -64,13 +72,19 @@ def combine_junctions_and_collisions(
             how='inner',  # inner as we don't care about junctions with no collisions
             on=['junction_id', 'junction_index']
         )
+        .merge(
+            notes,
+            how='left',
+            on='junction_index'
+        )
     )
+    junction_collisions.loc[junction_collisions['notes'].isna(), 'notes'] = ''
 
     if 'ALL' not in boroughs:
         junction_collisions = junction_collisions[junction_collisions['borough'].isin(boroughs)]
 
     junction_collisions['danger_metric'] = junction_collisions.apply(
-        lambda row: get_danger_metric(row), axis=1
+        lambda row: get_danger_metric(row, casualty_type), axis=1
     )
     junction_collisions['recency_danger_metric'] = (
         junction_collisions['danger_metric'] * junction_collisions['recency_weight']
@@ -81,23 +95,30 @@ def combine_junctions_and_collisions(
         lambda x: f'https://www.cyclestreets.net/collisions/reports/{x}/'
     )
     junction_collisions['collision_label'] = junction_collisions.apply(
-        create_collision_labels, axis=1
+        lambda row: create_collision_labels(row, casualty_type), axis=1
     )
 
     return junction_collisions
 
 
-def get_danger_metric(row, params=params):
+def get_danger_metric(row, casualty_type, params=params):
     '''
     Upweights more severe collisions for junction comparison.
+    Only take worst severity, so if multiple casualties involved we have to ignore less severe.
     '''
-    fatal = row['fatal_cyclist_casualties']
-    serious = row['serious_cyclist_casualties']
-    slight = row['slight_cyclist_casualties']
+    fatal = row[f'fatal_{casualty_type}_casualties']
+    serious = row[f'serious_{casualty_type}_casualties']
+    slight = row[f'slight_{casualty_type}_casualties']
+
+    danger_metric = None
+    if fatal > 0:
+        danger_metric = params['weight_fatal']
+    elif serious > 0:
+        danger_metric = params['weight_serious']
+    elif slight > 0:
+        danger_metric = params['weight_slight']
     
-    danger_meric = params['weight_fatal'] * fatal + params['weight_serious'] * serious + params['weight_slight'] * slight
-          
-    return danger_meric
+    return danger_metric
 
 
 def get_all_year_df(junction_collisions: pd.DataFrame) -> pd.DataFrame:
@@ -165,25 +186,32 @@ def calculate_metric_trajectories(junction_collisions: pd.DataFrame, dangerous_j
     return dangerous_junctions
 
 
-def create_collision_labels(row: pd.DataFrame) -> str:
+def create_collision_labels(row: pd.DataFrame, casualty_type: str) -> str:
     """
     Takes a row of data from a dataframe and extracts info for collision map labels
     """
     collision_index = row['collision_index']
     date = row['date']
-    severity = row['max_cyclist_severity']
+    n_fatal = int(row[f'fatal_{casualty_type}_casualties'])
+    n_serious = int(row[f'serious_{casualty_type}_casualties'])
+    n_slight = int(row[f'slight_{casualty_type}_casualties'])
+    severity = row[f'max_{casualty_type}_severity']
     link = row['stats19_link']
 
     label = f"""
         <h3>{collision_index}</h3>
         Date: <b>{date}</b> <br>
-        Max cyclist severity: <b>{severity}</b> <br>
+        Max {casualty_type} severity: <b>{severity}</b> <br>
         <a href="{link}" target="_blank">Stats19 report</a>
+        <hr>
+        Fatal {casualty_type} casualties: <b>{n_fatal}</b> <br>
+        Serious {casualty_type} casualties: <b>{n_serious}</b> <br>
+        Slight {casualty_type} casualties: <b>{n_slight}</b>
     """
     return label
 
 
-def create_junction_labels(row: pd.DataFrame) -> str:
+def create_junction_labels(row: pd.DataFrame, casualty_type: str) -> str:
     """
     Takes a row of data from a dataframe and extracts info for junction map labels
     """
@@ -192,9 +220,10 @@ def create_junction_labels(row: pd.DataFrame) -> str:
     rank = int(row['junction_rank'])
     recency_metric = np.round(row['recency_danger_metric'], 2)
     trajectory = np.round(row['danger_metric_trajectory'], 2)
-    n_fatal = int(row['fatal_cyclist_casualties'])
-    n_serious = int(row['serious_cyclist_casualties'])
-    n_slight = int(row['slight_cyclist_casualties'])
+    n_fatal = int(row[f'fatal_{casualty_type}_casualties'])
+    n_serious = int(row[f'serious_{casualty_type}_casualties'])
+    n_slight = int(row[f'slight_{casualty_type}_casualties'])
+    notes = row['notes']
 
     if trajectory > 0:
         trajectory_colour = 'red'
@@ -207,33 +236,44 @@ def create_junction_labels(row: pd.DataFrame) -> str:
         <h3>{junction_name}<h3>
         <h3>Cluster: {cluster_id}</h3>
         Dangerous Junction Rank: <b>{rank}</b> <br>
-        Recency Danger Metric: <b>{recency_metric}</b> <br>
+        Danger Metric: <b>{recency_metric}</b> <br>
         Danger Metric Trajectory: <b style="color:{trajectory_colour};">{trajectory}</b> <br>
         <hr>
-        Fatal casualties: <b>{n_fatal}</b> <br>
-        Serious casualties: <b>{n_serious}</b> <br>
-        Slight casualties: <b>{n_slight}</b>
+        Fatal {casualty_type} casualties: <b>{n_fatal}</b> <br>
+        Serious {casualty_type} casualties: <b>{n_serious}</b> <br>
+        Slight {casualty_type} casualties: <b>{n_slight}</b>
+        <hr>
+        {notes}
     """
     return label
 
 
 @st.cache_data(show_spinner=False)
-def calculate_dangerous_junctions(junction_collisions: pd.DataFrame, n_junctions: int) -> pd.DataFrame:
+def calculate_dangerous_junctions(
+    junction_collisions: pd.DataFrame,
+    n_junctions: int,
+    casualty_type: str
+) -> pd.DataFrame:
     """
     Calculate most dangerous junctions in data and return n worst.
     """
+    grp_cols = [
+        'junction_cluster_id', 'junction_cluster_name',
+        'latitude_cluster', 'longitude_cluster', 'notes'
+    ]
     agg_cols = [
         'recency_danger_metric',
-        'fatal_cyclist_casualties',
-        'serious_cyclist_casualties',
-        'slight_cyclist_casualties'
+        f'fatal_{casualty_type}_casualties',
+        f'serious_{casualty_type}_casualties',
+        f'slight_{casualty_type}_casualties',
     ]
+
     dangerous_junctions = (
         junction_collisions
-        .groupby(['junction_cluster_id', 'junction_cluster_name', 'latitude_cluster', 'longitude_cluster'])[agg_cols]
+        .groupby(grp_cols)[agg_cols]
         .sum()
         .reset_index()
-        .sort_values(by=['recency_danger_metric', 'fatal_cyclist_casualties'], ascending=[False, False])
+        .sort_values(by=['recency_danger_metric', f'fatal_{casualty_type}_casualties'], ascending=[False, False])
         .head(n_junctions)
         .reset_index()
     )
@@ -243,7 +283,7 @@ def calculate_dangerous_junctions(junction_collisions: pd.DataFrame, n_junctions
     dangerous_junctions = calculate_metric_trajectories(junction_collisions, dangerous_junctions)
 
     dangerous_junctions['label'] = dangerous_junctions.apply(
-        lambda row: create_junction_labels(row),
+        lambda row: create_junction_labels(row, casualty_type),
         axis=1
     )
 
@@ -275,7 +315,7 @@ def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point:
     return low_junction_collisions
 
 
-def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, annotations: pd.DataFrame, n_junctions: int) -> folium.Map:
+def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, n_junctions: int) -> folium.Map:
     """
     Function to generate the junction map
 
@@ -298,38 +338,6 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, an
 
     pal = get_html_colors(n_junctions)
 
-    # add annotation layer
-    cols = ['latitude', 'longitude', 'map_label', 'colour']
-    for lat, lon, label, colour in annotations[cols].values:
-        iframe = folium.IFrame(
-            html='''
-                <style>
-                body {
-                  font-family: Tahoma, sans-serif;
-                  font-size: 12px;
-                }
-                </style>
-            ''' + label,
-            width=200,
-            height=80
-        )
-        folium.CircleMarker(
-            location=[lat, lon],
-            radius=4,    
-            color=colour,
-            fill_color=colour,
-            fill_opacity=1,
-        ).add_to(m)
-        folium.Marker(
-            location=[lat, lon],
-            popup=folium.Popup(iframe),
-            icon=DivIcon(
-                icon_size=(30,30),
-                icon_anchor=(3,7),
-                html='<div style="font-size: 7pt; font-family: monospace; color: white">I</div>',
-            ),
-        ).add_to(m)
-
     # add junction markers
     cols = ['latitude_cluster', 'longitude_cluster', 'label', 'junction_rank']
 
@@ -344,7 +352,7 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, an
                 </style>
             ''' + label,
             width=250,
-            height=250
+            height=300
         )
         folium.CircleMarker(
             location=[lat, lon],
@@ -380,7 +388,7 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, an
 
 def low_level_map(
     dangerous_junctions: pd.DataFrame, junction_collisions: pd.DataFrame,
-    initial_location: list, n_junctions: int) -> folium.Map:
+    initial_location: list, n_junctions: int, casualty_type: str) -> folium.Map:
     """
     Function to generate the lower level collision map
 
@@ -410,7 +418,7 @@ def low_level_map(
         # filter lower level data to cluster
         id_collisions = junction_collisions[junction_collisions['junction_cluster_id'] == id]
 
-        cols = ['latitude', 'longitude', 'max_cyclist_severity', 'collision_label']
+        cols = ['latitude', 'longitude', f'max_{casualty_type}_severity', 'collision_label']
         for collision_lat, collision_lon, severity, label in id_collisions[cols].dropna().values:
             # draw lines between central point and collisions
             lines = folium.PolyLine(locations=[[[collision_lat, collision_lon], [lat, lon]]], weight=.8, color='grey')
@@ -425,8 +433,8 @@ def low_level_map(
                     }
                     </style>
                 ''' + label,
-                width=180,
-                height=100
+                width=200,
+                height=180
             )
 
             if severity == 'fatal':
@@ -490,27 +498,3 @@ def low_level_map(
 
     return m
 
-
-@st.cache_data
-def get_table(low_junction_collisions: pd.DataFrame) -> pd.DataFrame:
-    """
-    Filter cols and order for output in app
-    """
-    output_cols = [
-        'collision_index',
-        'date',
-        'location',
-        'junction_detail',
-        'max_cyclist_severity',
-        'fatal_cyclist_casualties',
-        'serious_cyclist_casualties',
-        'slight_cyclist_casualties',
-        'danger_metric',
-        'recency_danger_metric'
-    ]
-    table_data = (
-        low_junction_collisions[output_cols]
-        .dropna(subset=['collision_index'])
-        .sort_values(by='date', ascending=False)
-    )
-    return table_data
