@@ -1,5 +1,4 @@
 import streamlit as st
-import plotly.express as px
 
 from src.app_functions import *
 from streamlit_folium import st_folium
@@ -54,8 +53,9 @@ st.write(
     unsafe_allow_html=True
 )
 
-
 junctions, collisions, notes = read_in_data(tolerance=15)
+min_year = np.min(collisions['year'])
+max_year = np.max(collisions['year'])
 
 with st.expander("App settings", expanded=True):
     with st.form(key='form'):
@@ -125,7 +125,7 @@ else:
         st.markdown(f'''
             #### Dangerous Junctions
 
-            Map shows the {n_junctions} most dangerous junctions in {borough_msg}.
+            Map shows the {n_junctions} most dangerous junctions in {borough_msg} from {min_year} to {max_year}.
         ''')
 
         high_map = high_level_map(dangerous_junctions, junction_collisions, n_junctions)
@@ -178,22 +178,37 @@ st.dataframe(
         'recency_danger_metric',
         f'fatal_{casualty_type}_casualties',
         f'serious_{casualty_type}_casualties',
-        f'slight_{casualty_type}_casualties'
+        f'slight_{casualty_type}_casualties',
+        'yearly_danger_metrics'
     ]],
     column_config={
         'junction_rank': 'Junction rank',
         'junction_cluster_name': 'Junction name',
-        'recency_danger_metric': 'Danger metric',
+        'recency_danger_metric': st.column_config.NumberColumn(
+            'Danger metric',
+            format='%.2f',
+            help='Danger metric including recency scaling'
+        ),
         f'fatal_{casualty_type}_casualties': f'Fatal {casualty_type} collisions',
         f'serious_{casualty_type}_casualties': f'Serious {casualty_type} collisions',
-        f'slight_{casualty_type}_casualties': f'Slight {casualty_type} collisions'
+        f'slight_{casualty_type}_casualties': f'Slight {casualty_type} collisions',
+        'yearly_danger_metrics': st.column_config.LineChartColumn(
+            "Yearly danger metrics (past 5 years)",
+            help='Last 5 years of danger metrics (recency scaled removed)',
+            y_min=0,
+            y_max=10
+        ),
     },
-    hide_index=True,
-    use_container_width=True
+    use_container_width=True,
+    hide_index=True
 )
 
-
 with st.expander("About this app"):
+    st.write("""
+        This is an explanation for how the app works, notes on the data and how to find out more.
+             
+        TBC.
+    """)
     col1, col2 = st.columns(2)
 
     with col1:
@@ -252,7 +267,7 @@ with st.expander("About this app"):
                     
             Due to the way the collisions are assigned and aggregated the exact ranking of
             junctions may not be perfect. Junctions are not weighted by how much cycling or
-            pedestrian volume they cater for, so this will impact the ranking.
+            pedestrian volume they cater for, so this will also impact the ranking.
                     
             The ability to drill down into a junction and assess the individual collisions
             in combination with user domain knowledge should still make this a very useful tool
