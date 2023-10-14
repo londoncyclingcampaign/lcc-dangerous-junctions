@@ -44,6 +44,24 @@ def combine_names(names) -> list:
     return unique_names
 
 
+def shorten_road_names(name: str) -> str:
+    '''
+    Shortern elements of road names to save space
+    '''
+    replacements = {
+        'Avenue': 'Ave',
+        'Bridge': 'Brg',
+        'Gardens': 'Gdns',
+        'Place': 'Pl',
+        'Road': 'Rd',
+        'Street': 'St',
+        'Square': 'Sq',
+    }
+    for k, v in replacements.items():
+        name = name.replace(k, v)
+    return name
+
+
 def list_to_string_name(names: list) -> str:
     '''
     Convert list of names for junction to a string
@@ -92,6 +110,8 @@ def name_junctions(lower_level_graph, nodes_df: pd.DataFrame) -> pd.DataFrame:
     )
 
     nodes_df['junction_cluster_name'] = nodes_df['name_cluster'].apply(list_to_string_name)
+
+    nodes_df['junction_cluster_name'] = nodes_df['junction_cluster_name'].apply(shorten_road_names)
 
     nodes_df['name_rank'] = (
         nodes_df
