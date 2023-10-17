@@ -50,7 +50,7 @@ def read_in_data(tolerance: int, params: dict = params) -> tuple:
             columns=params['collision_app_columns']
         )
 
-    junction_notes = conn.read("lcc-app-data/junction-notes.csv")
+    junction_notes = pd.read_csv(st.secrets["junction_notes"])
 
     return junctions, collisions, junction_notes
 
@@ -283,7 +283,7 @@ def get_html_colors(n: int) -> list:
     """
     Function to get n html colour codes along a continuous gradient
     """
-    p = sns.color_palette("gist_heat", n)
+    p = sns.color_palette("gist_heat", n + 5)  # + 5 to force the palette to ignore the lighter colours at end
     p.as_hex()
     
     p = [[int(i * 255) for i in c] for c in p[:]]

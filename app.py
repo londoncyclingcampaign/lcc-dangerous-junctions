@@ -70,7 +70,7 @@ with st.expander("App settings", expanded=True):
         with col2:
             n_junctions = st.slider(
                 label='Number of dangerous junctions to show',
-                min_value=0,
+                min_value=1,
                 max_value=100,  # not sure we'd ever need to view more then 100?
                 value=20
             )
@@ -219,8 +219,8 @@ with st.expander("About this app"):
 
             The 'dangerous junctions' map to the top left plots the top junctions, ranked in descending order from most to least dangerous.
             By clicking on a junction you can find more information about that junction. The ranking can also be viewed via
-            the bar chart below the maps. The bars are interactive and many of the same stats about
-            the junctions can be access from this view.
+            the table below the maps, which also includes the (non recency weighted) danger metric for the last 5 years to help
+            spot trends.
 
             Selecting a junction on the 'dangerous junctions' map updates the 'investigate junction' map to
             display the same junction, showing you the individual collisions that have been assigned
