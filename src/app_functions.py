@@ -222,7 +222,7 @@ def create_junction_labels(row: pd.DataFrame, casualty_type: str) -> str:
     notes = row['notes']
 
     label = f"""
-        <h3>{junction_name}<h3>
+        <h3>{junction_name}</h3>
         Dangerous Junction Rank: <b>{rank}</b> <br>
         Danger Metric: <b>{recency_metric}</b> <br>
         <hr>
