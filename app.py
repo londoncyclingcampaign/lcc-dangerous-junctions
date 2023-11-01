@@ -213,19 +213,20 @@ with st.expander("About this app"):
             Welcome to the London Cycling Campaign's Dangerous Junctions tool. The tool displays the most dangerous
             junctions in London for either cyclists or pedestrians, depending on the settings you've selected. You can
             also filter to specific boroughs or change the number of junctions displayed using the options in the panel at
-            the top of the page. It's designed to assist LCC and other organisations to campaign and
-            advocate for improvements to road networks in London, helping to make junctions safer
+            the top of the page. It's designed to assist LCC and other organisations to campaign for improvements to road networks in London, helping to make junctions safer
             for both cyclists and pedestrians.
 
             The 'dangerous junctions' map to the top left plots the top junctions, ranked in descending order from most to least dangerous.
-            By clicking on a junction you can find more information about that junction. The ranking can also be viewed via
+            By clicking on a junction you can find more information about it. The ranking can also be viewed via
             the table below the maps, which also includes the (non recency weighted) danger metric for the last 5 years to help
             spot trends.
 
             Selecting a junction on the 'dangerous junctions' map updates the 'investigate junction' map to
             display the same junction, showing you the individual collisions that have been assigned
-            to that junction for further interogation. Selecting individual collisions
+            to that junction for further interrogation. Selecting individual collisions
             displays more info and a link to access the full collision report on the CycleStreets website.
+
+            For the best experience, view this on a desktop or other larger screen device.
                 
             ##### The data
                  
@@ -235,8 +236,9 @@ with st.expander("About this app"):
             [OSMnx package](https://github.com/gboeing/osmnx) that relies on OpenStreetMap data.
                 
             ##### Contact
-                 
-            For any questions, feedback or bug reports, email: [djmapping@lcc.org.uk](mailto:djmapping@lcc.org.uk)
+
+            This app was made by [Daniel Hills](https://danielhills.github.io/) on behalf of the LCC. For any questions, 
+            feedback or bug reports, email: [djmapping@lcc.org.uk](mailto:djmapping@lcc.org.uk)
         """)
 
     with col2:
