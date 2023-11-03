@@ -81,7 +81,7 @@ def combine_junctions_and_collisions(
         .merge(
             notes,
             how='left',
-            on='junction_index'
+            on='junction_cluster_id'
         )
     )
     junction_collisions.loc[junction_collisions['notes'].isna(), 'notes'] = ''
