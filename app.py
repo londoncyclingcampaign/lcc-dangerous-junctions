@@ -53,6 +53,10 @@ st.write(
     unsafe_allow_html=True
 )
 
+st.warning('''
+    Note - you may experience slow load times at the moment due to abnormally high traffic. This app is best viewed on a larger screen device.
+''')
+
 junctions, collisions, notes = read_in_data(tolerance=15)
 min_year = np.min(collisions['year'])
 max_year = np.max(collisions['year'])
