@@ -281,6 +281,6 @@ with st.expander("About this app"):
 
 
 # clean up session state
-# for k, v in st.session_state.items():
-#     if k not in ['chosen_point', 'previous_boroughs', 'previous_casualty_type']:
-#         del st.session_state[k]
+for k, v in st.session_state.items():
+    if k not in ['chosen_point', 'previous_boroughs', 'previous_casualty_type']:
+        del st.session_state[k]
