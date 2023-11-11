@@ -1,3 +1,4 @@
+import psutil
 import streamlit as st
 
 from src.app_functions import *
@@ -93,6 +94,7 @@ with st.expander("App settings", expanded=True):
             st.markdown('<br>', unsafe_allow_html=True)  # padding
             submit = st.form_submit_button(label='Recalculate Junctions', type='primary', use_container_width=True)
 
+
 if len(boroughs) == 0:
     st.warning('Please select at least one borough and recalculate', icon='⚠️')
 else:
@@ -152,6 +154,7 @@ else:
 
             Select a point on the left map and drill down into it here.
         ''')
+
         low_map = low_level_map(
             dangerous_junctions,
             junction_collisions,
@@ -272,3 +275,11 @@ with st.expander("About this app"):
             in combination with user domain knowledge should still make this a very useful tool
             in assessing the danger of junctions in London.
         """)
+
+
+# clean up session state
+# for k, v in st.session_state.items():
+#     if k not in ['chosen_point', 'previous_boroughs', 'previous_casualty_type']:
+#         del st.session_state[k]
+
+print(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
