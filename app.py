@@ -283,4 +283,4 @@ with st.expander("About this app"):
 #         del st.session_state[k]
 
 import os
-os.write(1,f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
+os.write(1,str.encode(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB'))
