@@ -1,5 +1,2 @@
 [theme]
 base = "light"
-
-[logger]
-level = "info"

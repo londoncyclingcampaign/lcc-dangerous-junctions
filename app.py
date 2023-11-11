@@ -1,11 +1,8 @@
 import psutil
-import logging
 import streamlit as st
 
 from src.app_functions import *
 from streamlit_folium import st_folium
-
-logger = logging.getLogger()
 
 st.set_page_config(layout='wide')
 
@@ -285,4 +282,4 @@ with st.expander("About this app"):
 #     if k not in ['chosen_point', 'previous_boroughs', 'previous_casualty_type']:
 #         del st.session_state[k]
 
-logger.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
+print(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
