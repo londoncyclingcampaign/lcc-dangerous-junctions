@@ -1,11 +1,8 @@
 import psutil
-import logging
 import streamlit as st
 
 from src.app_functions import *
 from streamlit_folium import st_folium
-
-logger = logg
 
 st.set_page_config(layout='wide')
 
