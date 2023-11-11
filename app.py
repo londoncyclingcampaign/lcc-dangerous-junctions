@@ -1,3 +1,4 @@
+import gc
 import psutil
 import streamlit as st
 
@@ -284,3 +285,5 @@ with st.expander("About this app"):
 for k, v in st.session_state.items():
     if k not in ['chosen_point', 'previous_boroughs', 'previous_casualty_type']:
         del st.session_state[k]
+
+gc.collect()
