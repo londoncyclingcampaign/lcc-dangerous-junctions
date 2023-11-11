@@ -54,6 +54,9 @@ st.write(
     unsafe_allow_html=True
 )
 
+
+st.markdown(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
+
 st.warning('''
     Note - you may experience slow load times at the moment due to abnormally high traffic. This app is best viewed on a larger screen device.
 ''')
@@ -281,6 +284,3 @@ with st.expander("About this app"):
 # for k, v in st.session_state.items():
 #     if k not in ['chosen_point', 'previous_boroughs', 'previous_casualty_type']:
 #         del st.session_state[k]
-
-import os
-os.write(1,str.encode(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB'))
