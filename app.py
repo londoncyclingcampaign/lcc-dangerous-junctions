@@ -2,8 +2,12 @@ import psutil
 import logging
 import streamlit as st
 
+from guppy import hpy
 from src.app_functions import *
 from streamlit_folium import st_folium
+
+# for memory profiling
+h = hpy()
 
 st.set_page_config(layout='wide')
 
@@ -57,7 +61,7 @@ st.write(
 
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
-logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
+# logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
 
 st.warning('''
     Note - you may experience slow load times at the moment due to abnormally high traffic. This app is best viewed on a larger screen device.
@@ -286,3 +290,6 @@ with st.expander("About this app"):
 # for k, v in st.session_state.items():
 #     if k not in ['chosen_point', 'previous_boroughs', 'previous_casualty_type']:
 #         del st.session_state[k]
+
+logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
+logging.info(f'{h.heap()}')
