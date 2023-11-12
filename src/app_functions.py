@@ -55,7 +55,7 @@ def read_in_data(tolerance: int, params: dict = params) -> tuple:
     return junctions, collisions, junction_notes
 
 
-@st.cache_data(show_spinner=False)
+# @st.cache_data(show_spinner=False)
 def combine_junctions_and_collisions(
     junctions: pd.DataFrame,
     collisions: pd.DataFrame,
@@ -237,7 +237,7 @@ def create_junction_labels(row: pd.DataFrame, casualty_type: str) -> str:
     return label
 
 
-@st.cache_data(show_spinner=False)
+# @st.cache_data(show_spinner=False)
 def calculate_dangerous_junctions(
     junction_collisions: pd.DataFrame,
     n_junctions: int,
@@ -292,7 +292,7 @@ def get_html_colors(n: int) -> list:
     return html_p
 
 
-@st.cache_data(show_spinner=False)
+# @st.cache_data(show_spinner=False)
 def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point: list) -> pd.DataFrame:
     """
     Given a chosen junction get the low level collision data for that junction
