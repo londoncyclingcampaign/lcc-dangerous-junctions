@@ -1,4 +1,5 @@
 import psutil
+import logging
 import streamlit as st
 
 from src.app_functions import *
@@ -56,7 +57,7 @@ st.write(
 
 
 st.markdown(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
-print(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
+logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
 
 st.warning('''
     Note - you may experience slow load times at the moment due to abnormally high traffic. This app is best viewed on a larger screen device.
