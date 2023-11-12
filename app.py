@@ -3,12 +3,8 @@ import objgraph
 import logging
 import streamlit as st
 
-from guppy import hpy
 from src.app_functions import *
 from streamlit_folium import st_folium
-
-# for memory profiling
-h = hpy()
 
 st.set_page_config(layout='wide')
 
