@@ -1,3 +1,5 @@
+import psutil
+import logging
 import streamlit as st
 
 from src.app_functions import *
@@ -53,6 +55,10 @@ st.write(
     unsafe_allow_html=True
 )
 
+
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
+logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
+
 st.warning('''
     Note - you may experience slow load times at the moment due to abnormally high traffic. This app is best viewed on a larger screen device.
 ''')
@@ -92,6 +98,7 @@ with st.expander("App settings", expanded=True):
         with col4:
             st.markdown('<br>', unsafe_allow_html=True)  # padding
             submit = st.form_submit_button(label='Recalculate Junctions', type='primary', use_container_width=True)
+
 
 if len(boroughs) == 0:
     st.warning('Please select at least one borough and recalculate', icon='⚠️')
@@ -152,6 +159,7 @@ else:
 
             Select a point on the left map and drill down into it here.
         ''')
+
         low_map = low_level_map(
             dangerous_junctions,
             junction_collisions,
@@ -274,3 +282,4 @@ with st.expander("About this app"):
             in combination with user domain knowledge should still make this a very useful tool
             in assessing the danger of junctions in London.
         """)
+

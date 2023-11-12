@@ -1,6 +1,5 @@
 import os
 import yaml
-import time
 import folium
 import streamlit as st
 import numpy as np
@@ -8,7 +7,6 @@ import pandas as pd
 import seaborn as sns
 
 from yaml import Loader
-from scipy.stats import linregress
 from folium.features import DivIcon
 from st_files_connection import FilesConnection
 
@@ -17,7 +15,7 @@ from st_files_connection import FilesConnection
 params = yaml.load(open("params.yaml", 'r'), Loader=Loader)
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=24*3600)
 def read_in_data(tolerance: int, params: dict = params) -> tuple:
     """
     Function to read in different data depending on tolerance requests.
@@ -55,7 +53,7 @@ def read_in_data(tolerance: int, params: dict = params) -> tuple:
     return junctions, collisions, junction_notes
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=3*60)
 def combine_junctions_and_collisions(
     junctions: pd.DataFrame,
     collisions: pd.DataFrame,
@@ -235,7 +233,7 @@ def create_junction_labels(row: pd.DataFrame, casualty_type: str) -> str:
     return label
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=3*60)
 def calculate_dangerous_junctions(
     junction_collisions: pd.DataFrame,
     n_junctions: int,
@@ -290,7 +288,7 @@ def get_html_colors(n: int) -> list:
     return html_p
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=3*60)
 def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point: list) -> pd.DataFrame:
     """
     Given a chosen junction get the low level collision data for that junction
