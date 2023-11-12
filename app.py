@@ -1,4 +1,5 @@
 import psutil
+import objgraph
 import logging
 import streamlit as st
 
@@ -292,4 +293,5 @@ with st.expander("About this app"):
 #         del st.session_state[k]
 
 logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
-logging.info(f'{h.heap()}')
+logging.info(f'{objgraph.show_growth(limit=15)}')
+
