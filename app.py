@@ -56,8 +56,6 @@ st.write(
 )
 
 
-st.markdown(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
-
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
 
