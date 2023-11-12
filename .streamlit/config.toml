@@ -1,6 +1,2 @@
 [theme]
 base = "light"
-
-[logging]
-level = "info"
-messageFormat = "%(asctime)s %(message)s"
