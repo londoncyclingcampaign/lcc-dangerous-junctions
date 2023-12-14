@@ -12,18 +12,19 @@ from st_files_connection import FilesConnection
 
 
 # read in data params
-params = yaml.load(open("params.yaml", 'r'), Loader=Loader)
+DATA_PARAMETERS = yaml.load(open("params.yaml", 'r'), Loader=Loader)
+
+# set as "prod" in the hosted environment
+ENVIRONMENT = os.environ.get("ENVIRONMENT", "dev")
 
 
 @st.cache_data(show_spinner=False, ttl=24*3600)
-def read_in_data(tolerance: int, params: dict = params) -> tuple:
+def read_in_data(tolerance: int, params: dict = DATA_PARAMETERS) -> tuple:
     """
     Function to read in different data depending on tolerance requests.
     Reads from local if not on streamlit server, otherwise from google sheets.
     """
-    conn = st.experimental_connection('gcs', type=FilesConnection)
-
-    if os.getenv('HOME') == '/Users/Dan':
+    if ENVIRONMENT == 'dev':
         junctions = pd.read_parquet(
             f'data/junctions-tolerance={tolerance}.parquet',
             engine='pyarrow',
@@ -35,6 +36,7 @@ def read_in_data(tolerance: int, params: dict = params) -> tuple:
             columns=params['collision_app_columns']
         )
     else:
+        conn = st.experimental_connection('gcs', type=FilesConnection)
         junctions = conn.read(
             "lcc-app-data/junctions-tolerance=15.parquet",
             input_format="parquet",
@@ -48,7 +50,10 @@ def read_in_data(tolerance: int, params: dict = params) -> tuple:
             columns=params['collision_app_columns']
         )
 
-    junction_notes = pd.read_csv(st.secrets["junction_notes"])
+    try:
+        junction_notes = pd.read_csv(st.secrets["junction_notes"])
+    except FileNotFoundError:
+        junction_notes = pd.DataFrame(columns=["junction_cluster_id", "notes"])
 
     return junctions, collisions, junction_notes
 
@@ -105,7 +110,7 @@ def combine_junctions_and_collisions(
     return junction_collisions
 
 
-def get_danger_metric(row, casualty_type, params=params):
+def get_danger_metric(row, casualty_type, params=DATA_PARAMETERS):
     '''
     Upweights more severe collisions for junction comparison.
     Only take worst severity, so if multiple casualties involved we have to ignore less severe.
