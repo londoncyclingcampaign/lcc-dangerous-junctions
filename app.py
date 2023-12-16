@@ -59,9 +59,6 @@ st.write(
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
 
-st.warning('''
-    Note - you may experience slow load times at the moment due to abnormally high traffic. This app is best viewed on a larger screen device.
-''')
 
 junctions, collisions, notes = read_in_data(tolerance=15)
 min_year = np.min(collisions['year'])

@@ -39,7 +39,8 @@ The current method used to identify dangerous junctions works as follows:
 To run and develop on this code:
 - Clone the repo
 - Make sure Python installed
-- Setup a virtual environment, e.g: ```python3 -m venv venv```
+- Setup a virtual environment, e.g: ```python3.8 -m venv venv```
+  - nb. the dependency `backports.zoneinfo` requires python version of max 3.8, see [docs](https://pypi.org/project/backports.zoneinfo/)
 - Activate the virtual environment: `source venv/bin/activate`
 - Install the packages using: `pip install -r requirements.txt`
 - Run the following:
