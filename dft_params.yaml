@@ -1,0 +1,93 @@
+---
+# junction types to include from the junction_detail field
+valid_junction_types:
+  - "Crossroads"
+  - "Other junction"
+  #    - "Not at junction or within 20 metres"
+  - "Slip road"
+  - "T or staggered junction"
+  - "More than 4 arms (not roundabout)"
+  - "Roundabout"
+  - "Mini-roundabout"
+  - "unknown (self reported)"
+#    - "Private drive or entrance"
+
+valid_casualty_types:
+  - Cyclist
+  - Pedestrian
+
+# tolerance level to determine which junctions to combine (in metres)
+tolerance: 15
+
+number_of_dangerous_collisions: 100
+distance_to_junction_threshold: .001
+
+# collision severity weights
+weight_fatal: 6.8
+weight_serious: 1.
+weight_slight: .06
+
+# dft urls
+base_dft_url: "https://data.dft.gov.uk/road-accidents-safety-data/"
+schema_file_name: "dft-road-casualty-statistics-road-safety-open-dataset-data-guide-2023" # xlsx online, csv local
+collision_file_name: "dft-road-casualty-statistics-collision-{year}.csv"
+casualty_file_name: "dft-road-casualty-statistics-casualty-{year}.csv"
+dft_data_years:
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+
+# columns required from raw data
+collision_columns:
+  - local_authority_ons_district
+  - location_easting_osgr
+  - location_northing_osgr
+  - accident_severity
+  - junction_detail
+  - date
+  - time
+  - accident_reference
+  - accident_index
+  - longitude
+  - latitude
+
+casualty_columns:
+  - accident_index
+  - accident_reference
+  - casualty_class
+  - casualty_severity
+  - casualty_type
+
+# only read in necessary cols to keep data size down
+collision_app_columns:
+  - borough
+  - collision_index
+  - year
+  - longitude
+  - latitude
+  - is_cyclist_collision
+  - is_pedestrian_collision
+  - junction_id
+  - junction_index
+  - fatal_cyclist_casualties
+  - serious_cyclist_casualties
+  - slight_cyclist_casualties
+  - fatal_pedestrian_casualties
+  - serious_pedestrian_casualties
+  - slight_pedestrian_casualties
+  - recency_weight
+  - date
+  - max_cyclist_severity
+  - max_pedestrian_severity
+
+junction_app_columns:
+  - latitude_junction
+  - longitude_junction
+  - junction_id
+  - junction_index
+  - junction_cluster_id
+  - junction_cluster_name
+  - latitude_cluster
+  - longitude_cluster
