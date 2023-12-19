@@ -28,7 +28,7 @@ def read_in_data(tolerance: int, params: dict = DATA_PARAMETERS) -> tuple:
         junctions = pd.read_parquet(
             f'data_dft/junctions-tolerance={tolerance}.parquet',
             engine='pyarrow',
-            columns=params['junction_app_columns']
+            # columns=params['junction_app_columns']
         )
         collisions = pd.read_parquet(
             f'data_dft/collisions-tolerance={tolerance}.parquet',

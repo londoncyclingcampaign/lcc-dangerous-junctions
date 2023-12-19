@@ -60,34 +60,34 @@ casualty_columns:
   - casualty_severity
   - casualty_type
 
-# only read in necessary cols to keep data size down
+# only read in necessary cols to keep data size down not being used TODO
 collision_app_columns:
-  - borough
-  - collision_index
-  - year
-  - longitude
-  - latitude
-  - is_cyclist_collision
-  - is_pedestrian_collision
-  - junction_id
-  - junction_index
-  - fatal_cyclist_casualties
-  - serious_cyclist_casualties
-  - slight_cyclist_casualties
-  - fatal_pedestrian_casualties
-  - serious_pedestrian_casualties
-  - slight_pedestrian_casualties
-  - recency_weight
-  - date
-  - max_cyclist_severity
-  - max_pedestrian_severity
+#  - borough
+#  - collision_index
+#  - year
+#  - longitude
+#  - latitude
+#  - is_cyclist_collision
+#  - is_pedestrian_collision
+#  - junction_id
+#  - junction_index
+#  - fatal_cyclist_casualties
+#  - serious_cyclist_casualties
+#  - slight_cyclist_casualties
+#  - fatal_pedestrian_casualties
+#  - serious_pedestrian_casualties
+#  - slight_pedestrian_casualties
+#  - recency_weight
+#  - date
+#  - max_cyclist_severity
+#  - max_pedestrian_severity
 
 junction_app_columns:
-  - latitude_junction
-  - longitude_junction
-  - junction_id
-  - junction_index
-  - junction_cluster_id
-  - junction_cluster_name
-  - latitude_cluster
-  - longitude_cluster
+#  - latitude_junction
+#  - longitude_junction
+#  - junction_id
+#  - junction_index
+#  - junction_cluster_id
+#  - junction_cluster_name
+#  - latitude_cluster
+#  - longitude_cluster

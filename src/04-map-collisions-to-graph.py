@@ -20,7 +20,7 @@ def get_nearest_junction(row, tree):
 def main():
 
     # read in data params
-    params = yaml.load(open("params.yaml", 'r'), Loader=Loader)
+    params = yaml.load(open("dft_params.yaml", 'r'), Loader=Loader)
 
     tolerance = params['tolerance']
     distance_threshold = params['distance_to_junction_threshold']

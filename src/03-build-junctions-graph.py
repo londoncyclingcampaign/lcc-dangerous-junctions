@@ -142,7 +142,7 @@ def name_junctions(lower_level_graph, nodes_df: pd.DataFrame) -> pd.DataFrame:
 def main():
 
     # read in data params
-    params = yaml.load(open("params.yaml", 'r'), Loader=Loader)
+    params = yaml.load(open("dft_params.yaml", 'r'), Loader=Loader)
 
     tolerance = params['tolerance']
 
@@ -171,7 +171,7 @@ def main():
         reconnect_edges=True
     )
 
-    # create datafraems from G1 & G2
+    # create dataframes from G1 & G2
     df_lower = (
         ox.graph_to_gdfs(
             G1,
