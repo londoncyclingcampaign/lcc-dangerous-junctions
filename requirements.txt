@@ -78,3 +78,6 @@ zipp==3.16.2
 
 # direct install
 git+https://github.com/streamlit/files-connection
+
+# new
+openpyxl
