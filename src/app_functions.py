@@ -26,15 +26,17 @@ def read_in_data(tolerance: int, params: dict = DATA_PARAMETERS) -> tuple:
     """
     if ENVIRONMENT == 'dev':
         junctions = pd.read_parquet(
-            f'data/junctions-tolerance={tolerance}.parquet',
+            f'data_dft/junctions-tolerance={tolerance}.parquet',
             engine='pyarrow',
             columns=params['junction_app_columns']
         )
         collisions = pd.read_parquet(
-            f'data/collisions-tolerance={tolerance}.parquet',
+            f'data_dft/collisions-tolerance={tolerance}.parquet',
             engine='pyarrow',
-            columns=params['collision_app_columns']
-        )
+            # columns=params['collision_app_columns']
+        ).rename(columns={"local_authority_ons_district": "borough"})
+
+        print(collisions.head())
     else:
         conn = st.experimental_connection('gcs', type=FilesConnection)
         junctions = conn.read(
@@ -72,7 +74,7 @@ def combine_junctions_and_collisions(
     if casualty_type == 'cyclist':
         collisions = collisions[collisions['is_cyclist_collision']]
     elif casualty_type == 'pedestrian':
-        collisions = collisions[collisions['is_pedestrian_collision']]
+        collisions = collisions[collisions['is_Pedestrian_collision']]
 
     junction_collisions = (
         junctions
@@ -100,12 +102,14 @@ def combine_junctions_and_collisions(
     )
 
     # add stats19 link column
-    junction_collisions['stats19_link'] = junction_collisions['collision_index'].apply(
-        lambda x: f'https://www.cyclestreets.net/collisions/reports/{x}/'
-    )
-    junction_collisions['collision_label'] = junction_collisions.apply(
-        lambda row: create_collision_labels(row, casualty_type), axis=1
-    )
+    junction_collisions['stats19_link'] = None
+    #     junction_collisions['collision_index'].apply(
+    #     lambda x: f'https://www.cyclestreets.net/collisions/reports/{x}/'
+    # )
+    junction_collisions['collision_label'] = None
+    #     = junction_collisions.apply(
+    #     lambda row: create_collision_labels(row, casualty_type), axis=1
+    # )
 
     return junction_collisions
 
