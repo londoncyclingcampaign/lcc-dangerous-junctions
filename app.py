@@ -73,7 +73,7 @@ with st.expander("App settings", expanded=True):
         with col1:
             casualty_type = st.radio(
                 label='Select casualty type',
-                options=['cyclist', 'pedestrian'],
+                options=['cyclist', 'Pedestrian'],
                 format_func=lambda x: f'{x}s',
                 horizontal=True
             )
