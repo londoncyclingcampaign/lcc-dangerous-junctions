@@ -28,11 +28,11 @@ def main():
     # read in data
     collisions = (
         pd
-        .read_csv('data/pedestrian-and-cyclist-collisions.csv')
+        .read_csv('data_dft/pedestrian-and-cyclist-collisions.csv')
         .rename(columns={'collision_id': 'collision_index'})
     )
 
-    junctions = pd.read_csv(f'data/junctions-tolerance={tolerance}.csv', low_memory=False)
+    junctions = pd.read_csv(f'data_dft/junctions-tolerance={tolerance}.csv', low_memory=False)
 
     # Find nearest junction to each collision
     # Use BallTree algorithm.
@@ -40,6 +40,8 @@ def main():
 
     print('Finding nearest junction to each collision')
     tree = BallTree(junctions[['latitude_junction', 'longitude_junction']], metric='haversine')
+
+    collisions = collisions.dropna(how="any", subset=["longitude", "latitude"])
 
     collisions[['distance_to_junction', 'junction_index']] = collisions.apply(
         lambda row: get_nearest_junction(row, tree), axis=1, result_type='expand'
@@ -57,8 +59,8 @@ def main():
         collisions['distance_to_junction'] <= distance_threshold
     ]
 
-    collisions.to_csv(f'data/collisions-tolerance={tolerance}.csv', index=False)
-    collisions.to_parquet(f'data/collisions-tolerance={tolerance}.parquet', engine='pyarrow')
+    collisions.to_csv(f'data_dft/collisions-tolerance={tolerance}.csv', index=False)
+    collisions.to_parquet(f'data_dft/collisions-tolerance={tolerance}.parquet', engine='pyarrow')
 
 
 if __name__ == "__main__":

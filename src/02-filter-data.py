@@ -113,7 +113,6 @@ def main():
     casualties = casualties[casualties.accident_index.isin(valid_crash_ids)]
 
     print('Recalculate severities and danger metrics')
-    print(collisions['year'])
     min_year = min(collisions['year'])
     recalculated_cyclist_severities = recalculate_severity(casualties, 'Cyclist')
     recalculated_pedestrian_severities = recalculate_severity(casualties, 'Pedestrian')
@@ -128,8 +127,6 @@ def main():
     collisions['recency_weight'] = collisions.apply(
         lambda row: get_recency_weight(row, min_year), axis=1
     )
-
-    print(collisions.columns)
 
     collisions.loc[:, 'is_cyclist_collision'] = False
     collisions.loc[:, 'is_Pedestrian_collision'] = False
