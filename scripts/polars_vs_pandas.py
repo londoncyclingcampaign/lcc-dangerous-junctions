@@ -51,4 +51,3 @@ time1 = time.time()
 
 print(f'Pandas - time: {time1 - time0}s')
 print(f'Pandas - size: {sys.getsizeof(junction_collisions) / (1024 * 1024)}MB')
-
