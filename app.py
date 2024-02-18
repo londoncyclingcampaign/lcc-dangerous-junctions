@@ -90,6 +90,8 @@ else:
         casualty_type
     )
 
+    st.dataframe(dangerous_junctions)
+
     # set default to worst junction...
     if (
         ('chosen_point' not in st.session_state) or
