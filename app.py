@@ -111,15 +111,13 @@ else:
         casualty_type
     )
 
-    st.dataframe(dangerous_junctions)
-
     # set default to worst junction...
     if 'chosen_point' not in st.session_state:
-        st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
+        st.session_state['chosen_point'] = dangerous_junctions.select(['latitude_cluster', 'longitude_cluster']).rows()[0]
     elif casualty_type != st.session_state['previous_casualty_type']:
-        st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
+        st.session_state['chosen_point'] = dangerous_junctions.select(['latitude_cluster', 'longitude_cluster']).rows()[0]
     elif boroughs != st.session_state['previous_boroughs']:
-        st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
+        st.session_state['chosen_point'] = dangerous_junctions.select(['latitude_cluster', 'longitude_cluster']).rows()[0]
 
     st.session_state['previous_casualty_type'] = casualty_type
     st.session_state['previous_boroughs'] = boroughs

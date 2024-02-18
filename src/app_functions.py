@@ -316,7 +316,7 @@ def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point:
     return low_junction_collisions
 
 
-def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, n_junctions: int) -> folium.Map:
+def high_level_map(dangerous_junctions: pl.DataFrame, map_data: pl.DataFrame, n_junctions: int) -> folium.Map:
     """
     Function to generate the junction map
 
@@ -333,16 +333,17 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, n_
         overlay=False,
     ).add_to(m)
 
-    map_data = map_data[
-        map_data['junction_cluster_id'].isin(dangerous_junctions['junction_cluster_id'])
-    ]
+    dangerous_junction_cluster_ids = dangerous_junctions.get_column('junction_cluster_id').unique()
+    map_data = map_data.filter(
+        pl.col('junction_cluster_id').is_in(dangerous_junction_cluster_ids)
+    )
 
     pal = get_html_colors(n_junctions)
 
     # add junction markers
     cols = ['latitude_cluster', 'longitude_cluster', 'label', 'junction_rank']
 
-    for lat, lon, label, rank in dangerous_junctions[cols].values[::-1]:
+    for lat, lon, label, rank in dangerous_junctions.select(cols).rows()[::-1]:
         iframe = folium.IFrame(
             html='''
                 <style>
@@ -380,15 +381,15 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, n_
         ).add_to(m)
 
     # adjust map bounds
-    sw = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].min().values.tolist()
-    ne = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].max().values.tolist()
+    sw = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].min().rows()[0]
+    ne = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].max().rows()[0]
     m.fit_bounds([sw, ne])
 
     return m
 
 
 def low_level_map(
-    dangerous_junctions: pd.DataFrame, junction_collisions: pd.DataFrame,
+    dangerous_junctions: pl.DataFrame, junction_collisions: pl.DataFrame,
     initial_location: list, n_junctions: int, casualty_type: str) -> folium.Map:
     """
     Function to generate the lower level collision map
@@ -414,13 +415,13 @@ def low_level_map(
     pal = get_html_colors(n_junctions)
 
     cols = ['junction_cluster_id', 'latitude_cluster', 'longitude_cluster', 'junction_rank']
-    for id, lat, lon, junction_rank in dangerous_junctions[cols].values:
+    for id, lat, lon, junction_rank in dangerous_junctions.select(cols).rows():
 
         # filter lower level data to cluster
-        id_collisions = junction_collisions[junction_collisions['junction_cluster_id'] == id]
+        id_collisions = junction_collisions.filter(pl.col('junction_cluster_id') == id)
 
         cols = ['latitude', 'longitude', f'max_{casualty_type}_severity', 'collision_label']
-        for collision_lat, collision_lon, severity, label in id_collisions[cols].dropna().values:
+        for collision_lat, collision_lon, severity, label in id_collisions.select(cols).rows():
             # draw lines between central point and collisions
             lines = folium.PolyLine(locations=[[[collision_lat, collision_lon], [lat, lon]]], weight=.8, color='grey')
             m.add_child(lines)
