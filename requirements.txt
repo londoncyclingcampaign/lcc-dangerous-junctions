@@ -168,6 +168,7 @@ osmnx==1.9.1
     # via -r requirements.in
 packaging==23.1
 <<<<<<< HEAD
+<<<<<<< HEAD
     # via
     #   build
     #   geopandas
