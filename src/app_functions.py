@@ -16,7 +16,7 @@ from fsspec import filesystem
 DATA_PARAMETERS = yaml.load(open("params.yaml", 'r'), Loader=Loader)
 
 # set as "prod" in the hosted environment
-ENVIRONMENT = os.environ.get("ENVIRONMENT", "dev")
+ENVIRONMENT = os.environ.get("ENVIRONMENT", "prod")
 
 
 @st.cache_resource(show_spinner=False)
