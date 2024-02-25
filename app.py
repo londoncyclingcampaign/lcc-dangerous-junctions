@@ -295,3 +295,6 @@ with st.expander("About this app"):
             in assessing the danger of junctions in London.
         """)
 
+# log highest memory objects
+for key, val in get_highest_memory_objects(locals()).items():
+    logging.info(f'{key}: {val} MB')
