@@ -35,7 +35,8 @@ st.markdown(
         }
         .header h1 {
         position: relative;
-        top: -100px;
+        top: -10px;
+        height: 6.5rem; 
         text-align: center;
         vertical-align: middle;
         font-size: 2em;
@@ -55,6 +56,8 @@ st.write(
     ''',
     unsafe_allow_html=True
 )
+
+st.write('<style>div.block-container{padding-top:0rem;}</style>', unsafe_allow_html=True)
 
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
