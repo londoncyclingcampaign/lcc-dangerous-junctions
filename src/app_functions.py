@@ -40,9 +40,9 @@ def read_in_data(tolerance: int, params: dict = DATA_PARAMETERS) -> tuple:
             junctions = pl.read_parquet(
                 f, columns=params['junction_app_columns']
             )
-        with fs.open("gs://lcc-app-data/ollisions-tolerance=15.parquet", "rb") as f:
+        with fs.open("gs://lcc-app-data/collisions-tolerance=15.parquet", "rb") as f:
             collisions = pl.read_parquet(
-                f, columns=params['collisions_app_columns']
+                f, columns=params['collision_app_columns']
             )
 
     try:
