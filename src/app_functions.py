@@ -505,7 +505,7 @@ def get_highest_memory_objects(locals: dict) -> list:
             if str(type(locals[key])) == 'polars.dataframe.frame.DataFrame':
                 size_mb = locals[key].estimated_size("mb")
             elif str(type(locals[key])) == 'pandas.core.frame.DataFrame':
-                size_mb = locals[key].memory_usage(index=True).sum()
+                size_mb = locals[key].memory_usage(index=True).sum() / 1024 / 1024
             else:
                 size_mb = asizeof.asizeof(locals[key]) / 1024 / 1024
             if size_mb >= 1:
