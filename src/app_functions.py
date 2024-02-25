@@ -2,8 +2,6 @@ import os
 import yaml
 import folium
 import streamlit as st
-import numpy as np
-import pandas as pd
 import polars as pl
 import seaborn as sns
 
@@ -20,7 +18,7 @@ DATA_PARAMETERS = yaml.load(open("params.yaml", 'r'), Loader=Loader)
 ENVIRONMENT = os.environ.get("ENVIRONMENT", "prod")
 
 
-# @st.cache_data(show_spinner=False, ttl=24*3600)
+@st.cache_resource(show_spinner=False, ttl=24*3600)
 def read_in_data(tolerance: int, params: dict = DATA_PARAMETERS) -> tuple:
     """
     Function to read in different data depending on tolerance requests.
@@ -54,17 +52,14 @@ def read_in_data(tolerance: int, params: dict = DATA_PARAMETERS) -> tuple:
     return junctions, collisions, junction_notes
 
 
-# @st.cache_data(show_spinner=False, ttl=3*60)
+@st.cache_resource(show_spinner=False, ttl=3*60)
 def combine_junctions_and_collisions(
-    _junctions: pd.DataFrame,
-    _collisions: pd.DataFrame,
-    _notes: pd.DataFrame,
+    _junctions: pl.DataFrame,
+    _collisions: pl.DataFrame,
+    _notes: pl.DataFrame,
     casualty_type: str,
-    boroughs: str,
-    weight_fatal: float,
-    weight_serious: float,
-    weight_slight: float
-    ) -> pd.DataFrame:
+    boroughs: str
+    ) -> pl.DataFrame:
     """
     Combines the junction and collision datasets, as well as filters by years chosen in app.
     """
@@ -260,12 +255,12 @@ def create_junction_labels(df: pl.DataFrame, casualty_type: str) -> str:
     return df
 
 
-@st.cache_data(show_spinner=False, ttl=3*60)
+@st.cache_resource(show_spinner=False, ttl=3*60)
 def calculate_dangerous_junctions(
-    _junction_collisions: pd.DataFrame,
+    _junction_collisions: pl.DataFrame,
     n_junctions: int,
     casualty_type: str
-) -> pd.DataFrame:
+) -> pl.DataFrame:
     """
     Calculate most dangerous junctions in data and return n worst.
     """
@@ -308,15 +303,15 @@ def get_html_colors(n: int) -> list:
     return html_p
 
 
-@st.cache_data(show_spinner=False, ttl=3*60)
-def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point: list) -> pd.DataFrame:
+@st.cache_resource(show_spinner=False, ttl=3*60)
+def get_low_level_junction_data(junction_collisions: pl.DataFrame, chosen_point: list) -> pl.DataFrame:
     """
     Given a chosen junction get the low level collision data for that junction
     """
-    low_junction_collisions = junction_collisions[
-        (junction_collisions['latitude_cluster'] == chosen_point[0]) &
-        (junction_collisions['longitude_cluster'] == chosen_point[1])
-    ]
+    low_junction_collisions = junction_collisions.filter(
+        (pl.col('latitude_cluster') == chosen_point[0]) &
+        (pl.col('longitude_cluster') == chosen_point[1])
+    )
     return low_junction_collisions
 
 
