@@ -7,6 +7,7 @@ import pandas as pd
 import seaborn as sns
 
 from yaml import Loader
+from pympler import asizeof
 from folium.features import DivIcon
 from st_files_connection import FilesConnection
 
@@ -492,3 +493,22 @@ def low_level_map(
         ).add_to(m)
 
     return m
+
+
+def get_highest_memory_objects(locals: dict) -> list:
+    """
+    To help identify memory bloat, returns list of any objects >= 1mb in size.
+    """
+    highest_mem_objects = {}
+    for key in list(locals.keys()):
+        if key != 'asizeof':
+            if str(type(locals[key])) == 'polars.dataframe.frame.DataFrame':
+                size_mb = locals[key].estimated_size("mb")
+            elif str(type(locals[key])) == 'pandas.core.frame.DataFrame':
+                size_mb = locals[key].memory_usage(index=True).sum()
+            else:
+                size_mb = asizeof.asizeof(locals[key]) / 1024 / 1024
+            if size_mb >= 1:
+                highest_mem_objects[key] = size_mb
+
+    return highest_mem_objects
