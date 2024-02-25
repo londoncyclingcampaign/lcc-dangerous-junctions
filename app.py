@@ -25,7 +25,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
 
