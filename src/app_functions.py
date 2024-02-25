@@ -3,6 +3,7 @@ import yaml
 import folium
 import streamlit as st
 import polars as pl
+import pandas as pd
 import seaborn as sns
 
 from yaml import Loader
@@ -18,7 +19,7 @@ DATA_PARAMETERS = yaml.load(open("params.yaml", 'r'), Loader=Loader)
 ENVIRONMENT = os.environ.get("ENVIRONMENT", "dev")
 
 
-@st.cache_resource(show_spinner=False, ttl=24*3600)
+@st.cache_resource(show_spinner=False)
 def read_in_data(tolerance: int, params: dict = DATA_PARAMETERS) -> tuple:
     """
     Function to read in different data depending on tolerance requests.
@@ -52,7 +53,7 @@ def read_in_data(tolerance: int, params: dict = DATA_PARAMETERS) -> tuple:
     return junctions, collisions, junction_notes
 
 
-@st.cache_resource(show_spinner=False, ttl=3*60)
+@st.cache_resource(show_spinner=False, ttl=3*60*60)
 def combine_junctions_and_collisions(
     _junctions: pl.DataFrame,
     _collisions: pl.DataFrame,
@@ -507,9 +508,9 @@ def get_highest_memory_objects(locals: dict) -> list:
     highest_mem_objects = {}
     for key in list(locals.keys()):
         if key != 'asizeof':
-            if str(type(locals[key])) == 'polars.dataframe.frame.DataFrame':
+            if type(locals[key]) == pl.dataframe.frame.DataFrame:
                 size_mb = locals[key].estimated_size("mb")
-            elif str(type(locals[key])) == 'pandas.core.frame.DataFrame':
+            elif str(type(locals[key])) == pd.core.frame.DataFrame:
                 size_mb = locals[key].memory_usage(index=True).sum() / 1024 / 1024
             else:
                 size_mb = asizeof.asizeof(locals[key]) / 1024 / 1024
