@@ -29,16 +29,17 @@ st.markdown(
         top: 0px;
         left: 0px;
         height: 6.5rem;
-        z-index: 99999;
+        z-index: 999991;
         background-color: #e30613;
         border: 1.5vw solid #e30613;
         }
         .header h1 {
         position: relative;
+        top: -100px;
         text-align: center;
         vertical-align: middle;
-        height: 6.5rem;
         font-size: 2em;
+        z-index: 999991;
         }
         </style> 
     ''',
