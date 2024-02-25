@@ -167,6 +167,7 @@ oauthlib==3.2.2
 osmnx==1.9.1
     # via -r requirements.in
 packaging==23.1
+<<<<<<< HEAD
     # via
     #   build
     #   geopandas
