@@ -143,6 +143,8 @@ pydeck==0.8.1b0
     # via streamlit
 pygments==2.15.1
     # via rich
+pympler==1.0.1
+    # via -r requirements.in
 pyparsing==3.1.2
     # via matplotlib
 pyproj==3.6.1

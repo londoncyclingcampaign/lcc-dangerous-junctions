@@ -3,6 +3,7 @@ folium
 osmnx
 pip-tools
 psutil
+pympler
 pyyaml
 scikit-learn
 seaborn
