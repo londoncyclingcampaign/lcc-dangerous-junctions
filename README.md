@@ -43,11 +43,12 @@ To run and develop on this code:
   - nb. the dependency `backports.zoneinfo` requires python version of max 3.8, see [docs](https://pypi.org/project/backports.zoneinfo/)
 - Activate the virtual environment: `source venv/bin/activate`
 - Install the packages using: `pip install -r requirements.txt`
+  - nb. if you're adding new packages, add these to the requirements.in file and run `pip-compile requirements.in` (this updates the requirements.txt file)
 - Run the following:
-    - `python src/01-download-tfl-data.py` file to download and format the TfL data
-    - `python src/02-filter-data.py` to filter the data to London etc.
-    - `python src/03-build-junctions-graph.py` to build junctions graph for London
-    - `python src/04-map-collisions-to-graph.py` to map collision data to the closest junction in the London junction graph
+  - `python src/01-download-tfl-data.py` file to download and format the TfL data
+  - `python src/02-filter-data.py` to filter the data to London etc.
+  - `python src/03-build-junctions-graph.py` to build junctions graph for London
+  - `python src/04-map-collisions-to-graph.py` to map collision data to the closest junction in the London junction graph
 
 You should now be setup to run the notebooks in `notebooks/` and the streamlit app. The streamlit app locally can be done using: `streamlit run app.py` and navigating to the local host port.
 
