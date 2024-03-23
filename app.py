@@ -21,6 +21,8 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.write('<style>div.block-container{padding-top:0rem;}</style>', unsafe_allow_html=True)
+
 st.markdown(
     '''
         <style>
@@ -29,16 +31,18 @@ st.markdown(
         top: 0px;
         left: 0px;
         height: 6.5rem;
-        z-index: 99999;
+        z-index: 999991;
         background-color: #e30613;
         border: 1.5vw solid #e30613;
         }
         .header h1 {
         position: relative;
+        top: -10px;
+        height: 6.5rem; 
         text-align: center;
         vertical-align: middle;
-        height: 6.5rem;
         font-size: 2em;
+        z-index: 999991;
         }
         </style> 
     ''',
@@ -46,9 +50,10 @@ st.markdown(
 )
 
 
-# this is basically so you can scroll past the maps on mobile
+# this is basically so you can scroll past the maps on mobile & to tighten header
 st.write(
     '''
+    <style>div.block-container{padding-top:0rem;}</style>
     <style>div.block-container{padding-left:1rem;}</style>
     <style>div.block-container{padding-right:1rem;}</style>
     ''',
