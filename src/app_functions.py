@@ -37,7 +37,7 @@ def read_in_data(tolerance: int, params: dict = DATA_PARAMETERS) -> tuple:
             columns=params['collision_app_columns']
         )
     else:
-        conn = st.experimental_connection('gcs', type=FilesConnection)
+        conn = st.connection('gcs', type=FilesConnection)
         junctions = conn.read(
             "lcc-app-data/junctions-tolerance=15.parquet",
             input_format="parquet",

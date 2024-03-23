@@ -1,4 +1,5 @@
 convertbng
+gcsfs
 folium
 osmnx
 pip-tools
