@@ -1,2 +1,11 @@
-pip-compile
+convertbng
+folium
+osmnx
+pip-tools
+psutil
+pyyaml
+scikit-learn
+seaborn
 streamlit==1.32.1
+streamlit_folium
+st-files-connection
