@@ -7,56 +7,21 @@ from streamlit_folium import st_folium
 
 st.set_page_config(layout='wide')
 
+# apply css styling
+with open('./css/style.css') as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
 st.markdown(
     """
-        <header class="css-18ni7ap ezrtsby2" tabindex="-1" data-testid=""stHeader="">
-        <div class="header" style="background-color:#FFFFFF;">
+        <header class="css-18ni7ap ezrtsby2" tabindex="-1">
+        <div class="header">
         <a href="https://lcc.org.uk/">
-        <img src="https://lcc.org.uk/wp-content/themes/lcc/src/img/svgs/logo-white.svg" alt="London Cycling Campaign logo" class="logo" style="max-width:20%;">
+        <img src="https://lcc.org.uk/wp-content/themes/lcc/src/img/svgs/logo-white.svg" alt="London Cycling Campaign logo" class="logo">
         </a>
         <h1 class="title">Dangerous <br/> Junctions Tool</h1>
         </div>
         </header>
     """,
-    unsafe_allow_html=True
-)
-
-st.write('<style>div.block-container{padding-top:0rem;}</style>', unsafe_allow_html=True)
-
-st.markdown(
-    '''
-        <style>
-        .header img {
-        position: fixed;
-        top: 0px;
-        left: 0px;
-        height: 6.5rem;
-        z-index: 999991;
-        background-color: #e30613;
-        border: 1.5vw solid #e30613;
-        }
-        .header h1 {
-        position: relative;
-        top: -10px;
-        height: 6.5rem; 
-        text-align: center;
-        vertical-align: middle;
-        font-size: 2em;
-        z-index: 999991;
-        }
-        </style> 
-    ''',
-    unsafe_allow_html=True
-)
-
-
-# this is basically so you can scroll past the maps on mobile & to tighten header
-st.write(
-    '''
-    <style>div.block-container{padding-top:0rem;}</style>
-    <style>div.block-container{padding-left:1rem;}</style>
-    <style>div.block-container{padding-right:1rem;}</style>
-    ''',
     unsafe_allow_html=True
 )
 
