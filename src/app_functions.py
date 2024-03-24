@@ -59,7 +59,7 @@ def combine_junctions_and_collisions(
     _collisions: pl.DataFrame,
     _notes: pl.DataFrame,
     casualty_type: str,
-    boroughs: str
+    boroughs: str,
     ) -> pl.DataFrame:
     """
     Combines the junction and collision datasets, as well as filters by years chosen in app.

@@ -6,6 +6,7 @@ import streamlit as st
 from src.app_functions import *
 from streamlit_folium import st_folium
 
+
 st.set_page_config(layout='wide')
 
 # apply css styling
@@ -24,11 +25,11 @@ st.markdown(
         </header>
     """,
     unsafe_allow_html=True
+
 )
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
-
 
 junctions, collisions, notes = read_in_data(tolerance=15)
 min_year = collisions.get_column('year').min()

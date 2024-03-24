@@ -6,6 +6,7 @@ import yaml
 import time
 import polars as pl
 import pandas as pd
+<<<<<<< HEAD
 import streamlit as st
 
 from yaml import Loader
@@ -53,6 +54,13 @@ print(sys.getsizeof(df))
 
 print(df.head())
 
+=======
+
+from yaml import Loader
+
+DATA_PARAMETERS = yaml.load(open("params.yaml", 'r'), Loader=Loader)
+
+>>>>>>> 44519c47ec8217a86ec60e98c65828fff32d4a3b
 n = 10
 
 # POLARS
