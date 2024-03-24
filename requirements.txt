@@ -111,7 +111,7 @@ idna==3.4
     # via
     #   requests
     #   yarl
-importlib-metadata==7.1.0
+importlib-metadata==6.11.0
     # via
     #   build
     #   fiona
@@ -266,7 +266,7 @@ smmap==5.0.0
     # via gitdb
 st-files-connection==0.1.0
     # via -r requirements.in
-streamlit==1.32.1
+streamlit==1.32.2
     # via
     #   -r requirements.in
     #   st-files-connection
