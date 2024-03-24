@@ -1,3 +1,4 @@
+import os
 import psutil
 import logging
 import streamlit as st
@@ -78,10 +79,7 @@ else:
         collisions,
         notes,
         casualty_type,
-        boroughs,
-        weight_fatal,
-        weight_serious,
-        weight_slight
+        boroughs
     )
     dangerous_junctions = calculate_dangerous_junctions(
         junction_collisions,

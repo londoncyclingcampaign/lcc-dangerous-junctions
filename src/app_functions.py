@@ -127,7 +127,7 @@ def get_danger_metric(df, casualty_type, params=DATA_PARAMETERS):
         .with_columns(
             recency_danger_metric = (
                 pl.col('danger_metric') * pl.col('recency_weight')
-            )
+            ).round(2)
         )
     )
     return df
