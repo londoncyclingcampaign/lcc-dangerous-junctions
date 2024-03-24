@@ -31,8 +31,8 @@ logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().
 
 
 junctions, collisions, notes = read_in_data(tolerance=15)
-min_year = np.min(collisions['year'])
-max_year = np.max(collisions['year'])
+min_year = collisions.get_column('year').min()
+max_year = collisions.get_column('year').max()
 
 with st.expander("App settings", expanded=True):
     with st.form(key='form'):
@@ -53,9 +53,7 @@ with st.expander("App settings", expanded=True):
             )
         with col3:
             available_boroughs = sorted(
-                list(
-                    collisions['borough'].dropna().unique()
-                )
+                list(collisions.get_column('borough').unique())
             )
             boroughs = st.multiselect(
                 label='Filter by borough',

@@ -4,12 +4,13 @@ import folium
 import streamlit as st
 import numpy as np
 import pandas as pd
+import polars as pl
 import seaborn as sns
 
 from yaml import Loader
 from pympler import asizeof
 from folium.features import DivIcon
-from st_files_connection import FilesConnection
+from fsspec import filesystem
 
 
 # read in data params
@@ -26,35 +27,29 @@ def read_in_data(tolerance: int, params: dict = DATA_PARAMETERS) -> tuple:
     Reads from local if not on streamlit server, otherwise from google sheets.
     """
     if ENVIRONMENT == 'dev':
-        junctions = pd.read_parquet(
+        junctions = pl.read_parquet(
             f'data/junctions-tolerance={tolerance}.parquet',
-            engine='pyarrow',
             columns=params['junction_app_columns']
         )
-        collisions = pd.read_parquet(
+        collisions = pl.read_parquet(
             f'data/collisions-tolerance={tolerance}.parquet',
-            engine='pyarrow',
             columns=params['collision_app_columns']
         )
     else:
-        conn = st.connection('gcs', type=FilesConnection)
-        junctions = conn.read(
-            "lcc-app-data/junctions-tolerance=15.parquet",
-            input_format="parquet",
-            engine='pyarrow',
-            columns=params['junction_app_columns']
-        )
-        collisions = conn.read(
-            "lcc-app-data/collisions-tolerance=15.parquet",
-            input_format="parquet",
-            engine='pyarrow',
-            columns=params['collision_app_columns']
-        )
+        fs = filesystem('gcs', token=st.secrets.connections.gcs.to_dict())
+        with fs.open("gs://lcc-app-data/junctions-tolerance=15.parquet", "rb") as f:
+            junctions = pl.read_parquet(
+                f, columns=params['junction_app_columns']
+            )
+        with fs.open("gs://lcc-app-data/ollisions-tolerance=15.parquet", "rb") as f:
+            collisions = pl.read_parquet(
+                f, columns=params['collisions_app_columns']
+            )
 
     try:
-        junction_notes = pd.read_csv(st.secrets["junction_notes"])
+        junction_notes = pl.read_csv(st.secrets["junction_notes"])
     except FileNotFoundError:
-        junction_notes = pd.DataFrame(columns=["junction_cluster_id", "notes"])
+        junction_notes = pl.DataFrame(columns=["junction_cluster_id", "notes"])
 
     return junctions, collisions, junction_notes
 
@@ -74,27 +69,29 @@ def combine_junctions_and_collisions(
     Combines the junction and collision datasets, as well as filters by years chosen in app.
     """
     if casualty_type == 'cyclist':
-        collisions = collisions[collisions['is_cyclist_collision']]
+        collisions = collisions.filter(is_cyclist_collision=True)
     elif casualty_type == 'pedestrian':
-        collisions = collisions[collisions['is_pedestrian_collision']]
+        collisions = collisions.filter(is_pedestrian_collision=True)
 
     junction_collisions = (
         junctions
-        .merge(
+        .with_columns(pl.col('junction_index').cast(pl.Float64))
+        .join(
             collisions,
             how='inner',  # inner as we don't care about junctions with no collisions
             on=['junction_id', 'junction_index']
         )
-        .merge(
+        .join(
             notes,
             how='left',
             on='junction_cluster_id'
         )
+        .with_columns('notes')
+        .fill_null('')
     )
-    junction_collisions.loc[junction_collisions['notes'].isna(), 'notes'] = ''
 
     if 'ALL' not in boroughs:
-        junction_collisions = junction_collisions[junction_collisions['borough'].isin(boroughs)]
+        junction_collisions = junction_collisions.filter(pl.col('borough').is_in(boroughs))
 
     junction_collisions['danger_metric'] = junction_collisions.apply(
         lambda row: get_danger_metric(
