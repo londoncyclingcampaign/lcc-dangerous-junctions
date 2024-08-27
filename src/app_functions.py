@@ -333,6 +333,34 @@ def create_base_map(initial_location: list, initial_zoom: int = 10) -> folium.Ma
     return m
 
 
+@st.cache_data()
+def get_map_center(top_10_dangerous_junctions: pd.DataFrame) -> list:
+    """
+    Slight hack to make sure the high map center updates when required, but not otherwise
+    """
+    latitude_min = top_10_dangerous_junctions['latitude_cluster'].min()
+    latitude_max = top_10_dangerous_junctions['latitude_cluster'].max()
+
+    longitude_min = top_10_dangerous_junctions['longitude_cluster'].min()
+    longitude_max = top_10_dangerous_junctions['longitude_cluster'].max()
+
+    center = [
+        (latitude_min + latitude_max) / 2,
+        (longitude_min + longitude_max) / 2
+    ]
+
+    return center
+
+
+@st.cache_data()
+def get_most_dangerous_junction_location(first_row_dangerous_junctions: pd.DataFrame) -> list:
+    """
+    Slight hack to make sure the low level map only updates when the first row of data changes
+    """
+    location = first_row_dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
+    return location
+
+
 def get_high_level_fg(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, n_junctions: int) -> folium.FeatureGroup:
     """
     Function to generate feature groups to add to high level map
@@ -392,7 +420,7 @@ def get_high_level_fg(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame,
 
 def get_low_level_fg(
     dangerous_junctions: pd.DataFrame, junction_collisions: pd.DataFrame,
-    n_junctions: int, casualty_type: str) -> folium.Map:
+    n_junctions: int, casualty_type: str) -> folium.FeatureGroup:
     """
     Function to generate feature groups to add to low level map
     """
