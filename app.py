@@ -107,8 +107,7 @@ else:
             Map shows the {n_junctions} most dangerous junctions in {borough_msg} from {min_year} to {max_year}.
         ''')
 
-        bounds = get_map_bounds(dangerous_junctions.head(20))
-        high_map = create_base_map(bounds=bounds)
+        high_map = create_base_map(initial_location=[51.5080, -.1281], initial_zoom=10)  # set to trafalgar sq.
 
         high_feature_group = get_high_level_fg(dangerous_junctions, junction_collisions, n_junctions)
         map_click = st_folium(
@@ -136,7 +135,7 @@ else:
         initial_junction_location = get_most_dangerous_junction_location(
             dangerous_junctions.head(1)
         )
-        low_map = create_base_map(initial_location=initial_junction_location)
+        low_map = create_base_map(initial_location=initial_junction_location, initial_zoom=18)
 
         low_feature_group = get_low_level_fg(
             dangerous_junctions,
