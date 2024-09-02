@@ -36,7 +36,7 @@ max_year = np.max(collisions['year'])
 
 with st.expander("App settings", expanded=True):
     with st.form(key='form'):
-        col1, col2, col3, col4, col5, col6, col7 = st.columns([2, 2, 2, 1, 1, 1, 2])
+        col1, col2, col3, col4 = st.columns([2, 4, 4, 2])
         with col1:
             casualty_type = st.radio(
                 label='Select casualty type',
@@ -63,12 +63,6 @@ with st.expander("App settings", expanded=True):
                 default='ALL'
             )
         with col4:
-            weight_fatal = st.number_input('Fatal weight', min_value=0.0, max_value=10.0, value=6.8)
-        with col5:
-            weight_serious = st.number_input('Serious weight', min_value=0.0, max_value=10.0, value=1.0)
-        with col6:
-            weight_slight = st.number_input('Slight weight', min_value=0.0, max_value=10.0, value=.06)
-        with col7:
             st.markdown('<br>', unsafe_allow_html=True)  # padding
             submit = st.form_submit_button(label='Recalculate Junctions', type='primary', use_container_width=True)
 
@@ -81,10 +75,7 @@ else:
         collisions,
         notes,
         casualty_type,
-        boroughs,
-        weight_fatal,
-        weight_serious,
-        weight_slight
+        boroughs
     )
     dangerous_junctions = calculate_dangerous_junctions(
         junction_collisions,
@@ -96,18 +87,12 @@ else:
     if (
         ('chosen_point' not in st.session_state) or
         (casualty_type != st.session_state['previous_casualty_type']) or
-        (boroughs != st.session_state['previous_boroughs']) or
-        (weight_fatal != st.session_state['previous_weight_fatal']) or
-        (weight_serious != st.session_state['previous_weight_serious']) or
-        (weight_slight != st.session_state['previous_weight_slight'])
+        (boroughs != st.session_state['previous_boroughs'])
     ):
         st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
 
     st.session_state['previous_casualty_type'] = casualty_type
     st.session_state['previous_boroughs'] = boroughs
-    st.session_state['previous_weight_fatal'] = weight_fatal
-    st.session_state['previous_weight_serious'] = weight_serious
-    st.session_state['previous_weight_slight'] = weight_slight
 
     col1, col2 = st.columns([6, 6])
     with col1:
