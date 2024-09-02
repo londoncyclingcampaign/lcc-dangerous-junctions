@@ -115,18 +115,24 @@ else:
             borough_msg = 'all boroughs'
         else:
             borough_msg = ', '.join([b.capitalize() for b in boroughs])
+
         st.markdown(f'''
             #### Dangerous Junctions
 
             Map shows the {n_junctions} most dangerous junctions in {borough_msg} from {min_year} to {max_year}.
         ''')
 
-        high_map = high_level_map(dangerous_junctions, junction_collisions, n_junctions)
+        bounds = get_map_bounds(dangerous_junctions.head(20))
+        high_map = create_base_map(bounds=bounds)
+
+        high_feature_group = get_high_level_fg(dangerous_junctions, junction_collisions, n_junctions)
         map_click = st_folium(
             high_map,
+            feature_group_to_add=high_feature_group,
             returned_objects=['last_object_clicked'],
             use_container_width=True,
-            height=500
+            height=500,
+            key='high_map'
         )
 
         if map_click['last_object_clicked']:
@@ -142,20 +148,25 @@ else:
             Select a point on the left map and drill down into it here.
         ''')
 
-        low_map = low_level_map(
+        initial_junction_location = get_most_dangerous_junction_location(
+            dangerous_junctions.head(1)
+        )
+        low_map = create_base_map(initial_location=initial_junction_location)
+
+        low_feature_group = get_low_level_fg(
             dangerous_junctions,
             junction_collisions,
-            st.session_state['chosen_point'],
             n_junctions,
             casualty_type
         )
         st_folium(
             low_map,
+            feature_group_to_add=low_feature_group,
             center=st.session_state['chosen_point'],
-            zoom=18,
             returned_objects=[],
             use_container_width=True,
-            height=500
+            height=500,
+            key='low_map'
         )
 
 
@@ -266,5 +277,5 @@ with st.expander("About this app"):
         """)
 
 # log highest memory objects
-for key, val in get_highest_memory_objects(locals()).items():
-    logging.info(f'{key}: {val} MB')
+# for key, val in get_highest_memory_objects(locals()).items():
+    # logging.info(f'{key}: {val} MB')

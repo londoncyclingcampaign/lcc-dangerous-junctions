@@ -7,6 +7,7 @@ import pandas as pd
 import seaborn as sns
 
 from yaml import Loader
+from typing import Optional
 from pympler import asizeof
 from folium.features import DivIcon
 from st_files_connection import FilesConnection
@@ -311,13 +312,41 @@ def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point:
     return low_junction_collisions
 
 
-def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, n_junctions: int) -> folium.Map:
+@st.cache_data()
+def get_map_bounds(top_dangerous_junctions: pd.DataFrame) -> list:
     """
-    Function to generate the junction map
+    Slight hack to make sure the high map center updates when required, but not otherwise
+    """
+    sw = top_dangerous_junctions[['latitude_cluster', 'longitude_cluster']].min().values.tolist()
+    ne = top_dangerous_junctions[['latitude_cluster', 'longitude_cluster']].max().values.tolist()
 
-    TODO - split this out into separate functions.
+    return [sw, ne]
+
+
+@st.cache_data()
+def get_most_dangerous_junction_location(first_row_dangerous_junctions: pd.DataFrame) -> list:
     """
-    m = folium.Map(tiles='cartodbpositron')
+    Slight hack to make sure the low level map only updates when the first row of data changes
+    """
+    location = first_row_dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
+    return location
+
+
+def create_base_map(initial_location: Optional[list] = None, bounds: Optional[list] = None) -> folium.Map:
+    """
+    Create a base map object to add points to later on.
+    """
+    if initial_location is not None:
+        m = folium.Map(
+            tiles='cartodbpositron',
+            location=initial_location,
+            zoom_start=18
+        )
+    elif bounds is not None:
+        m = folium.Map(tiles='cartodbpositron')
+        m.fit_bounds(bounds)
+    else:
+        m = folium.Map(tiles='cartodbpositron')
 
     borough_geo = "london_boroughs.geojson"
     folium.Choropleth(
@@ -327,6 +356,15 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, n_
         line_opacity=.5,
         overlay=False,
     ).add_to(m)
+
+    return m
+
+
+def get_high_level_fg(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, n_junctions: int) -> folium.FeatureGroup:
+    """
+    Function to generate feature groups to add to high level map
+    """
+    fg = folium.FeatureGroup(name="Junctions")
 
     map_data = map_data[
         map_data['junction_cluster_id'].isin(dangerous_junctions['junction_cluster_id'])
@@ -350,20 +388,22 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, n_
             width=250,
             height=300
         )
-        folium.CircleMarker(
-            location=[lat, lon],
-            radius=10,
-            color=pal[rank - 1],
-            fill_color=pal[rank - 1],
-            fill_opacity=1,
-            z_index_offset=1000 + (100 - rank)
-        ).add_to(m)
+        fg.add_child(
+            folium.CircleMarker(
+                location=[lat, lon],
+                radius=10,
+                color=pal[rank - 1],
+                fill_color=pal[rank - 1],
+                fill_opacity=1,
+                z_index_offset=1000 + (100 - rank)
+            )
+        )
 
         if rank < 10:
             i = 3
         else:
             i = 8
-        folium.Marker(
+        fg.add_child(folium.Marker(
             location=[lat, lon],
             popup=folium.Popup(iframe),
             icon=DivIcon(
@@ -372,39 +412,18 @@ def high_level_map(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, n_
                 html=f'<div style="font-size: 10pt; font-family: monospace; color: white">%s</div>' % str(rank),
             ),
             z_index_offset=1000 + (100 - rank)
-        ).add_to(m)
+        ))
 
-    # adjust map bounds
-    sw = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].min().values.tolist()
-    ne = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].max().values.tolist()
-    m.fit_bounds([sw, ne])
-
-    return m
+    return fg
 
 
-def low_level_map(
+def get_low_level_fg(
     dangerous_junctions: pd.DataFrame, junction_collisions: pd.DataFrame,
-    initial_location: list, n_junctions: int, casualty_type: str) -> folium.Map:
+    n_junctions: int, casualty_type: str) -> folium.FeatureGroup:
     """
-    Function to generate the lower level collision map
-
-    TODO - split this out into separate functions.
+    Function to generate feature groups to add to low level map
     """
-    m = folium.Map(
-        tiles='cartodbpositron',
-        location=initial_location,
-        zoom_start=18,
-        max_zoom=20
-    )
-
-    borough_geo = "london_boroughs.geojson"
-    folium.Choropleth(
-        geo_data=borough_geo,
-        line_color='#5DADE2', 
-        fill_opacity=0, 
-        line_opacity=.5,
-        overlay=False,
-    ).add_to(m)
+    fg = folium.FeatureGroup(name="Collisions")
 
     pal = get_html_colors(n_junctions)
 
@@ -417,8 +436,13 @@ def low_level_map(
         cols = ['latitude', 'longitude', f'max_{casualty_type}_severity', 'collision_label']
         for collision_lat, collision_lon, severity, label in id_collisions[cols].dropna().values:
             # draw lines between central point and collisions
-            lines = folium.PolyLine(locations=[[[collision_lat, collision_lon], [lat, lon]]], weight=.8, color='grey')
-            m.add_child(lines)
+            fg.add_child(
+                folium.PolyLine(
+                    locations=[[[collision_lat, collision_lon], [lat, lon]]],
+                    weight=.8,
+                    color='grey'
+                )
+            )
 
             iframe = folium.IFrame(
                 html='''
@@ -434,65 +458,77 @@ def low_level_map(
             )
 
             if severity == 'fatal':
-                folium.CircleMarker(
-                    location=[collision_lat, collision_lon],
-                    popup=folium.Popup(iframe),
-                    fill=True,
-                    color='#D35400',
-                    fill_color='#D35400',
-                    fill_opacity=1,
-                    radius=3
-                ).add_to(m)
+                fg.add_child(
+                    folium.CircleMarker(
+                        location=[collision_lat, collision_lon],
+                        popup=folium.Popup(iframe),
+                        fill=True,
+                        color='#D35400',
+                        fill_color='#D35400',
+                        fill_opacity=1,
+                        radius=3
+                    )
+                )
             elif severity == 'serious':
-                folium.CircleMarker(
-                    location=[collision_lat, collision_lon],
-                    popup=folium.Popup(iframe),
-                    fill=True,
-                    color='#F39C12',
-                    fill_color='#F39C12',
-                    fill_opacity=1,
-                    radius=3
-                ).add_to(m)
+                fg.add_child(
+                    folium.CircleMarker(
+                        location=[collision_lat, collision_lon],
+                        popup=folium.Popup(iframe),
+                        fill=True,
+                        color='#F39C12',
+                        fill_color='#F39C12',
+                        fill_opacity=1,
+                        radius=3
+                    )
+                )
             elif severity == 'slight':
-                folium.CircleMarker(
-                    location=[collision_lat, collision_lon],
-                    popup=folium.Popup(iframe),
-                    fill=True,
-                    color='#F7E855',
-                    fill_color='#F7E855',
-                    fill_opacity=1,
-                    radius=3
-                ).add_to(m)
+                fg.add_child(
+                    folium.CircleMarker(
+                        location=[collision_lat, collision_lon],
+                        popup=folium.Popup(iframe),
+                        fill=True,
+                        color='#F7E855',
+                        fill_color='#F7E855',
+                        fill_opacity=1,
+                        radius=3
+                    )
+                )
 
         rank = int(junction_rank)
-        folium.CircleMarker(
-            location=[lat, lon],
-            radius=10,    
-            fill_opacity=1
-        ).add_to(m)
+        fg.add_child(
+            folium.CircleMarker(
+                location=[lat, lon],
+                radius=10,    
+                fill_opacity=1
+            )
+        )
 
-        folium.CircleMarker(
-            location=[lat, lon],
-            radius=10,    
-            color=pal[rank - 1],
-            fill_color=pal[rank - 1],
-            fill_opacity=1
-        ).add_to(m)
+        fg.add_child(
+            folium.CircleMarker(
+                location=[lat, lon],
+                radius=10,    
+                color=pal[rank - 1],
+                fill_color=pal[rank - 1],
+                fill_opacity=1
+            )
+        )
 
         if rank < 10:
             i = 3
         else:
             i = 8
-        folium.map.Marker(
-            location=[lat, lon],
-            icon=DivIcon(
-                icon_size=(30,30),
-                icon_anchor=(i,11),
-                html=f'<div style="font-size: 10pt; font-family: monospace; color: white">%s</div>' % str(rank)
+        fg.add_child(
+            folium.map.Marker(
+                location=[lat, lon],
+                icon=DivIcon(
+                    icon_size=(30,30),
+                    icon_anchor=(i,11),
+                    html=f'<div style="font-size: 10pt; font-family: monospace; color: white">%s</div>' % str(rank)
+                )
             )
-        ).add_to(m)
+        )
 
-    return m
+    return fg
 
 
 def get_highest_memory_objects(locals: dict) -> list:
