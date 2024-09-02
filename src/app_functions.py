@@ -7,6 +7,7 @@ import pandas as pd
 import seaborn as sns
 
 from yaml import Loader
+from typing import Optional
 from pympler import asizeof
 from folium.features import DivIcon
 from st_files_connection import FilesConnection
@@ -311,15 +312,41 @@ def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point:
     return low_junction_collisions
 
 
-def create_base_map(initial_location: list, initial_zoom: int = 10) -> folium.Map:
+@st.cache_data()
+def get_map_bounds(top_dangerous_junctions: pd.DataFrame) -> list:
+    """
+    Slight hack to make sure the high map center updates when required, but not otherwise
+    """
+    sw = top_dangerous_junctions[['latitude_cluster', 'longitude_cluster']].min().values.tolist()
+    ne = top_dangerous_junctions[['latitude_cluster', 'longitude_cluster']].max().values.tolist()
+
+    return [sw, ne]
+
+
+@st.cache_data()
+def get_most_dangerous_junction_location(first_row_dangerous_junctions: pd.DataFrame) -> list:
+    """
+    Slight hack to make sure the low level map only updates when the first row of data changes
+    """
+    location = first_row_dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
+    return location
+
+
+def create_base_map(initial_location: Optional[list] = None, bounds: Optional[list] = None) -> folium.Map:
     """
     Create a base map object to add points to later on.
     """
-    m = folium.Map(
-        location=initial_location,
-        zoom_start=initial_zoom,
-        tiles='cartodbpositron'
-    )
+    if initial_location is not None:
+        m = folium.Map(
+            tiles='cartodbpositron',
+            location=initial_location,
+            zoom_start=18
+        )
+    elif bounds is not None:
+        m = folium.Map(tiles='cartodbpositron')
+        m.fit_bounds(bounds)
+    else:
+        m = folium.Map(tiles='cartodbpositron')
 
     borough_geo = "london_boroughs.geojson"
     folium.Choropleth(
@@ -331,34 +358,6 @@ def create_base_map(initial_location: list, initial_zoom: int = 10) -> folium.Ma
     ).add_to(m)
 
     return m
-
-
-@st.cache_data()
-def get_map_center(top_10_dangerous_junctions: pd.DataFrame) -> list:
-    """
-    Slight hack to make sure the high map center updates when required, but not otherwise
-    """
-    latitude_min = top_10_dangerous_junctions['latitude_cluster'].min()
-    latitude_max = top_10_dangerous_junctions['latitude_cluster'].max()
-
-    longitude_min = top_10_dangerous_junctions['longitude_cluster'].min()
-    longitude_max = top_10_dangerous_junctions['longitude_cluster'].max()
-
-    center = [
-        (latitude_min + latitude_max) / 2,
-        (longitude_min + longitude_max) / 2
-    ]
-
-    return center
-
-
-@st.cache_data()
-def get_most_dangerous_junction_location(first_row_dangerous_junctions: pd.DataFrame) -> list:
-    """
-    Slight hack to make sure the low level map only updates when the first row of data changes
-    """
-    location = first_row_dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
-    return location
 
 
 def get_high_level_fg(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame, n_junctions: int) -> folium.FeatureGroup:
