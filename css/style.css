@@ -1,0 +1,33 @@
+/* sets the size, position and colour of the LCC logo */
+.header img {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 6.5rem;
+    max-width: 20%;
+    z-index: 999991;
+    background-color: #e30613;
+    border: 1.5vw solid #e30613;
+}
+
+/* sets the position of the title */
+.header h1 {
+    position: fixed;
+    top: -10px;
+    text-align: center;
+    height: 6.5rem;
+    width: 100%;
+    z-index: 999991;
+    font-size: 2em;
+}
+
+/* extends the height of the base streamlit header to match headers above */
+.st-emotion-cache-18ni7ap {
+height: 6.5rem;
+}
+
+/* allows you to scroll past the maps on mobile / small screen devices */
+div.block-container{
+    padding-left:1rem;
+    padding-right:1rem;
+}

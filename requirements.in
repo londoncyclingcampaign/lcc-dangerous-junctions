@@ -1,0 +1,13 @@
+convertbng
+gcsfs
+folium
+osmnx
+pip-tools
+psutil
+pympler
+pyyaml
+scikit-learn
+seaborn
+streamlit==1.32.2
+streamlit_folium
+st-files-connection

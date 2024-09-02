@@ -7,51 +7,21 @@ from streamlit_folium import st_folium
 
 st.set_page_config(layout='wide')
 
+# apply css styling
+with open('./css/style.css') as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
 st.markdown(
     """
-        <header class="css-18ni7ap ezrtsby2" tabindex="-1" data-testid=""stHeader="">
-        <div class="header" style="background-color:#FFFFFF;">
+        <header class="css-18ni7ap ezrtsby2" tabindex="-1">
+        <div class="header">
         <a href="https://lcc.org.uk/">
-        <img src="https://lcc.org.uk/wp-content/themes/lcc/src/img/svgs/logo-white.svg" alt="London Cycling Campaign logo" class="logo" style="max-width:20%;">
+        <img src="https://lcc.org.uk/wp-content/themes/lcc/src/img/svgs/logo-white.svg" alt="London Cycling Campaign logo" class="logo">
         </a>
         <h1 class="title">Dangerous <br/> Junctions Tool</h1>
         </div>
         </header>
     """,
-    unsafe_allow_html=True
-)
-
-st.markdown(
-    '''
-        <style>
-        .header img {
-        position: fixed;
-        top: 0px;
-        left: 0px;
-        height: 6.5rem;
-        z-index: 99999;
-        background-color: #e30613;
-        border: 1.5vw solid #e30613;
-        }
-        .header h1 {
-        position: relative;
-        text-align: center;
-        vertical-align: middle;
-        height: 6.5rem;
-        font-size: 2em;
-        }
-        </style> 
-    ''',
-    unsafe_allow_html=True
-)
-
-
-# this is basically so you can scroll past the maps on mobile
-st.write(
-    '''
-    <style>div.block-container{padding-left:1rem;}</style>
-    <style>div.block-container{padding-right:1rem;}</style>
-    ''',
     unsafe_allow_html=True
 )
 
@@ -114,11 +84,11 @@ else:
     )
 
     # set default to worst junction...
-    if 'chosen_point' not in st.session_state:
-        st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
-    elif casualty_type != st.session_state['previous_casualty_type']:
-        st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
-    elif boroughs != st.session_state['previous_boroughs']:
+    if (
+        ('chosen_point' not in st.session_state) or
+        (casualty_type != st.session_state['previous_casualty_type']) or
+        (boroughs != st.session_state['previous_boroughs'])
+    ):
         st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
 
     st.session_state['previous_casualty_type'] = casualty_type
@@ -130,18 +100,24 @@ else:
             borough_msg = 'all boroughs'
         else:
             borough_msg = ', '.join([b.capitalize() for b in boroughs])
+
         st.markdown(f'''
             #### Dangerous Junctions
 
             Map shows the {n_junctions} most dangerous junctions in {borough_msg} from {min_year} to {max_year}.
         ''')
 
-        high_map = high_level_map(dangerous_junctions, junction_collisions, n_junctions)
+        bounds = get_map_bounds(dangerous_junctions.head(20))
+        high_map = create_base_map(bounds=bounds)
+
+        high_feature_group = get_high_level_fg(dangerous_junctions, junction_collisions, n_junctions)
         map_click = st_folium(
             high_map,
+            feature_group_to_add=high_feature_group,
             returned_objects=['last_object_clicked'],
             use_container_width=True,
-            height=500
+            height=500,
+            key='high_map'
         )
 
         if map_click['last_object_clicked']:
@@ -157,20 +133,25 @@ else:
             Select a point on the left map and drill down into it here.
         ''')
 
-        low_map = low_level_map(
+        initial_junction_location = get_most_dangerous_junction_location(
+            dangerous_junctions.head(1)
+        )
+        low_map = create_base_map(initial_location=initial_junction_location)
+
+        low_feature_group = get_low_level_fg(
             dangerous_junctions,
             junction_collisions,
-            st.session_state['chosen_point'],
             n_junctions,
             casualty_type
         )
         st_folium(
             low_map,
+            feature_group_to_add=low_feature_group,
             center=st.session_state['chosen_point'],
-            zoom=18,
             returned_objects=[],
             use_container_width=True,
-            height=500
+            height=500,
+            key='low_map'
         )
 
 
@@ -280,3 +261,6 @@ with st.expander("About this app"):
             in assessing the danger of junctions in London.
         """)
 
+# log highest memory objects
+# for key, val in get_highest_memory_objects(locals()).items():
+    # logging.info(f'{key}: {val} MB')
