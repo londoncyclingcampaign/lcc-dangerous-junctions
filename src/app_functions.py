@@ -327,21 +327,15 @@ def get_most_dangerous_junction_location(first_row_dangerous_junctions: pd.DataF
     return location
 
 
-def create_base_map(initial_location: Optional[list] = None, bounds: Optional[list] = None) -> folium.Map:
+def create_base_map(initial_location: list, initial_zoom: int) -> folium.Map:
     """
     Create a base map object to add points to later on.
     """
-    if initial_location is not None:
-        m = folium.Map(
-            tiles='cartodbpositron',
-            location=initial_location,
-            zoom_start=18
-        )
-    elif bounds is not None:
-        m = folium.Map(tiles='cartodbpositron')
-        m.fit_bounds(bounds)
-    else:
-        m = folium.Map(tiles='cartodbpositron')
+    m = folium.Map(
+        tiles='cartodbpositron',
+        location=initial_location,
+        zoom_start=initial_zoom
+    )
 
     borough_geo = "london_boroughs.geojson"
     folium.Choropleth(
