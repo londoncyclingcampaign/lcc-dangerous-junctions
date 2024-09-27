@@ -3,6 +3,7 @@ gcsfs
 folium
 osmnx
 pip-tools
+polars-lts-cpu==0.19.19
 psutil
 pympler
 pyyaml

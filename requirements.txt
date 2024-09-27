@@ -185,6 +185,8 @@ pillow==9.5.0
     #   streamlit
 pip-tools==7.4.1
     # via -r requirements.in
+polars-lts-cpu==0.19.19
+    # via -r requirements.in
 proto-plus==1.23.0
     # via google-api-core
 protobuf==4.23.4

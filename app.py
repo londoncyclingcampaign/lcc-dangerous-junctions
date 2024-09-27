@@ -1,9 +1,11 @@
+import os
 import psutil
 import logging
 import streamlit as st
 
 from src.app_functions import *
 from streamlit_folium import st_folium
+
 
 st.set_page_config(layout='wide')
 
@@ -23,16 +25,15 @@ st.markdown(
         </header>
     """,
     unsafe_allow_html=True
-)
 
+)
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
 
-
 junctions, collisions, notes = read_in_data(tolerance=15)
-min_year = np.min(collisions['year'])
-max_year = np.max(collisions['year'])
+min_year = collisions.get_column('year').min()
+max_year = collisions.get_column('year').max()
 
 with st.expander("App settings", expanded=True):
     with st.form(key='form'):
@@ -53,9 +54,7 @@ with st.expander("App settings", expanded=True):
             )
         with col3:
             available_boroughs = sorted(
-                list(
-                    collisions['borough'].dropna().unique()
-                )
+                list(collisions.get_column('borough').unique())
             )
             boroughs = st.multiselect(
                 label='Filter by borough',
@@ -89,7 +88,7 @@ else:
         (casualty_type != st.session_state['previous_casualty_type']) or
         (boroughs != st.session_state['previous_boroughs'])
     ):
-        st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
+        st.session_state['chosen_point'] = dangerous_junctions.select(['latitude_cluster', 'longitude_cluster']).rows()[0]
 
     st.session_state['previous_casualty_type'] = casualty_type
     st.session_state['previous_boroughs'] = boroughs
@@ -161,7 +160,7 @@ st.markdown(f'''
 ''')
 
 st.dataframe(
-    dangerous_junctions[[
+    dangerous_junctions.select([
         'junction_rank',
         'junction_cluster_name',
         'recency_danger_metric',
@@ -169,7 +168,7 @@ st.dataframe(
         f'serious_{casualty_type}_casualties',
         f'slight_{casualty_type}_casualties',
         'yearly_danger_metrics'
-    ]],
+    ]),
     column_config={
         'junction_rank': 'Junction rank',
         'junction_cluster_name': 'Junction name',
