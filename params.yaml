@@ -23,12 +23,14 @@
   distance_to_junction_threshold: .001
 
   # collision severity weights
-  weight_fatal: 6.8
+  weight_fatal: 5.
   weight_serious: 1.
-  weight_slight: .06
+  weight_slight: .1
 
   # links to TfL csv data - shame they couldn't have chosen a consistent pattern!!
   data_links:
+    - "https://content.tfl.gov.uk/jan-dec-2023-gla-data-extract-casualty.csv"
+    - "https://content.tfl.gov.uk/jan-dec-2023-gla-data-extract-attendant.csv"
     - "https://content.tfl.gov.uk/jan-dec-2022-gla-data-extract-casualties.csv"
     - "https://content.tfl.gov.uk/jan-dec-2022-gla-data-extract-attendant.csv"
     - "https://content.tfl.gov.uk/jan-dec-2021-gla-data-extract-casualty.csv"
@@ -37,8 +39,8 @@
     - "https://content.tfl.gov.uk/2020-gla-data-extract-attendant.csv"
     - "https://content.tfl.gov.uk/2019-gla-data-extract-attendant.csv"
     - "https://content.tfl.gov.uk/2019-gla-data-extract-casualty.csv"
-    - "https://content.tfl.gov.uk/2018-data-files-casualty.csv"
-    - "https://content.tfl.gov.uk/2018-data-files-attendant.csv"
+    # - "https://content.tfl.gov.uk/2018-data-files-casualty.csv"
+    # - "https://content.tfl.gov.uk/2018-data-files-attendant.csv"
 
   # columns required from raw data
   collision_columns:

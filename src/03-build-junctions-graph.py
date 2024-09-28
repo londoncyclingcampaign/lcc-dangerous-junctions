@@ -263,7 +263,7 @@ def main():
     print('Naming junctions')
     df = name_junctions(G1, df)
 
-    print(f'Outputing data: data/junctions-tolerance={tolerance}.csv')
+    print(f'Outputing data: data/junctions-tolerance={tolerance}.csv & data/junctions-tolerance={tolerance}.parquet')
     df.to_csv(f'data/junctions-tolerance={tolerance}.csv', index=False)
     df.to_parquet(f'data/junctions-tolerance={tolerance}.parquet', engine='pyarrow')
 

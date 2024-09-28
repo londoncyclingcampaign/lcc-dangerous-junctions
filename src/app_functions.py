@@ -67,6 +67,9 @@ def combine_junctions_and_collisions(
     notes: pd.DataFrame,
     casualty_type: str,
     boroughs: str,
+    weight_fatal: float,
+    weight_serious: float,
+    weight_slight: float
     ) -> pd.DataFrame:
     """
     Combines the junction and collision datasets, as well as filters by years chosen in app.
@@ -95,7 +98,9 @@ def combine_junctions_and_collisions(
         junction_collisions = junction_collisions[junction_collisions['borough'].isin(boroughs)]
 
     junction_collisions['danger_metric'] = junction_collisions.apply(
-        lambda row: get_danger_metric(row, casualty_type), axis=1
+        lambda row: get_danger_metric(
+            row, casualty_type, weight_fatal, weight_serious, weight_slight
+        ), axis=1
     )
     junction_collisions['recency_danger_metric'] = (
         junction_collisions['danger_metric'] * junction_collisions['recency_weight']
@@ -112,7 +117,7 @@ def combine_junctions_and_collisions(
     return junction_collisions
 
 
-def get_danger_metric(row: pd.DataFrame, casualty_type: str, params=DATA_PARAMETERS):
+def get_danger_metric(row: pd.DataFrame, casualty_type: str, weight_fatal, weight_serious, weight_slight):
     '''
     Upweights more severe collisions for junction comparison.
     Only take worst severity, so if multiple casualties involved we have to ignore less severe.
@@ -123,11 +128,11 @@ def get_danger_metric(row: pd.DataFrame, casualty_type: str, params=DATA_PARAMET
 
     danger_metric = None
     if fatal > 0:
-        danger_metric = params['weight_fatal']
+        danger_metric = weight_fatal
     elif serious > 0:
-        danger_metric = params['weight_serious']
+        danger_metric = weight_serious
     elif slight > 0:
-        danger_metric = params['weight_slight']
+        danger_metric = weight_slight
     
     return danger_metric
 
