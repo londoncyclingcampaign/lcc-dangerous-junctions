@@ -266,7 +266,7 @@ smmap==5.0.0
     # via gitdb
 st-files-connection==0.1.0
     # via -r requirements.in
-streamlit==1.32.2
+streamlit==1.38.0
     # via
     #   -r requirements.in
     #   st-files-connection
