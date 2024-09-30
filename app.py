@@ -36,15 +36,17 @@ max_year = np.max(collisions['year'])
 
 
 @st.dialog("Welcome to the LCC's Dangerous Junctions Tool", width="large")
-def open_chat_dialog():
+def open_pop_up():
     st.markdown("""
-        Note, with the release of 2023 collision data we have updated the casualty weights from:
+        Note, with the release of 2023 collision data we have updated the casualty weights:
         - Fatal: `6.8` → `5`
         - Serious: `1` → `1`
         - Slight: `.06` → `.1`
     """)
 
-open_chat_dialog()
+if 'pop_up_opened' not in st.session_state:
+    open_pop_up()
+    st.session_state['pop_up_opened'] = True
 
 
 with st.expander("App settings", expanded=True):
