@@ -195,6 +195,8 @@ st.dataframe(
         'junction_rank',
         'junction_cluster_name',
         'recency_danger_metric',
+        'traffic_volume_proxy',
+        'volume_scaled_metric',
         f'fatal_{casualty_type}_casualties',
         f'serious_{casualty_type}_casualties',
         f'slight_{casualty_type}_casualties',
@@ -208,6 +210,8 @@ st.dataframe(
             format='%.2f',
             help='Danger metric including recency scaling'
         ),
+        'traffic_volume_proxy': 'Traffic Volume Proxy',
+        'volume_scaled_metric': 'Volume Scaled Danger Metric',
         f'fatal_{casualty_type}_casualties': f'Fatal {casualty_type} collisions',
         f'serious_{casualty_type}_casualties': f'Serious {casualty_type} collisions',
         f'slight_{casualty_type}_casualties': f'Slight {casualty_type} collisions',

@@ -226,6 +226,7 @@ def create_junction_labels(row: pd.DataFrame, casualty_type: str) -> str:
     junction_name = row['junction_cluster_name']
     rank = int(row['junction_rank'])
     recency_metric = np.round(row['recency_danger_metric'], 2)
+    volume_scaled_danger_metric = row['volume_scaled_metric']
     n_fatal = int(row[f'fatal_{casualty_type}_casualties'])
     n_serious = int(row[f'serious_{casualty_type}_casualties'])
     n_slight = int(row[f'slight_{casualty_type}_casualties'])
@@ -235,6 +236,7 @@ def create_junction_labels(row: pd.DataFrame, casualty_type: str) -> str:
         <h3>{junction_name}</h3>
         Dangerous Junction Rank: <b>{rank}</b> <br>
         Danger Metric: <b>{recency_metric}</b> <br>
+        Traffic Volume Scaled Danger Metric: <b>{volume_scaled_danger_metric}</b> <br>
         <hr>
         Fatal {casualty_type} casualties: <b>{n_fatal}</b> <br>
         Serious {casualty_type} casualties: <b>{n_serious}</b> <br>
@@ -271,6 +273,33 @@ def calculate_dangerous_junctions(
         .sum()
         .reset_index()
         .sort_values(by=['recency_danger_metric', f'fatal_{casualty_type}_casualties'], ascending=[False, False])
+        # .head(n_junctions)
+        .reset_index()
+    )
+
+    dangerous_junctions['traffic_volume_proxy'] = dangerous_junctions.apply(
+        lambda row: (
+            np.round(
+                1
+                +
+                (row[f'slight_{casualty_type}_casualties']) /
+                (row[f'fatal_{casualty_type}_casualties'] + row[f'serious_{casualty_type}_casualties'] + row[f'slight_{casualty_type}_casualties']),
+                2
+            )
+        ),
+        axis=1
+    )
+
+    dangerous_junctions['volume_scaled_metric'] = dangerous_junctions.apply(
+        lambda row: (
+            np.round(row['recency_danger_metric'] / row['traffic_volume_proxy'], 2)
+        ),
+        axis=1
+    )
+
+    dangerous_junctions = (
+        dangerous_junctions
+        .sort_values(by=['volume_scaled_metric', 'recency_danger_metric', f'fatal_{casualty_type}_casualties'], ascending=[False, False, False])
         .head(n_junctions)
         .reset_index()
     )
