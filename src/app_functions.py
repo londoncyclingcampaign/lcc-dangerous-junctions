@@ -17,7 +17,7 @@ from st_files_connection import FilesConnection
 DATA_PARAMETERS = yaml.load(open("params.yaml", 'r'), Loader=Loader)
 
 # set as "prod" in the hosted environment
-ENVIRONMENT = os.environ.get("ENVIRONMENT", "dev")
+ENVIRONMENT = os.environ.get("ENVIRONMENT", "prod")
 
 
 @st.cache_data(show_spinner=False, ttl=24*3600)
@@ -67,9 +67,9 @@ def combine_junctions_and_collisions(
     notes: pd.DataFrame,
     casualty_type: str,
     boroughs: str,
-    weight_fatal: float,
-    weight_serious: float,
-    weight_slight: float
+    weight_fatal: float = DATA_PARAMETERS['weight_fatal'],
+    weight_serious: float = DATA_PARAMETERS['weight_serious'],
+    weight_slight: float = DATA_PARAMETERS['weight_slight'],
     ) -> pd.DataFrame:
     """
     Combines the junction and collision datasets, as well as filters by years chosen in app.
@@ -117,7 +117,13 @@ def combine_junctions_and_collisions(
     return junction_collisions
 
 
-def get_danger_metric(row: pd.DataFrame, casualty_type: str, weight_fatal, weight_serious, weight_slight):
+def get_danger_metric(
+    row: pd.DataFrame,
+    casualty_type: str,
+    weight_fatal: float = DATA_PARAMETERS['weight_fatal'],
+    weight_serious: float = DATA_PARAMETERS['weight_serious'],
+    weight_slight: float = DATA_PARAMETERS['weight_slight'],
+):
     '''
     Upweights more severe collisions for junction comparison.
     Only take worst severity, so if multiple casualties involved we have to ignore less severe.
