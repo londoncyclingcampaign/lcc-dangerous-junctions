@@ -1,3 +1,4 @@
+import time
 import psutil
 import logging
 import streamlit as st
@@ -28,6 +29,8 @@ st.markdown(
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
+if 'start_time' not in st.session_state:
+    st.session_state['start_time'] = time.time()
 
 junctions, collisions, notes = read_in_data()
 min_year = np.min(collisions['year'])
@@ -305,8 +308,20 @@ with st.expander("About this app"):
 
 # st.session_state['object_memory'] = object_memory
 
-logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
 
 # for key, val in get_highest_memory_objects(locals()).items():
 #     logging.info(f'{key}: {val} MB')
 
+# if (time.time() - st.session_state['start_time']) / (60 * 60) % 0
+
+elapsed_time = time.time() - st.session_state['start_time']
+if elapsed_time  / 60 > 1:
+    logging.info(f'clearing cache, elapsed time: {elapsed_time}s')
+    st.cache_data.clear()
+    st.session_state['start_time'] = time.time()
+
+logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
+
+
+# if 'start_time' not in st.session_state:
+#     st.session_state['start_time'] = time.time()
