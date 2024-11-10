@@ -27,7 +27,6 @@ st.markdown(
 
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
-logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
 
 
 junctions, collisions, notes = read_in_data(tolerance=15)
@@ -306,6 +305,9 @@ for key, val in memory_diffs.items():
 
 st.session_state['object_memory'] = object_memory
 
+logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
+
+logging.info(st.session_state)
 
 # for key, val in get_highest_memory_objects(locals()).items():
 #     logging.info(f'{key}: {val} MB')
