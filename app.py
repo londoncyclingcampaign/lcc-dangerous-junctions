@@ -291,23 +291,26 @@ with st.expander("About this app"):
 
 
 # log highest memory objects
-object_memory = get_highest_memory_objects(locals())
+# object_memory = get_highest_memory_objects(locals())
 
-memory_diffs = {}
-if 'object_memory' in st.session_state:
-    for key, val in st.session_state['object_memory'].items():
-        diff = object_memory[key] - val
-        if diff > 0:
-            memory_diffs[key] = diff
+# memory_diffs = {}
+# if 'object_memory' in st.session_state:
+#     for key, val in st.session_state['object_memory'].items():
+#         diff = object_memory[key] - val
+#         if diff > 0:
+#             memory_diffs[key] = diff
 
-for key, val in memory_diffs.items():
-    logging.info(f'diff {key}: {val} MB')
+# for key, val in memory_diffs.items():
+#     logging.info(f'diff {key}: {val} MB')
 
-st.session_state['object_memory'] = object_memory
+# st.session_state['object_memory'] = object_memory
 
 logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
 
-logging.info(st.session_state)
+# logging.info(st.session_state)
+
+for key, val in st.session_state.items():
+    logging.info(key)
 
 # for key, val in get_highest_memory_objects(locals()).items():
 #     logging.info(f'{key}: {val} MB')
