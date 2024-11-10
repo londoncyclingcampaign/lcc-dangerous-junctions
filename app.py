@@ -27,11 +27,6 @@ st.markdown(
 )
 
 
-logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
-
-if 'start_time' not in st.session_state:
-    st.session_state['start_time'] = time.time()
-
 junctions, collisions, notes = read_in_data()
 min_year = np.min(collisions['year'])
 max_year = np.max(collisions['year'])
@@ -293,35 +288,8 @@ with st.expander("About this app"):
         """)
 
 
-# log highest memory objects
-# object_memory = get_highest_memory_objects(locals())
-
-# memory_diffs = {}
-# if 'object_memory' in st.session_state:
-#     for key, val in st.session_state['object_memory'].items():
-#         diff = object_memory[key] - val
-#         if diff > 0:
-#             memory_diffs[key] = diff
-
-# for key, val in memory_diffs.items():
-#     logging.info(f'diff {key}: {val} MB')
-
-# st.session_state['object_memory'] = object_memory
-
-
 # for key, val in get_highest_memory_objects(locals()).items():
 #     logging.info(f'{key}: {val} MB')
 
-# if (time.time() - st.session_state['start_time']) / (60 * 60) % 0
-
-elapsed_time = time.time() - st.session_state['start_time']
-if elapsed_time  / 60 > 1:
-    logging.info(f'clearing cache, elapsed time: {elapsed_time}s')
-    st.cache_data.clear()
-    st.session_state['start_time'] = time.time()
-
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
-
-
-# if 'start_time' not in st.session_state:
-#     st.session_state['start_time'] = time.time()
