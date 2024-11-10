@@ -307,11 +307,6 @@ with st.expander("About this app"):
 
 logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
 
-# logging.info(st.session_state)
-
-for key, val in st.session_state.items():
-    logging.info(key)
-
 # for key, val in get_highest_memory_objects(locals()).items():
 #     logging.info(f'{key}: {val} MB')
 
