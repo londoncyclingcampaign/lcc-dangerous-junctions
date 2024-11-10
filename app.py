@@ -29,7 +29,7 @@ st.markdown(
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
 
-junctions, collisions, notes = read_in_data(tolerance=15)
+junctions, collisions, notes = read_in_data()
 min_year = np.min(collisions['year'])
 max_year = np.max(collisions['year'])
 
