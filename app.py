@@ -291,5 +291,5 @@ with st.expander("About this app"):
         """)
 
 # log highest memory objects
-# for key, val in get_highest_memory_objects(locals()).items():
-    # logging.info(f'{key}: {val} MB')
+for key, val in get_highest_memory_objects(locals()).items():
+    logging.info(f'{key}: {val} MB')
