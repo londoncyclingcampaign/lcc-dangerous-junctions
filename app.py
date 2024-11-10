@@ -290,6 +290,23 @@ with st.expander("About this app"):
             in assessing the danger of junctions in London.
         """)
 
+
 # log highest memory objects
-for key, val in get_highest_memory_objects(locals()).items():
-    logging.info(f'{key}: {val} MB')
+object_memory = get_highest_memory_objects(locals())
+
+memory_diffs = {}
+if 'object_memory' in st.session_state:
+    for key, val in st.session_state['object_memory'].items():
+        diff = object_memory[key] - val
+        if diff > 0:
+            memory_diffs[key] = diff
+
+for key, val in memory_diffs.items():
+    logging.info(f'diff {key}: {val} MB')
+
+st.session_state['object_memory'] = object_memory
+
+
+# for key, val in get_highest_memory_objects(locals()).items():
+#     logging.info(f'{key}: {val} MB')
+

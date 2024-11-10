@@ -544,7 +544,8 @@ def get_highest_memory_objects(locals: dict) -> list:
                 size_mb = locals[key].memory_usage(index=True).sum() / 1024 / 1024
             else:
                 size_mb = asizeof.asizeof(locals[key]) / 1024 / 1024
-            if size_mb >= 1:
-                highest_mem_objects[key] = size_mb
+            # if size_mb >= 1:
+            
+            highest_mem_objects[key] = size_mb
 
     return highest_mem_objects
