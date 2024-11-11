@@ -39,13 +39,13 @@ def read_in_data(params: dict = DATA_PARAMETERS) -> tuple:
     else:
         conn = st.connection('gcs', type=FilesConnection)
         junctions = conn.read(
-            "lcc-app-data/test-app/junctions-tolerance=15.parquet",
+            "lcc-app-data/junctions-tolerance=15.parquet",
             input_format="parquet",
             engine='pyarrow',
             columns=params['junction_app_columns']
         )
         collisions = conn.read(
-            "lcc-app-data/test-app/collisions-tolerance=15.parquet",
+            "lcc-app-data/collisions-tolerance=15.parquet",
             input_format="parquet",
             engine='pyarrow',
             columns=params['collision_app_columns']
@@ -65,10 +65,7 @@ def combine_junctions_and_collisions(
     collisions: pd.DataFrame,
     notes: pd.DataFrame,
     casualty_type: str,
-    boroughs: str,
-    weight_fatal: float = DATA_PARAMETERS['weight_fatal'],
-    weight_serious: float = DATA_PARAMETERS['weight_serious'],
-    weight_slight: float = DATA_PARAMETERS['weight_slight'],
+    boroughs: str
     ) -> pd.DataFrame:
     """
     Combines the junction and collision datasets, as well as filters by years chosen in app.
@@ -98,7 +95,7 @@ def combine_junctions_and_collisions(
 
     junction_collisions['danger_metric'] = junction_collisions.apply(
         lambda row: get_danger_metric(
-            row, casualty_type, weight_fatal, weight_serious, weight_slight
+            row, casualty_type
         ), axis=1
     )
     junction_collisions['recency_danger_metric'] = (
