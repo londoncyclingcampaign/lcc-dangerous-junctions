@@ -7,7 +7,6 @@ import pandas as pd
 import seaborn as sns
 
 from yaml import Loader
-from typing import Optional
 from pympler import asizeof
 from folium.features import DivIcon
 from st_files_connection import FilesConnection
@@ -20,20 +19,20 @@ DATA_PARAMETERS = yaml.load(open("params.yaml", 'r'), Loader=Loader)
 ENVIRONMENT = os.environ.get("ENVIRONMENT", "prod")
 
 
-@st.cache_data(show_spinner=False, ttl=24*3600)
-def read_in_data(tolerance: int, params: dict = DATA_PARAMETERS) -> tuple:
+@st.cache_data(show_spinner=False, ttl=24*60*60, max_entries=1)
+def read_in_data(params: dict = DATA_PARAMETERS) -> tuple:
     """
     Function to read in different data depending on tolerance requests.
     Reads from local if not on streamlit server, otherwise from google sheets.
     """
     if ENVIRONMENT == 'dev':
         junctions = pd.read_parquet(
-            f'data/junctions-tolerance={tolerance}.parquet',
+            f'data/junctions-tolerance=15.parquet',
             engine='pyarrow',
             columns=params['junction_app_columns']
         )
         collisions = pd.read_parquet(
-            f'data/collisions-tolerance={tolerance}.parquet',
+            f'data/collisions-tolerance=15.parquet',
             engine='pyarrow',
             columns=params['collision_app_columns']
         )
@@ -60,13 +59,13 @@ def read_in_data(tolerance: int, params: dict = DATA_PARAMETERS) -> tuple:
     return junctions, collisions, junction_notes
 
 
-@st.cache_data(show_spinner=False, ttl=3*60)
+@st.cache_data(show_spinner=False, ttl=3*60, max_entries=5)
 def combine_junctions_and_collisions(
     junctions: pd.DataFrame,
     collisions: pd.DataFrame,
     notes: pd.DataFrame,
     casualty_type: str,
-    boroughs: str,
+    boroughs: str
     ) -> pd.DataFrame:
     """
     Combines the junction and collision datasets, as well as filters by years chosen in app.
@@ -95,7 +94,9 @@ def combine_junctions_and_collisions(
         junction_collisions = junction_collisions[junction_collisions['borough'].isin(boroughs)]
 
     junction_collisions['danger_metric'] = junction_collisions.apply(
-        lambda row: get_danger_metric(row, casualty_type), axis=1
+        lambda row: get_danger_metric(
+            row, casualty_type
+        ), axis=1
     )
     junction_collisions['recency_danger_metric'] = (
         junction_collisions['danger_metric'] * junction_collisions['recency_weight']
@@ -112,7 +113,13 @@ def combine_junctions_and_collisions(
     return junction_collisions
 
 
-def get_danger_metric(row: pd.DataFrame, casualty_type: str, params=DATA_PARAMETERS):
+def get_danger_metric(
+    row: pd.DataFrame,
+    casualty_type: str,
+    weight_fatal: float = DATA_PARAMETERS['weight_fatal'],
+    weight_serious: float = DATA_PARAMETERS['weight_serious'],
+    weight_slight: float = DATA_PARAMETERS['weight_slight'],
+):
     '''
     Upweights more severe collisions for junction comparison.
     Only take worst severity, so if multiple casualties involved we have to ignore less severe.
@@ -123,11 +130,11 @@ def get_danger_metric(row: pd.DataFrame, casualty_type: str, params=DATA_PARAMET
 
     danger_metric = None
     if fatal > 0:
-        danger_metric = params['weight_fatal']
+        danger_metric = weight_fatal
     elif serious > 0:
-        danger_metric = params['weight_serious']
+        danger_metric = weight_serious
     elif slight > 0:
-        danger_metric = params['weight_slight']
+        danger_metric = weight_slight
     
     return danger_metric
 
@@ -240,7 +247,7 @@ def create_junction_labels(row: pd.DataFrame, casualty_type: str) -> str:
     return label
 
 
-@st.cache_data(show_spinner=False, ttl=3*60)
+@st.cache_data(show_spinner=False, ttl=3*60, max_entries=5)
 def calculate_dangerous_junctions(
     junction_collisions: pd.DataFrame,
     n_junctions: int,
@@ -295,7 +302,7 @@ def get_html_colors(n: int) -> list:
     return html_p
 
 
-@st.cache_data(show_spinner=False, ttl=3*60)
+@st.cache_data(show_spinner=False, ttl=3*60, max_entries=5)
 def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point: list) -> pd.DataFrame:
     """
     Given a chosen junction get the low level collision data for that junction
@@ -307,7 +314,7 @@ def get_low_level_junction_data(junction_collisions: pd.DataFrame, chosen_point:
     return low_junction_collisions
 
 
-@st.cache_data()
+@st.cache_data(show_spinner=False, ttl=3*60, max_entries=5)
 def get_map_bounds(top_dangerous_junctions: pd.DataFrame) -> list:
     """
     Slight hack to make sure the high map center updates when required, but not otherwise
@@ -318,7 +325,7 @@ def get_map_bounds(top_dangerous_junctions: pd.DataFrame) -> list:
     return [sw, ne]
 
 
-@st.cache_data()
+@st.cache_data(show_spinner=False, ttl=3*60, max_entries=5)
 def get_most_dangerous_junction_location(first_row_dangerous_junctions: pd.DataFrame) -> list:
     """
     Slight hack to make sure the low level map only updates when the first row of data changes

@@ -1,3 +1,4 @@
+import time
 import psutil
 import logging
 import streamlit as st
@@ -26,13 +27,10 @@ st.markdown(
 )
 
 
-logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
-logging.info(f'Current memory usage: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2} MB')
-
-
-junctions, collisions, notes = read_in_data(tolerance=15)
+junctions, collisions, notes = read_in_data()
 min_year = np.min(collisions['year'])
 max_year = np.max(collisions['year'])
+
 
 with st.expander("App settings", expanded=True):
     with st.form(key='form'):
@@ -47,9 +45,10 @@ with st.expander("App settings", expanded=True):
         with col2:
             n_junctions = st.slider(
                 label='Number of dangerous junctions to show',
-                min_value=1,
+                min_value=10,
                 max_value=100,  # not sure we'd ever need to view more then 100?
-                value=20
+                value=20,
+                step=10
             )
         with col3:
             available_boroughs = sorted(
@@ -260,6 +259,11 @@ with st.expander("About this app"):
             in assessing the danger of junctions in London.
         """)
 
-# log highest memory objects
+
 # for key, val in get_highest_memory_objects(locals()).items():
-    # logging.info(f'{key}: {val} MB')
+#     logging.info(f'{key}: {val} MB')
+
+st.session_state['current_memory_usage'] = psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2
+
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
+logging.info(f"Current memory usage: {st.session_state['current_memory_usage']} MB")

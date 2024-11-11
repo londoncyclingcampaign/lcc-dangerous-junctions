@@ -8,6 +8,6 @@ pympler
 pyyaml
 scikit-learn
 seaborn
-streamlit==1.32.2
+streamlit==1.38
 streamlit_folium
 st-files-connection

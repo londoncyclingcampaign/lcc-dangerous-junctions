@@ -44,7 +44,7 @@ To run and develop on this code:
 - Activate the virtual environment: `source venv/bin/activate`
 - Install the packages using: `pip install -r requirements.txt`
   - nb. if you're adding new packages, add these to the requirements.in file and run `pip-compile requirements.in` (this updates the requirements.txt file)
-- Run the following:
+- Process the data via: `bash run.sh` or run the individual scripts:
   - `python src/01-download-tfl-data.py` file to download and format the TfL data
   - `python src/02-filter-data.py` to filter the data to London etc.
   - `python src/03-build-junctions-graph.py` to build junctions graph for London
