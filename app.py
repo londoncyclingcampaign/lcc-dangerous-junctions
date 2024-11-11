@@ -240,8 +240,8 @@ with st.expander("About this app"):
             rather than each individual pedestrian crossings and intersections that make up the junction
             3. Map each collision to its nearest junction based on coordinate data
             4. Assign each collision a 'danger metric' value based on the severity of the worst
-            casualty involved (`5` for fatal, `1` for severe & `.01` for slight) and weight this by 
-            how recent the collision was (`1` for 2023 down to `.78` for 2019)
+            casualty involved (`6.8` for fatal, `1` for severe & `.06` for slight) and weight this by 
+            how recent the collision was (`1` for 2022 down to `.78` for 2018)
             5. Aggregate the individual danger metrics across each junction to get an overall
             danger metric value for each junction
             6. Rank junctions from most to least dangerous based on this value
