@@ -16,7 +16,7 @@ from st_files_connection import FilesConnection
 DATA_PARAMETERS = yaml.load(open("params.yaml", 'r'), Loader=Loader)
 
 # set as "prod" in the hosted environment
-ENVIRONMENT = os.environ.get("ENVIRONMENT", "dev")
+ENVIRONMENT = os.environ.get("ENVIRONMENT", "prod")
 
 
 @st.cache_data(show_spinner=False, ttl=24*60*60, max_entries=1)
