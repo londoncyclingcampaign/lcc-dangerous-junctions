@@ -36,12 +36,15 @@ def format_name(name: str) -> str:
     return name
 
 
-def clean_collision_id(raw_collision_id: str, year: int) -> int:
+def clean_collision_id(raw_collision_id: str, year: int, borough: str) -> int:
     """
     Make TfL collision ids match the stats19 ones
     """
     if year < 2017:
         collision_id = str(year) + str(raw_collision_id)[0:2] + str(raw_collision_id)[-7:]
+    elif str(raw_collision_id)[0:2] == '48':
+        # edge case for city of london
+        collision_id = str(year) + '48' + str(raw_collision_id)[-7:]
     else:
         collision_id = str(year) + '01' + str(raw_collision_id)[-7:]
     collision_id = int(collision_id)
@@ -177,8 +180,11 @@ def main():
     )
     collisions['year'] = collisions['date'].dt.year
 
+    for col in ['borough', 'location']:
+        collisions[col] = collisions[col].apply(lambda x: x.upper())
+
     collisions['collision_id'] = collisions.apply(
-        lambda row: clean_collision_id(row['raw_collision_id'], row['year']), axis=1
+        lambda row: clean_collision_id(row['raw_collision_id'], row['year'], row['borough']), axis=1
     )
 
     collisions['time'] = collisions['time'].apply(format_time)
@@ -188,9 +194,6 @@ def main():
     ).dt.time
 
     collisions.replace(value_aliases, inplace=True)
-
-    for col in ['borough', 'location']:
-        collisions[col] = collisions[col].apply(lambda x: x.upper())
 
     # convert easting, northings
     collisions['longitude'], collisions['latitude'] = convert_lonlat(
