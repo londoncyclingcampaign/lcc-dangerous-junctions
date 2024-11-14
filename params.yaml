@@ -23,9 +23,9 @@
   distance_to_junction_threshold: .001
 
   # collision severity weights
-  weight_fatal: 6.8
-  weight_serious: 1.
-  weight_slight: .06
+  weight_fatal: 5
+  weight_serious: 1
+  weight_slight: .1
 
   # links to TfL csv data - shame they couldn't have chosen a consistent pattern!!
   data_links:
