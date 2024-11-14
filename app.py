@@ -26,19 +26,18 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
-junctions, collisions, notes = read_in_data()
-min_year = np.min(collisions['year'])
-max_year = np.max(collisions['year'])
-
-
-@st.dialog("Welcome to the LCC's Dangerous Junctions Tool", width="large")
+@st.dialog("Welcome to the London Cycling Campaign's Dangerous Junctions Tool", width="large")
 def open_pop_up():
     st.markdown("""
-        Note, with the release of 2023 collision data we have updated the casualty weights:
-        - Fatal: `6.8` → `5`
-        - Serious: `1` → `1`
-        - Slight: `.06` → `.1`
+        The tool displays the most dangerous junctions in London for either
+        cyclists or pedestrians, depending on the settings selected.
+        It's designed to assist the LCC and other organisations campaign for
+        improvements to road networks in London, helping make junctions
+        safer for both cyclists and pedestrians.
+
+        *__New for 2024:__*
+        - Data now covers 2019 to 2023
+        - Slightly adjusted fatal, serious & slight collision weights (see 'About this app')
     """)
 
 if 'pop_up_opened' not in st.session_state:
@@ -46,9 +45,14 @@ if 'pop_up_opened' not in st.session_state:
     st.session_state['pop_up_opened'] = True
 
 
+junctions, collisions, notes = read_in_data()
+min_year = np.min(collisions['year'])
+max_year = np.max(collisions['year'])
+
+
 with st.expander("App settings", expanded=True):
     with st.form(key='form'):
-        col1, col2, col3, col4, col5, col6, col7 = st.columns([2, 2, 2, 1, 1, 1, 2])
+        col1, col2, col3, col4 = st.columns([2, 4, 4, 2])
         with col1:
             casualty_type = st.radio(
                 label='Select casualty type',
@@ -76,12 +80,6 @@ with st.expander("App settings", expanded=True):
                 default='ALL'
             )
         with col4:
-            weight_fatal = st.number_input('Fatal weight', min_value=0.0, max_value=10.0, value=5.)
-        with col5:
-            weight_serious = st.number_input('Serious weight', min_value=0.0, max_value=10.0, value=1.0)
-        with col6:
-            weight_slight = st.number_input('Slight weight', min_value=0.0, max_value=10.0, value=.1)
-        with col7:
             st.markdown('<br>', unsafe_allow_html=True)  # padding
             submit = st.form_submit_button(label='Recalculate Junctions', type='primary', use_container_width=True)
 
@@ -94,10 +92,7 @@ else:
         collisions,
         notes,
         casualty_type,
-        boroughs,
-        weight_fatal,
-        weight_serious,
-        weight_slight
+        boroughs
     )
     dangerous_junctions = calculate_dangerous_junctions(
         junction_collisions,
@@ -109,18 +104,12 @@ else:
     if (
         ('chosen_point' not in st.session_state) or
         (casualty_type != st.session_state['previous_casualty_type']) or
-        (boroughs != st.session_state['previous_boroughs']) or
-        (weight_fatal != st.session_state['previous_weight_fatal']) or
-        (weight_serious != st.session_state['previous_weight_serious']) or
-        (weight_slight != st.session_state['previous_weight_slight'])
+        (boroughs != st.session_state['previous_boroughs'])
     ):
         st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
 
     st.session_state['previous_casualty_type'] = casualty_type
     st.session_state['previous_boroughs'] = boroughs
-    st.session_state['previous_weight_fatal'] = weight_fatal
-    st.session_state['previous_weight_serious'] = weight_serious
-    st.session_state['previous_weight_slight'] = weight_slight
 
     col1, col2 = st.columns([6, 6])
     with col1:
@@ -249,7 +238,7 @@ with st.expander("About this app"):
                  
             The collision data is sourced from the TfL collision extracts,
             which can be [accessed here](https://tfl.gov.uk/corporate/publications-and-reports/road-safety) and includes all
-            collisions involving a cyclist or pedestrian from 2018 to 2022. The junction data is generated using the
+            collisions involving a cyclist or pedestrian from 2019 to 2023. The junction data is generated using the
             [OSMnx package](https://github.com/gboeing/osmnx) that relies on OpenStreetMap data.
                 
             ##### Contact
@@ -269,13 +258,25 @@ with st.expander("About this app"):
             rather than each individual pedestrian crossings and intersections that make up the junction
             3. Map each collision to its nearest junction based on coordinate data
             4. Assign each collision a 'danger metric' value based on the severity of the worst
-            casualty involved (`5` for fatal, `1` for severe & `.01` for slight) and weight this by 
+            casualty involved (`5` for fatal, `1` for severe & `.1` for slight) and weight this by 
             how recent the collision was (`1` for 2023 down to `.78` for 2019)
             5. Aggregate the individual danger metrics across each junction to get an overall
             danger metric value for each junction
             6. Rank junctions from most to least dangerous based on this value
                     
             This process is done separately for both cycling and pedestrian collisions.
+                    
+            ##### Updates for 2024
+                    
+            For the 2024 launch we have updated the weights for collisions as follows:
+            - Fatal: `6.8` → `5`
+            - Serious: `1` → `1`
+            - Slight: `.06` → `.1`
+
+            This gives less prominence to fatalities that are rare and do not necessarily
+            highlight collision patterns due to infrastructure. Last year's map
+            had a lot of junctions that had a single fatal collision and therefore ranked
+            high, but were likely anomalies.
                 
             ##### Limitations
                     

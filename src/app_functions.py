@@ -16,7 +16,7 @@ from st_files_connection import FilesConnection
 DATA_PARAMETERS = yaml.load(open("params.yaml", 'r'), Loader=Loader)
 
 # set as "prod" in the hosted environment
-ENVIRONMENT = os.environ.get("ENVIRONMENT", "prod")
+ENVIRONMENT = os.environ.get("ENVIRONMENT", "dev")
 
 
 @st.cache_data(show_spinner=False, ttl=24*60*60, max_entries=1)
@@ -65,10 +65,7 @@ def combine_junctions_and_collisions(
     collisions: pd.DataFrame,
     notes: pd.DataFrame,
     casualty_type: str,
-    boroughs: str,
-    weight_fatal: float = DATA_PARAMETERS['weight_fatal'],
-    weight_serious: float = DATA_PARAMETERS['weight_serious'],
-    weight_slight: float = DATA_PARAMETERS['weight_slight'],
+    boroughs: str
     ) -> pd.DataFrame:
     """
     Combines the junction and collision datasets, as well as filters by years chosen in app.
@@ -98,7 +95,7 @@ def combine_junctions_and_collisions(
 
     junction_collisions['danger_metric'] = junction_collisions.apply(
         lambda row: get_danger_metric(
-            row, casualty_type, weight_fatal, weight_serious, weight_slight
+            row, casualty_type
         ), axis=1
     )
     junction_collisions['recency_danger_metric'] = (
