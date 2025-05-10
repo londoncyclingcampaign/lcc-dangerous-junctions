@@ -58,6 +58,7 @@
     - raw_collision_id
     - casualty_id
     - casualty_class
+    - casualty_gender
     - number_of_casualties
     - casualty_severity
     - mode_of_travel
