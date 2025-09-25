@@ -57,7 +57,7 @@ def recalculate_severity(casualties, mode_of_travel):
         casualties
         [casualties['mode_of_travel'] == mode_of_travel]
         .groupby('collision_id')
-        .apply(accident_severity_counts)
+        .apply(accident_severity_counts, include_groups=False)
         .reset_index()
     )
 

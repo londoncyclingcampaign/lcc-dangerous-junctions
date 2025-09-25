@@ -23,7 +23,7 @@ ENVIRONMENT = os.environ.get("ENVIRONMENT", "prod")
 def read_in_data(params: dict = DATA_PARAMETERS) -> tuple:
     """
     Function to read in different data depending on tolerance requests.
-    Reads from local if not on streamlit server, otherwise from google sheets.
+    Reads from local if not on streamlit server, otherwise from GCS.
     """
     if ENVIRONMENT == 'dev':
         junctions = pd.read_parquet(
@@ -39,13 +39,13 @@ def read_in_data(params: dict = DATA_PARAMETERS) -> tuple:
     else:
         conn = st.connection('gcs', type=FilesConnection)
         junctions = conn.read(
-            "lcc-app-data/2019-2023/junctions-tolerance=15.parquet",
+            "lcc-app-data/2020-2024/junctions-tolerance=15.parquet",
             input_format="parquet",
             engine='pyarrow',
             columns=params['junction_app_columns']
         )
         collisions = conn.read(
-            "lcc-app-data/2019-2023/collisions-tolerance=15.parquet",
+            "lcc-app-data/2020-2024/collisions-tolerance=15.parquet",
             input_format="parquet",
             engine='pyarrow',
             columns=params['collision_app_columns']
