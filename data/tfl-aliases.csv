@@ -33,6 +33,9 @@ value,fatal,Fatal
 value,serious,2 SERIOUS
 value,serious,2 Serious
 value,serious,Serious
+value,serious,Less Serious
+value,serious,Moderately Serious
+value,serious,Very Serious
 value,slight,3 Slight
 value,slight,3 SLIGHT
 value,slight,Slight
