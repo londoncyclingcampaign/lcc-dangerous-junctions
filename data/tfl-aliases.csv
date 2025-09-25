@@ -25,12 +25,17 @@ column,casualty_severity,Casualty Severity
 column,casualty_severity,_Casualty Severity
 column,mode_of_travel,Casualty Mode of Travel
 column,mode_of_travel,Mode of Travel
+column,casualty_gender,Casualty Gender
+column,casualty_gender,Casualty Sex
 value,fatal,1 FATAL
 value,fatal,1 Fatal
 value,fatal,Fatal
 value,serious,2 SERIOUS
 value,serious,2 Serious
 value,serious,Serious
+value,serious,Less Serious
+value,serious,Moderately Serious
+value,serious,Very Serious
 value,slight,3 Slight
 value,slight,3 SLIGHT
 value,slight,Slight
@@ -99,3 +104,6 @@ value,other_vehicle,8 Other Vehicle
 value,other_vehicle,Other Vehicle
 value,private_hire,9 PRIVATE HIRE
 value,private_hire,Private Hire
+value,Male,1 MALE
+value,Female,2 FEMALE
+value,Unknown,'-1 UNKNOWN

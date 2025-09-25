@@ -35,9 +35,8 @@ def open_pop_up():
         improvements to road networks in London, helping make junctions
         safer for both cyclists and pedestrians.
 
-        *__New for 2024:__*
-        - Data now covers 2019 to 2023
-        - Slightly adjusted fatal, serious & slight collision weights (see 'About this app')
+        *__New for 2025:__*
+        - Data now covers 2019 to 2024
     """)
 
 if 'pop_up_opened' not in st.session_state:
@@ -238,7 +237,7 @@ with st.expander("About this app"):
                  
             The collision data is sourced from the TfL collision extracts,
             which can be [accessed here](https://tfl.gov.uk/corporate/publications-and-reports/road-safety) and includes all
-            collisions involving a cyclist or pedestrian from 2019 to 2023. The junction data is generated using the
+            collisions involving a cyclist or pedestrian from 2020 to 2024. The junction data is generated using the
             [OSMnx package](https://github.com/gboeing/osmnx) that relies on OpenStreetMap data.
                 
             ##### Contact
@@ -259,7 +258,7 @@ with st.expander("About this app"):
             3. Map each collision to its nearest junction based on coordinate data
             4. Assign each collision a 'danger metric' value based on the severity of the worst
             casualty involved (`5` for fatal, `1` for severe & `.1` for slight) and weight this by 
-            how recent the collision was (`1` for 2023 down to `.78` for 2019)
+            how recent the collision was (`1` for 2024 down to `.78` for 2020)
             5. Aggregate the individual danger metrics across each junction to get an overall
             danger metric value for each junction
             6. Rank junctions from most to least dangerous based on this value
