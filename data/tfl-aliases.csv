@@ -12,6 +12,7 @@ column,location,Collision Location
 column,collision_severity,Accident Severity
 column,collision_severity,_Collision Severity
 column,junction_detail,Junction Detail
+column,road_type,Road Type
 column,date,Accident Date
 column,date,_Collision Date
 column,time,Time
@@ -57,6 +58,7 @@ value,slip_road,Slip Road
 value,crossroads,6 Crossroads
 value,crossroads,06 CROSSROADS
 value,crossroads,Croassroads
+value,crossroads,Crossroads
 value,multi_junction,7 Multi Jun
 value,multi_junction,07 MULTI JUN
 value,multi_junction,Multi Jun

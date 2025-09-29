@@ -51,6 +51,7 @@
     - location
     - collision_severity
     - junction_detail
+    - road_type
     - date
     - time
 
