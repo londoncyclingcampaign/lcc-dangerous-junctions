@@ -97,7 +97,7 @@ else:
     dangerous_junctions = calculate_dangerous_junctions(
         junction_collisions,
         n_junctions,
-        casualty_type
+        casualty_type,
     )
 
     # set default to worst junction...

@@ -5,11 +5,15 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import seaborn as sns
+import logging
 
 from yaml import Loader
 from pympler import asizeof
 from folium.features import DivIcon
 from st_files_connection import FilesConnection
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
 
 # read in data params
@@ -70,6 +74,9 @@ def combine_junctions_and_collisions(
     """
     Combines the junction and collision datasets, as well as filters by years chosen in app.
     """
+    # Log cache miss - function is recalculating
+    logging.info(f"CACHE MISS: combine_junctions_and_collisions - casualty_type={casualty_type}, boroughs={boroughs}")
+
     if casualty_type == 'cyclist':
         collisions = collisions[collisions['is_cyclist_collision']]
     elif casualty_type == 'pedestrian':
@@ -93,11 +100,10 @@ def combine_junctions_and_collisions(
     if 'ALL' not in boroughs:
         junction_collisions = junction_collisions[junction_collisions['borough'].isin(boroughs)]
 
-    junction_collisions['danger_metric'] = junction_collisions.apply(
-        lambda row: get_danger_metric(
-            row, casualty_type
-        ), axis=1
+    junction_collisions = get_danger_metric(
+        junction_collisions, casualty_type
     )
+
     junction_collisions['recency_danger_metric'] = (
         junction_collisions['danger_metric'] * junction_collisions['recency_weight']
     )
@@ -114,7 +120,7 @@ def combine_junctions_and_collisions(
 
 
 def get_danger_metric(
-    row: pd.DataFrame,
+    junction_collisions: pd.DataFrame,
     casualty_type: str,
     weight_fatal: float = DATA_PARAMETERS['weight_fatal'],
     weight_serious: float = DATA_PARAMETERS['weight_serious'],
@@ -124,19 +130,17 @@ def get_danger_metric(
     Upweights more severe collisions for junction comparison.
     Only take worst severity, so if multiple casualties involved we have to ignore less severe.
     '''
-    fatal = row[f'fatal_{casualty_type}_casualties']
-    serious = row[f'serious_{casualty_type}_casualties']
-    slight = row[f'slight_{casualty_type}_casualties']
+    conditions = [
+        junction_collisions[f'fatal_{casualty_type}_casualties'] > 0,
+        junction_collisions[f'serious_{casualty_type}_casualties'] > 0,
+        junction_collisions[f'slight_{casualty_type}_casualties'] > 0
+    ]
 
-    danger_metric = None
-    if fatal > 0:
-        danger_metric = weight_fatal
-    elif serious > 0:
-        danger_metric = weight_serious
-    elif slight > 0:
-        danger_metric = weight_slight
+    choices = [weight_fatal, weight_serious, weight_slight
+]
+    junction_collisions['danger_metric'] = np.select(conditions, choices, default=None)
     
-    return danger_metric
+    return junction_collisions
 
 
 def get_all_year_df(junction_collisions: pd.DataFrame) -> pd.DataFrame:
@@ -172,19 +176,20 @@ def calculate_metric_trajectories(junction_collisions: pd.DataFrame, dangerous_j
         .reset_index()
     )
 
-    yearly_stats = (
-        all_years_mapping
-        .merge(
-            yearly_stats,
-            how='left',
-            on=['year', 'junction_cluster_id']
+    with pd.option_context('future.no_silent_downcasting', True):
+        yearly_stats = (
+            all_years_mapping
+            .merge(
+                yearly_stats,
+                how='left',
+                on=['year', 'junction_cluster_id']
+            )
+            .fillna(0)
+            .sort_values(by=['junction_cluster_id', 'year'])
+            .groupby('junction_cluster_id')['danger_metric']
+            .apply(list)
+            .reset_index(name='yearly_danger_metrics')
         )
-        .fillna(0)
-        .sort_values(by=['junction_cluster_id', 'year'])
-        .groupby('junction_cluster_id')['danger_metric']
-        .apply(list)
-        .reset_index(name='yearly_danger_metrics')
-    )
 
     dangerous_junctions = dangerous_junctions.merge(
         yearly_stats,
@@ -256,6 +261,9 @@ def calculate_dangerous_junctions(
     """
     Calculate most dangerous junctions in data and return n worst.
     """
+    # Log cache miss - function is recalculating
+    logging.info(f"CACHE MISS: calculate_dangerous_junctions - n_junctions={n_junctions}, casualty_type={casualty_type}, num_collisions={len(junction_collisions)}")
+
     grp_cols = [
         'junction_cluster_id', 'junction_cluster_name',
         'latitude_cluster', 'longitude_cluster', 'notes'
