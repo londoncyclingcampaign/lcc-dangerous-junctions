@@ -12,9 +12,7 @@ from pympler import asizeof
 from folium.features import DivIcon
 from st_files_connection import FilesConnection
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
-
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
 # read in data params
 DATA_PARAMETERS = yaml.load(open("params.yaml", 'r'), Loader=Loader)
@@ -73,7 +71,6 @@ def combine_junctions_and_collisions(
     """
     Combines the junction and collision datasets, as well as filters by years chosen in app.
     """
-    # Log cache miss - function is recalculating
     logging.info(f"CACHE MISS: combine_junctions_and_collisions - casualty_type={casualty_type}")
 
     if casualty_type == 'cyclist':
@@ -258,7 +255,6 @@ def calculate_dangerous_junctions(
     """
     Calculate most dangerous junctions in data and return n worst.
     """
-    # Log cache miss - function is recalculating
     logging.info(f"""
         CACHE MISS: calculate_dangerous_junctions - n_junctions={n_junctions}, casualty_type={casualty_type}, boroughs={boroughs}, num_collisions={len(junction_collisions)}
     """)
