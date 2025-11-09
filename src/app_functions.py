@@ -63,19 +63,18 @@ def read_in_data(params: dict = DATA_PARAMETERS) -> tuple:
     return junctions, collisions, junction_notes
 
 
-@st.cache_data(show_spinner=False, ttl=3*60, max_entries=5)
+@st.cache_data(show_spinner=False, ttl=3*60, max_entries=2)
 def combine_junctions_and_collisions(
     junctions: pd.DataFrame,
     collisions: pd.DataFrame,
     notes: pd.DataFrame,
     casualty_type: str,
-    boroughs: str
     ) -> pd.DataFrame:
     """
     Combines the junction and collision datasets, as well as filters by years chosen in app.
     """
     # Log cache miss - function is recalculating
-    logging.info(f"CACHE MISS: combine_junctions_and_collisions - casualty_type={casualty_type}, boroughs={boroughs}")
+    logging.info(f"CACHE MISS: combine_junctions_and_collisions - casualty_type={casualty_type}")
 
     if casualty_type == 'cyclist':
         collisions = collisions[collisions['is_cyclist_collision']]
@@ -96,9 +95,6 @@ def combine_junctions_and_collisions(
         )
     )
     junction_collisions.loc[junction_collisions['notes'].isna(), 'notes'] = ''
-
-    if 'ALL' not in boroughs:
-        junction_collisions = junction_collisions[junction_collisions['borough'].isin(boroughs)]
 
     junction_collisions = get_danger_metric(
         junction_collisions, casualty_type
@@ -256,13 +252,16 @@ def create_junction_labels(row: pd.DataFrame, casualty_type: str) -> str:
 def calculate_dangerous_junctions(
     junction_collisions: pd.DataFrame,
     n_junctions: int,
-    casualty_type: str
+    casualty_type: str,
+    boroughs: str
 ) -> pd.DataFrame:
     """
     Calculate most dangerous junctions in data and return n worst.
     """
     # Log cache miss - function is recalculating
-    logging.info(f"CACHE MISS: calculate_dangerous_junctions - n_junctions={n_junctions}, casualty_type={casualty_type}, num_collisions={len(junction_collisions)}")
+    logging.info(f"""
+        CACHE MISS: calculate_dangerous_junctions - n_junctions={n_junctions}, casualty_type={casualty_type}, boroughs={boroughs}, num_collisions={len(junction_collisions)}
+    """)
 
     grp_cols = [
         'junction_cluster_id', 'junction_cluster_name',
@@ -274,6 +273,9 @@ def calculate_dangerous_junctions(
         f'serious_{casualty_type}_casualties',
         f'slight_{casualty_type}_casualties',
     ]
+
+    if 'ALL' not in boroughs:
+        junction_collisions = junction_collisions[junction_collisions['borough'].isin(boroughs)]
 
     dangerous_junctions = (
         junction_collisions
