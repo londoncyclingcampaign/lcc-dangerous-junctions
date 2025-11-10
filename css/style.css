@@ -17,6 +17,7 @@
     left: 0px;
     height: 6.5rem;
     width: auto;
+    min-width: 10%;
     max-width: 20%;
     z-index: 999991;
     background-color: #e30613;
