@@ -16,12 +16,11 @@
     top: 0px;
     left: 0px;
     height: 6.5rem;
-    width: auto;
     min-width: 10%;
     max-width: 20%;
     z-index: 999991;
     background-color: #e30613;
-    border: 1.5rem solid #e30613;
+    border: .5rem solid #e30613;
 }
 
 /* sets the position of the title */
