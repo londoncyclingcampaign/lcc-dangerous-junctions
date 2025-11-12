@@ -151,6 +151,9 @@ def correct_data(df: pd.DataFrame, corrections: dict) -> pd.DataFrame:
 
 
 def main():
+    # supress .replace() warnings
+    pd.set_option('future.no_silent_downcasting', True)
+
     params = yaml.load(open("params.yaml", 'r'), Loader=Loader)
     data_corrections = yaml.load(open("data_corrections.yaml", 'r'), Loader=Loader)
 
@@ -193,7 +196,7 @@ def main():
         format='%H:%M:%S',
     ).dt.time
 
-    collisions.replace(value_aliases, inplace=True)
+    collisions = collisions.replace(to_replace=value_aliases)
 
     # convert easting, northings
     collisions['longitude'], collisions['latitude'] = convert_lonlat(

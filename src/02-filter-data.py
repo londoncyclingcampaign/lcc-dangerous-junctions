@@ -57,7 +57,7 @@ def recalculate_severity(casualties, mode_of_travel):
         casualties
         [casualties['mode_of_travel'] == mode_of_travel]
         .groupby('collision_id')
-        .apply(accident_severity_counts)
+        .apply(accident_severity_counts, include_groups=False)
         .reset_index()
     )
 
@@ -100,7 +100,14 @@ def main():
     print('Filter to Junctions')
     junction_types = params['valid_junction_types']
 
-    mask = collisions.junction_detail.isin(junction_types)
+    mask = (
+        (collisions.junction_detail.isin(junction_types))
+        |
+        (
+            (collisions.road_type == 'roundabout')
+            & (collisions.year == 2024)
+        )  # workaround - 2024 classified roundabouts differently
+    )
     collisions = collisions.loc[mask, :]
 
     # pull out all cyclist and pedestrian crash ids
@@ -137,18 +144,18 @@ def main():
     print('Example data')
     print(collisions)
 
-    print('Cyclist collisions per year check')
+    print('Cyclist & pedestrian collisions per year check')
     print(
-        collisions[collisions['is_cyclist_collision']]
+        collisions
         .groupby('year')
         ['collision_id']
         .nunique()
     )
 
-    print('Pedestrian collisions per year check')
+    print('Cyclist & pedestrian collisions per year & severity check')
     print(
-        collisions[collisions['is_pedestrian_collision']]
-        .groupby('year')
+        collisions
+        .groupby(['year', 'collision_severity'])
         ['collision_id']
         .nunique()
     )
