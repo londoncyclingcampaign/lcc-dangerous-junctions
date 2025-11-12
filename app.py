@@ -264,18 +264,6 @@ with st.expander("About this app"):
             6. Rank junctions from most to least dangerous based on this value
                     
             This process is done separately for both cycling and pedestrian collisions.
-                    
-            ##### Updates for 2024
-                    
-            For the 2024 launch we have updated the weights for collisions as follows:
-            - Fatal: `6.8` → `5`
-            - Serious: `1` → `1`
-            - Slight: `.06` → `.1`
-
-            This gives less prominence to fatalities that are rare and do not necessarily
-            highlight collision patterns due to infrastructure. Last year's map
-            had a lot of junctions that had a single fatal collision and therefore ranked
-            high, but were likely anomalies.
                 
             ##### Limitations
                     
