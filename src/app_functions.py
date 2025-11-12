@@ -255,9 +255,7 @@ def calculate_dangerous_junctions(
     """
     Calculate most dangerous junctions in data and return n worst.
     """
-    logging.info(f"""
-        CACHE MISS: calculate_dangerous_junctions - n_junctions={n_junctions}, casualty_type={casualty_type}, boroughs={boroughs}, num_collisions={len(junction_collisions)}
-    """)
+    logging.info(f"""CACHE MISS: calculate_dangerous_junctions - n_junctions={n_junctions}, casualty_type={casualty_type}, boroughs={boroughs}""")
 
     grp_cols = [
         'junction_cluster_id', 'junction_cluster_name',
