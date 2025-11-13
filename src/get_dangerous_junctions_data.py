@@ -10,7 +10,7 @@ from app_functions import *
 ENVIRONMENT = os.environ.get("ENVIRONMENT", "prod")
 DATA_PARAMETERS = yaml.load(open("params.yaml", 'r'), Loader=Loader)
 
-junctions, collisions, notes = read_in_data(tolerance=15)
+junctions, collisions, notes = read_in_data(DATA_PARAMETERS)
 
 
 for casualty_type in ['pedestrian', 'cyclist']:
@@ -40,13 +40,13 @@ for casualty_type in ['pedestrian', 'cyclist']:
             collisions,
             notes,
             casualty_type,
-            boroughs=[borough]
         )
 
         dangerous_junctions = calculate_dangerous_junctions(
             junction_collisions,
             n_junctions=10,
-            casualty_type=casualty_type
+            casualty_type=casualty_type,
+            boroughs=[borough]
         )
 
         dangerous_junctions['borough'] = borough
@@ -60,7 +60,7 @@ for casualty_type in ['pedestrian', 'cyclist']:
         dangerous_junctions_list.append(dangerous_junctions)
 
     pd.concat(dangerous_junctions_list)[OUTPUT_COLS].to_csv(
-        f'data/2024_{casualty_type}_most_dangerous_junctions.csv',
+        f'data/2025_{casualty_type}_most_dangerous_junctions.csv',
         index=False
     )
 
