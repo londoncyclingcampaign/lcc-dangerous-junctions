@@ -29,14 +29,13 @@ st.markdown(
 @st.dialog("Welcome to the London Cycling Campaign's Dangerous Junctions Tool", width="large")
 def open_pop_up():
     st.markdown("""
-        The tool displays the most dangerous junctions in London for either
-        cyclists or pedestrians, depending on the settings selected.
-        It's designed to assist the LCC and other organisations campaign for
-        improvements to road networks in London, helping make junctions
-        safer for both cyclists and pedestrians.
-
-        *__New for 2025:__*
-        - Data now covers 2019 to 2024
+        The tool displays the most **dangerous junctions** in London and by borough
+        for either **cyclists** or **pedestrians**, depending on the settings selected.
+        Junction clusters are ranked by the severity and recency of collisions using
+        the latest five years of emergency services data.
+                
+        Our map helps campaigners, transport planners and engineers identify
+        where the priorities are for fixing the biggest road danger issues in London.
     """)
 
 if 'pop_up_opened' not in st.session_state:
@@ -239,11 +238,6 @@ with st.expander("About this app"):
             which can be [accessed here](https://tfl.gov.uk/corporate/publications-and-reports/road-safety) and includes all
             collisions involving a cyclist or pedestrian from 2020 to 2024. The junction data is generated using the
             [OSMnx package](https://github.com/gboeing/osmnx) that relies on OpenStreetMap data.
-                
-            ##### Contact
-
-            This app was made by [Daniel Hills](https://danielhills.github.io/) on behalf of the LCC. For any questions, 
-            feedback or bug reports, email: [djmapping@lcc.org.uk](mailto:djmapping@lcc.org.uk)
         """)
 
     with col2:
@@ -274,6 +268,11 @@ with st.expander("About this app"):
             The ability to drill down into a junction and assess the individual collisions
             in combination with user domain knowledge should still make this a very useful tool
             in assessing the danger of junctions in London.
+                    
+            ##### Contact
+
+            This app was made by [Daniel Hills](https://danielhills.github.io/) on behalf of the LCC. For any questions, 
+            feedback or bug reports, email: [djmapping@lcc.org.uk](mailto:djmapping@lcc.org.uk)
         """)
 
 
