@@ -180,7 +180,7 @@ def calculate_metric_trajectories(junction_collisions: pd.DataFrame, dangerous_j
             .fillna(0)
             .sort_values(by=['junction_cluster_id', 'year'])
             .groupby('junction_cluster_id')['danger_metric']
-            .apply(list)
+            .apply(tuple)
             .reset_index(name='yearly_danger_metrics')
         )
 

@@ -79,7 +79,7 @@ with st.expander("App settings", expanded=True):
             )
         with col4:
             st.markdown('<br>', unsafe_allow_html=True)  # padding
-            submit = st.form_submit_button(label='Recalculate Junctions', type='primary', use_container_width=True)
+            submit = st.form_submit_button(label='Recalculate Junctions', type='primary', width='stretch')
 
 
 if len(boroughs) == 0:
@@ -129,7 +129,7 @@ else:
             high_map,
             feature_group_to_add=high_feature_group,
             returned_objects=['last_object_clicked'],
-            use_container_width=True,
+            width='stretch',
             height=500,
             key='high_map'
         )
@@ -163,7 +163,7 @@ else:
             feature_group_to_add=low_feature_group,
             center=st.session_state['chosen_point'],
             returned_objects=[],
-            use_container_width=True,
+            width='stretch',
             height=500,
             key='low_map'
         )
@@ -203,7 +203,7 @@ st.dataframe(
             y_max=10
         ),
     },
-    use_container_width=True,
+    width='stretch',
     hide_index=True
 )
 

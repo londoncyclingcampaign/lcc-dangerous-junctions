@@ -149,10 +149,9 @@ def main():
     # build initial junctions graph
     print('Building initial junction graph')
     G1 = ox.graph_from_place(
-        'Greater London, UK',  # critical to use greater london, the city of London is not included otherwsie!!
+        'Greater London, UK',  # critical to use greater london, the city of London is not included otherwise!!
         network_type='drive',
         simplify=True,
-        clean_periphery=True
     )
     # for testing use:
     # G1 = ox.graph_from_address(
