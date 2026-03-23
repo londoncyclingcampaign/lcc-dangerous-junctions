@@ -18,7 +18,9 @@ def convert_strings_list(x: str) -> list:
     '''
     Function to convert a list stored in a string to a list.
     '''
-    if type(x) == int:
+    if isinstance(x, list):
+        return x
+    elif isinstance(x, int):
         return [x]
     else:
         return x.strip('][').split(', ')
@@ -149,10 +151,9 @@ def main():
     # build initial junctions graph
     print('Building initial junction graph')
     G1 = ox.graph_from_place(
-        'Greater London, UK',  # critical to use greater london, the city of London is not included otherwsie!!
+        'Greater London, UK',  # critical to use greater london, the city of London is not included otherwise!!
         network_type='drive',
         simplify=True,
-        clean_periphery=True
     )
     # for testing use:
     # G1 = ox.graph_from_address(
@@ -209,7 +210,7 @@ def main():
     df_higher = (
         df_higher
         .reset_index()
-        .drop(columns=['x', 'y', 'street_count', 'highway', 'lon', 'lat'])
+        .drop(columns=['x', 'y', 'street_count', 'highway'])
         .rename(columns={'osmid': 'osmid_cluster'})
     )
 
