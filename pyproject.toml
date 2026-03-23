@@ -1,0 +1,20 @@
+[project]
+name = "lcc-dangerous-junctions"
+version = "0.1.0"
+description = "LCC dangerous junctions code & app"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "convertbng",
+    "folium",
+    "gcsfs",
+    "osmnx",
+    "psutil",
+    "pympler",
+    "pyyaml",
+    "scikit-learn",
+    "seaborn",
+    "st-files-connection",
+    "streamlit>=1.55.0",
+    "streamlit-folium",
+]
