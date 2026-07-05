@@ -41,13 +41,13 @@ def read_in_data(params: dict = DATA_PARAMETERS) -> tuple:
     else:
         conn = st.connection('gcs', type=FilesConnection)
         junctions = conn.read(
-            "lcc-app-data/2020-2024/junctions-tolerance=15.parquet",
+            "lcc-app-data/2020-2024/gender_split/junctions-tolerance=15.parquet",
             input_format="parquet",
             engine='pyarrow',
             columns=params['junction_app_columns']
         )
         collisions = conn.read(
-            "lcc-app-data/2020-2024/collisions-tolerance=15.parquet",
+            "lcc-app-data/2020-2024/gender_split/collisions-tolerance=15.parquet",
             input_format="parquet",
             engine='pyarrow',
             columns=params['collision_app_columns']
@@ -61,22 +61,31 @@ def read_in_data(params: dict = DATA_PARAMETERS) -> tuple:
     return junctions, collisions, junction_notes
 
 
-@st.cache_data(show_spinner=False, ttl=3*60, max_entries=2)
+@st.cache_data(show_spinner=False, ttl=3*60, max_entries=6)
 def combine_junctions_and_collisions(
     junctions: pd.DataFrame,
     collisions: pd.DataFrame,
     notes: pd.DataFrame,
     casualty_type: str,
+    gender_filter: str = 'All',
+    weight_fatal: float = 5.0,
+    weight_serious: float = 1.0,
+    weight_slight: float = .1
     ) -> pd.DataFrame:
     """
     Combines the junction and collision datasets, as well as filters by years chosen in app.
     """
-    logging.info(f"CACHE MISS: combine_junctions_and_collisions - casualty_type={casualty_type}")
+    logging.info(f"CACHE MISS: combine_junctions_and_collisions - casualty_type={casualty_type}, gender_filter={gender_filter}")
 
     if casualty_type == 'cyclist':
         collisions = collisions[collisions['is_cyclist_collision']]
     elif casualty_type == 'pedestrian':
         collisions = collisions[collisions['is_pedestrian_collision']]
+
+    if gender_filter == 'Male':
+        collisions = collisions[collisions[f'male_{casualty_type}_casualties'] > 0]
+    elif gender_filter == 'Female':
+        collisions = collisions[collisions[f'female_{casualty_type}_casualties'] > 0]
 
     junction_collisions = (
         junctions
@@ -94,7 +103,11 @@ def combine_junctions_and_collisions(
     junction_collisions.loc[junction_collisions['notes'].isna(), 'notes'] = ''
 
     junction_collisions = get_danger_metric(
-        junction_collisions, casualty_type
+        junction_collisions,
+        casualty_type,
+        weight_fatal,
+        weight_serious,
+        weight_slight
     )
 
     junction_collisions['recency_danger_metric'] = (
@@ -245,17 +258,18 @@ def create_junction_labels(row: pd.DataFrame, casualty_type: str) -> str:
     return label
 
 
-@st.cache_data(show_spinner=False, ttl=3*60, max_entries=5)
+@st.cache_data(show_spinner=False, ttl=3*60, max_entries=15)
 def calculate_dangerous_junctions(
     junction_collisions: pd.DataFrame,
     n_junctions: int,
     casualty_type: str,
-    boroughs: str
+    boroughs: str,
+    gender_filter: str = 'All',
 ) -> pd.DataFrame:
     """
     Calculate most dangerous junctions in data and return n worst.
     """
-    logging.info(f"""CACHE MISS: calculate_dangerous_junctions - n_junctions={n_junctions}, casualty_type={casualty_type}, boroughs={boroughs}""")
+    logging.info(f"""CACHE MISS: calculate_dangerous_junctions - n_junctions={n_junctions}, casualty_type={casualty_type}, boroughs={boroughs}, gender_filter={gender_filter}""")
 
     grp_cols = [
         'junction_cluster_id', 'junction_cluster_name',

@@ -49,6 +49,41 @@ def get_max_severity(row, casualty_type):
         return None
 
 
+def get_gender_counts(casualties, mode_of_travel):
+    '''
+    Count casualties by gender for a given mode of travel, returning counts per collision.
+    '''
+    if mode_of_travel == 'pedal_cycle':
+        casualty_type = 'cyclist'
+    else:
+        casualty_type = mode_of_travel
+
+    gender_counts = (
+        casualties[casualties['mode_of_travel'] == mode_of_travel]
+        .groupby(['collision_id', 'casualty_gender'])
+        .size()
+        .reset_index(name='count')
+        .pivot(index='collision_id', columns='casualty_gender', values='count')
+        .fillna(0)
+        .astype(int)
+        .reset_index()
+    )
+
+    rename_map = {
+        'Male': f'male_{casualty_type}_casualties',
+        'Female': f'female_{casualty_type}_casualties',
+        'Unknown': f'unknown_gender_{casualty_type}_casualties',
+    }
+    gender_counts = gender_counts.rename(columns=rename_map)
+
+    # ensure all three columns exist even if a gender had no casualties
+    for col in rename_map.values():
+        if col not in gender_counts.columns:
+            gender_counts[col] = 0
+
+    return gender_counts[['collision_id'] + list(rename_map.values())]
+
+
 def recalculate_severity(casualties, mode_of_travel):
     '''
     recalculate severities based on cyclists or pedestrian only + apply weightings
@@ -125,12 +160,23 @@ def main():
     recalculated_cyclist_severities = recalculate_severity(casualties, 'pedal_cycle')
     recalculated_pedestrian_severities = recalculate_severity(casualties, 'pedestrian')
 
+    cyclist_gender = get_gender_counts(casualties, 'pedal_cycle')
+    pedestrian_gender = get_gender_counts(casualties, 'pedestrian')
+
     # # join back to the datasets with severity in it
     collisions = (
         collisions
         .merge(recalculated_cyclist_severities, how='left', on='collision_id')
         .merge(recalculated_pedestrian_severities, how='left', on='collision_id')
+        .merge(cyclist_gender, how='left', on='collision_id')
+        .merge(pedestrian_gender, how='left', on='collision_id')
     )
+
+    gender_cols = [
+        'male_cyclist_casualties', 'female_cyclist_casualties', 'unknown_gender_cyclist_casualties',
+        'male_pedestrian_casualties', 'female_pedestrian_casualties', 'unknown_gender_pedestrian_casualties',
+    ]
+    collisions[gender_cols] = collisions[gender_cols].fillna(0).astype(int)
     
     collisions['recency_weight'] = collisions.apply(
         lambda row: get_recency_weight(row, min_year), axis=1
