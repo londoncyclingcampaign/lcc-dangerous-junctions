@@ -41,13 +41,13 @@ def read_in_data(params: dict = DATA_PARAMETERS) -> tuple:
     else:
         conn = st.connection('gcs', type=FilesConnection)
         junctions = conn.read(
-            "lcc-app-data/2020-2024/junctions-tolerance=15.parquet",
+            "lcc-app-data/2020-2024/gender_split/junctions-tolerance=15.parquet",
             input_format="parquet",
             engine='pyarrow',
             columns=params['junction_app_columns']
         )
         collisions = conn.read(
-            "lcc-app-data/2020-2024/collisions-tolerance=15.parquet",
+            "lcc-app-data/2020-2024/gender_split/collisions-tolerance=15.parquet",
             input_format="parquet",
             engine='pyarrow',
             columns=params['collision_app_columns']
