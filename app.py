@@ -50,7 +50,7 @@ max_year = np.max(collisions['year'])
 
 with st.expander("App settings", expanded=True):
     with st.form(key='form'):
-        col1, col2, col3, col4 = st.columns([2, 4, 4, 2])
+        col1, col2, col3, col4, col5 = st.columns([2, 2, 4, 4, 2])
         with col1:
             casualty_type = st.radio(
                 label='Select casualty type',
@@ -59,6 +59,12 @@ with st.expander("App settings", expanded=True):
                 horizontal=True
             )
         with col2:
+            gender_filter = st.radio(
+                label='Gender',
+                options=['All', 'Female', 'Male'],
+                horizontal=True
+            )
+        with col3:
             n_junctions = st.slider(
                 label='Number of dangerous junctions to show',
                 min_value=10,
@@ -66,7 +72,7 @@ with st.expander("App settings", expanded=True):
                 value=20,
                 step=10
             )
-        with col3:
+        with col4:
             available_boroughs = sorted(
                 list(
                     collisions['borough'].dropna().unique()
@@ -77,10 +83,36 @@ with st.expander("App settings", expanded=True):
                 options=['ALL'] + available_boroughs,
                 default='ALL'
             )
-        with col4:
+        with col5:
             st.markdown('<br>', unsafe_allow_html=True)  # padding
             submit = st.form_submit_button(label='Recalculate Junctions', type='primary', width='stretch')
 
+        col1, col2, col3 = st.columns([3, 3, 3])
+
+        with col1:
+            weight_fatal = st.slider(
+                label='Fatal weight',
+                min_value=0.0,
+                max_value=10.0,
+                value=5.0,
+                step=.1
+            )
+        with col2:
+            weight_serious = st.slider(
+                label='Serious weight',
+                min_value=0.0,
+                max_value=10.0,
+                value=1.0,
+                step=.1
+            )
+        with col3:
+            weight_slight = st.slider(
+                label='Slight weight',
+                min_value=0.0,
+                max_value=10.0,
+                value=.1,
+                step=.1
+            )
 
 if len(boroughs) == 0:
     st.warning('Please select at least one borough and recalculate', icon='⚠️')
@@ -89,25 +121,32 @@ else:
         junctions,
         collisions,
         notes,
-        casualty_type
+        casualty_type,
+        gender_filter,
+        weight_fatal,
+        weight_serious,
+        weight_slight
     )
     dangerous_junctions = calculate_dangerous_junctions(
         junction_collisions,
         n_junctions,
         casualty_type,
-        boroughs
+        boroughs,
+        gender_filter
     )
 
     # set default to worst junction...
     if (
         ('chosen_point' not in st.session_state) or
         (casualty_type != st.session_state['previous_casualty_type']) or
-        (boroughs != st.session_state['previous_boroughs'])
+        (boroughs != st.session_state['previous_boroughs']) or
+        (gender_filter != st.session_state.get('previous_gender_filter'))
     ):
         st.session_state['chosen_point'] = dangerous_junctions[['latitude_cluster', 'longitude_cluster']].values[0]
 
     st.session_state['previous_casualty_type'] = casualty_type
     st.session_state['previous_boroughs'] = boroughs
+    st.session_state['previous_gender_filter'] = gender_filter
 
     col1, col2 = st.columns([6, 6])
     with col1:

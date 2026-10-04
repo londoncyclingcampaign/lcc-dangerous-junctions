@@ -107,5 +107,7 @@ value,other_vehicle,Other Vehicle
 value,private_hire,9 PRIVATE HIRE
 value,private_hire,Private Hire
 value,Male,1 MALE
+value,Male,1 Male
 value,Female,2 FEMALE
+value,Female,2 Female
 value,Unknown,'-1 UNKNOWN

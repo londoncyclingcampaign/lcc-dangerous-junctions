@@ -85,6 +85,12 @@
     - date
     - max_cyclist_severity
     - max_pedestrian_severity
+    - male_cyclist_casualties
+    - female_cyclist_casualties
+    - unknown_gender_cyclist_casualties
+    - male_pedestrian_casualties
+    - female_pedestrian_casualties
+    - unknown_gender_pedestrian_casualties
 
   junction_app_columns:
     - latitude_junction
