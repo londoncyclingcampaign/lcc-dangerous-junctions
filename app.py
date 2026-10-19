@@ -131,7 +131,8 @@ else:
             returned_objects=['last_object_clicked'],
             width='stretch',
             height=500,
-            key='high_map'
+            key='high_map',
+            render=False
         )
 
         if map_click['last_object_clicked']:
@@ -165,7 +166,8 @@ else:
             returned_objects=[],
             width='stretch',
             height=500,
-            key='low_map'
+            key='low_map',
+            render=False
         )
 
 
