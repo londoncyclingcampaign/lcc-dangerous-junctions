@@ -391,8 +391,7 @@ def get_high_level_fg(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame,
             width=250,
             height=300
         )
-        # folium gives each IFrame a random id, which changes the map js on every
-        # rerun and makes streamlit-folium redraw the markers (closing any open popup)
+        # a fixed (not random) iframe id stops streamlit-folium redrawing markers on rerun, which closed the popup
         iframe._id = f'junction_{rank}'
         fg.add_child(
             folium.CircleMarker(
