@@ -224,6 +224,7 @@ def create_junction_labels(row: pd.DataFrame, casualty_type: str) -> str:
     Takes a row of data from a dataframe and extracts info for junction map labels
     """
     junction_name = row['junction_cluster_name']
+    junction_cluster_id = row['junction_cluster_id']
     rank = int(row['junction_rank'])
     recency_metric = np.round(row['recency_danger_metric'], 2)
     n_fatal = int(row[f'fatal_{casualty_type}_casualties'])
@@ -233,6 +234,7 @@ def create_junction_labels(row: pd.DataFrame, casualty_type: str) -> str:
 
     label = f"""
         <h3>{junction_name}</h3>
+        Junction cluster ID: <b>{junction_cluster_id}</b> <br>
         Dangerous Junction Rank: <b>{rank}</b> <br>
         Danger Metric: <b>{recency_metric}</b> <br>
         <hr>
@@ -352,7 +354,7 @@ def create_base_map(initial_location: list, initial_zoom: int) -> folium.Map:
     borough_geo = "london_boroughs.geojson"
     folium.Choropleth(
         geo_data=borough_geo,
-        line_color='#5DADE2', 
+        line_color='#5DADE2',
         fill_opacity=0, 
         line_opacity=.5,
         overlay=False,
@@ -389,6 +391,8 @@ def get_high_level_fg(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame,
             width=250,
             height=300
         )
+        # a fixed (not random) iframe id stops streamlit-folium redrawing markers on rerun, which closed the popup
+        iframe._id = f'junction_{rank}'
         fg.add_child(
             folium.CircleMarker(
                 location=[lat, lon],
@@ -435,7 +439,7 @@ def get_low_level_fg(
         id_collisions = junction_collisions[junction_collisions['junction_cluster_id'] == id]
 
         cols = ['latitude', 'longitude', f'max_{casualty_type}_severity', 'collision_label']
-        for collision_lat, collision_lon, severity, label in id_collisions[cols].dropna().values:
+        for n, (collision_lat, collision_lon, severity, label) in enumerate(id_collisions[cols].dropna().values):
             # draw lines between central point and collisions
             fg.add_child(
                 folium.PolyLine(
@@ -457,6 +461,7 @@ def get_low_level_fg(
                 width=200,
                 height=180
             )
+            iframe._id = f'collision_{int(id)}_{n}'  # stable id, see get_high_level_fg
 
             if severity == 'fatal':
                 fg.add_child(
