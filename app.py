@@ -6,7 +6,12 @@ import streamlit as st
 from src.app_functions import *
 from streamlit_folium import st_folium
 
-st.set_page_config(layout='wide')
+
+st.set_page_config(
+    layout='wide',
+    page_title='LCC Dangerous Junctions Map',
+    page_icon='LCC_roundel.png'
+)
 
 # apply css styling
 with open('./css/style.css') as f:
