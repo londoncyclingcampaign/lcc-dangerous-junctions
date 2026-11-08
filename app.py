@@ -218,7 +218,7 @@ with st.expander("About this app"):
     col1, col2 = st.columns(2)
 
     with col1:
-        st.write("""
+        st.write(f"""
             ##### LCC's dangerous junctions tool
                  
             Welcome to the London Cycling Campaign's Dangerous Junctions tool. The tool displays the most dangerous
@@ -243,12 +243,12 @@ with st.expander("About this app"):
                  
             The collision data is sourced from the TfL collision extracts,
             which can be [accessed here](https://tfl.gov.uk/corporate/publications-and-reports/road-safety) and includes all
-            collisions involving a cyclist or pedestrian from 2020 to 2024. The junction data is generated using the
+            collisions involving a cyclist or pedestrian from {min_year} to {max_year}. The junction data is generated using the
             [OSMnx package](https://github.com/gboeing/osmnx) that relies on OpenStreetMap data.
         """)
 
     with col2:
-        st.markdown("""
+        st.markdown(f"""
             ##### The approach
                     
             The most dangerous junctions in London are identified as follows:
@@ -259,7 +259,7 @@ with st.expander("About this app"):
             3. Map each collision to its nearest junction based on coordinate data
             4. Assign each collision a 'danger metric' value based on the severity of the worst
             casualty involved (`5` for fatal, `1` for severe & `.1` for slight) and weight this by 
-            how recent the collision was (`1` for 2024 down to `.78` for 2020)
+            how recent the collision was (`1` for {max_year} down to `.78` for {min_year})
             5. Aggregate the individual danger metrics across each junction to get an overall
             danger metric value for each junction
             6. Rank junctions from most to least dangerous based on this value
