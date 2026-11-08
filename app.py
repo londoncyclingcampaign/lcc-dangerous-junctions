@@ -24,7 +24,7 @@ st.markdown(
         <a href="https://lcc.org.uk/">
         <img src="https://lcc.org.uk/wp-content/themes/lcc/src/img/svgs/logo-white.svg" alt="London Cycling Campaign logo" class="logo">
         </a>
-        <h1 class="title">Dangerous <br/> Junctions Tool</h1>
+        <h1 class="title"><span class="title-text">Dangerous<br/>Junctions Tool</span></h1>
         </div>
         </header>
     """,
