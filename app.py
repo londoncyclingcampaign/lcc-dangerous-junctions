@@ -4,7 +4,6 @@ import logging
 import streamlit as st
 
 from src.app_functions import *
-from streamlit_folium import st_folium
 
 
 st.set_page_config(
@@ -114,66 +113,15 @@ else:
     st.session_state['previous_casualty_type'] = casualty_type
     st.session_state['previous_boroughs'] = boroughs
 
-    col1, col2 = st.columns([6, 6])
-    with col1:
-        if 'ALL' in boroughs:
-            borough_msg = 'all boroughs'
-        else:
-            borough_msg = ', '.join([b.capitalize() for b in boroughs])
-
-        st.markdown(f'''
-            #### Dangerous Junctions
-
-            Map shows the {n_junctions} most dangerous junctions in {borough_msg} from {min_year} to {max_year}.
-        ''')
-
-        high_map = create_base_map(initial_location=[51.5080, -.1281], initial_zoom=10)  # set to trafalgar sq.
-
-        high_feature_group = get_high_level_fg(dangerous_junctions, junction_collisions, n_junctions)
-        map_click = st_folium(
-            high_map,
-            feature_group_to_add=high_feature_group,
-            returned_objects=['last_object_clicked'],
-            width='stretch',
-            height=500,
-            key='high_map',
-            render=False
-        )
-
-        if map_click['last_object_clicked']:
-            st.session_state['chosen_point'] = [
-                map_click['last_object_clicked']['lat'],
-                map_click['last_object_clicked']['lng']
-            ]
-
-    with col2:
-        st.markdown('''
-            #### Investigate Junction
-
-            Select a point on the left map and drill down into it here.
-        ''')
-
-        initial_junction_location = get_most_dangerous_junction_location(
-            dangerous_junctions.head(1)
-        )
-        low_map = create_base_map(initial_location=initial_junction_location, initial_zoom=18)
-
-        low_feature_group = get_low_level_fg(
-            dangerous_junctions,
-            junction_collisions,
-            n_junctions,
-            casualty_type
-        )
-        st_folium(
-            low_map,
-            feature_group_to_add=low_feature_group,
-            center=st.session_state['chosen_point'],
-            returned_objects=[],
-            width='stretch',
-            height=500,
-            key='low_map',
-            render=False
-        )
+    render_maps(
+        dangerous_junctions,
+        junction_collisions,
+        n_junctions,
+        casualty_type,
+        boroughs,
+        min_year,
+        max_year
+    )
 
 
 st.markdown(f'''
