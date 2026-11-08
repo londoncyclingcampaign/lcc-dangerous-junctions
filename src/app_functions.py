@@ -225,7 +225,6 @@ def create_junction_labels(row: pd.DataFrame, casualty_type: str) -> str:
     Takes a row of data from a dataframe and extracts info for junction map labels
     """
     junction_name = row['junction_cluster_name']
-    junction_cluster_id = row['junction_cluster_id']
     rank = int(row['junction_rank'])
     recency_metric = np.round(row['recency_danger_metric'], 2)
     n_fatal = int(row[f'fatal_{casualty_type}_casualties'])
@@ -235,7 +234,6 @@ def create_junction_labels(row: pd.DataFrame, casualty_type: str) -> str:
 
     label = f"""
         <h3>{junction_name}</h3>
-        Junction cluster ID: <b>{junction_cluster_id}</b> <br>
         Dangerous Junction Rank: <b>{rank}</b> <br>
         Danger Metric: <b>{recency_metric}</b> <br>
         <hr>
