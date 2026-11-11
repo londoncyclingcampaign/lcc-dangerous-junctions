@@ -27,11 +27,27 @@
 .header h1 {
     position: fixed;
     top: -10px;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
     text-align: center;
     height: 6.5rem;
-    width: 100%;
     z-index: 999992;
     font-size: 2em;
+}
+
+/* centres each line of the title */
+.header h1 .title-text {
+    display: block;
+    text-align: center;
+}
+
+/* hides streamlit's heading anchor link, which can push the title off-centre */
+.header h1 a,
+.header h1 [data-testid="stHeaderActionElements"] {
+    display: none;
 }
 
 /* extends the height of the base streamlit header to match headers above */

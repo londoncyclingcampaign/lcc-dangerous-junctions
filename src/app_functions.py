@@ -10,6 +10,7 @@ import logging
 from yaml import Loader
 from pympler import asizeof
 from folium.features import DivIcon
+from streamlit_folium import st_folium
 from st_files_connection import FilesConnection
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
@@ -41,13 +42,13 @@ def read_in_data(params: dict = DATA_PARAMETERS) -> tuple:
     else:
         conn = st.connection('gcs', type=FilesConnection)
         junctions = conn.read(
-            "lcc-app-data/2020-2024/junctions-tolerance=15.parquet",
+            "lcc-app-data/2021-2025/junctions-tolerance=15.parquet",
             input_format="parquet",
             engine='pyarrow',
             columns=params['junction_app_columns']
         )
         collisions = conn.read(
-            "lcc-app-data/2020-2024/collisions-tolerance=15.parquet",
+            "lcc-app-data/2021-2025/collisions-tolerance=15.parquet",
             input_format="parquet",
             engine='pyarrow',
             columns=params['collision_app_columns']
@@ -352,7 +353,7 @@ def create_base_map(initial_location: list, initial_zoom: int) -> folium.Map:
     borough_geo = "london_boroughs.geojson"
     folium.Choropleth(
         geo_data=borough_geo,
-        line_color='#5DADE2', 
+        line_color='#5DADE2',
         fill_opacity=0, 
         line_opacity=.5,
         overlay=False,
@@ -389,6 +390,8 @@ def get_high_level_fg(dangerous_junctions: pd.DataFrame, map_data: pd.DataFrame,
             width=250,
             height=300
         )
+        # a fixed (not random) iframe id stops streamlit-folium redrawing markers on rerun, which closed the popup
+        iframe._id = f'junction_{rank}'
         fg.add_child(
             folium.CircleMarker(
                 location=[lat, lon],
@@ -435,7 +438,7 @@ def get_low_level_fg(
         id_collisions = junction_collisions[junction_collisions['junction_cluster_id'] == id]
 
         cols = ['latitude', 'longitude', f'max_{casualty_type}_severity', 'collision_label']
-        for collision_lat, collision_lon, severity, label in id_collisions[cols].dropna().values:
+        for n, (collision_lat, collision_lon, severity, label) in enumerate(id_collisions[cols].dropna().values):
             # draw lines between central point and collisions
             fg.add_child(
                 folium.PolyLine(
@@ -457,6 +460,7 @@ def get_low_level_fg(
                 width=200,
                 height=180
             )
+            iframe._id = f'collision_{int(id)}_{n}'  # stable id, see get_high_level_fg
 
             if severity == 'fatal':
                 fg.add_child(
@@ -530,6 +534,82 @@ def get_low_level_fg(
         )
 
     return fg
+
+
+@st.fragment
+def render_maps(
+        dangerous_junctions: pd.DataFrame,
+        junction_collisions: pd.DataFrame,
+        n_junctions: int,
+        casualty_type: str,
+        boroughs: list,
+        min_year: int,
+        max_year: int
+    ) -> None:
+    """
+    Renders the high level and low level maps side by side.
+    Runs as a fragment, so clicking a junction only reruns the maps, not the whole app.
+    """
+    col1, col2 = st.columns([6, 6])
+    with col1:
+        if 'ALL' in boroughs:
+            borough_msg = 'all boroughs'
+        else:
+            borough_msg = ', '.join([b.capitalize() for b in boroughs])
+
+        st.markdown(f'''
+            #### Dangerous Junctions
+
+            Map shows the {n_junctions} most dangerous junctions in {borough_msg} from {min_year} to {max_year}.
+        ''')
+
+        high_map = create_base_map(initial_location=[51.5080, -.1281], initial_zoom=10)  # set to trafalgar sq.
+
+        high_feature_group = get_high_level_fg(dangerous_junctions, junction_collisions, n_junctions)
+        map_click = st_folium(
+            high_map,
+            feature_group_to_add=high_feature_group,
+            returned_objects=['last_object_clicked'],
+            width='stretch',
+            height=500,
+            key='high_map',
+            render=False
+        )
+
+        if map_click['last_object_clicked']:
+            st.session_state['chosen_point'] = [
+                map_click['last_object_clicked']['lat'],
+                map_click['last_object_clicked']['lng']
+            ]
+
+    with col2:
+        st.markdown('''
+            #### Investigate Junction
+
+            Select a point on the left map and drill down into it here.
+        ''')
+
+        initial_junction_location = get_most_dangerous_junction_location(
+            dangerous_junctions.head(1)
+        )
+        low_map = create_base_map(initial_location=initial_junction_location, initial_zoom=18)
+
+        low_feature_group = get_low_level_fg(
+            dangerous_junctions,
+            junction_collisions,
+            n_junctions,
+            casualty_type
+        )
+        st_folium(
+            low_map,
+            feature_group_to_add=low_feature_group,
+            center=st.session_state['chosen_point'],
+            returned_objects=[],
+            width='stretch',
+            height=500,
+            key='low_map',
+            render=False
+        )
 
 
 def get_highest_memory_objects(locals: dict) -> list:

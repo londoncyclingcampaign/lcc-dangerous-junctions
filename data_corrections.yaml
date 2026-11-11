@@ -4,8 +4,11 @@
 # collision_id:
 #   field_to_be_changed: updated_value
 
-  2018010106912:
-    junction_detail: other_junction
+2018010106912:
+  junction_detail: other_junction
 
-  2018010115338:
-    junction_detail: other_junction
+2018010115338:
+  junction_detail: other_junction
+
+2021010291190:
+  borough: SOUTHWARK

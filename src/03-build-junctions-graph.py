@@ -64,6 +64,16 @@ def shorten_road_names(name: str) -> str:
     return name
 
 
+def order_road_names(name: str) -> str:
+    '''
+    Sort road names within junction string name
+    '''
+    names = name.split('-')
+    sorted_names = sorted(names)
+
+    return '-'.join(sorted_names)
+
+
 def list_to_string_name(names: list) -> str:
     '''
     Convert list of names for junction to a string
@@ -112,8 +122,8 @@ def name_junctions(lower_level_graph, nodes_df: pd.DataFrame) -> pd.DataFrame:
     )
 
     nodes_df['junction_cluster_name'] = nodes_df['name_cluster'].apply(list_to_string_name)
-
     nodes_df['junction_cluster_name'] = nodes_df['junction_cluster_name'].apply(shorten_road_names)
+    nodes_df['junction_cluster_name'] = nodes_df['junction_cluster_name'].apply(order_road_names)
 
     nodes_df['name_rank'] = (
         nodes_df
