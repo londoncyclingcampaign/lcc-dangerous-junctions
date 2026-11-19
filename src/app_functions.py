@@ -347,7 +347,8 @@ def create_base_map(initial_location: list, initial_zoom: int) -> folium.Map:
         tiles=f'https://basemaps.cartocdn.com/light_all/{{z}}/{{x}}/{{y}}.png?key={st.secrets["basemap_api_key"]}',
         attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         location=initial_location,
-        zoom_start=initial_zoom
+        zoom_start=initial_zoom,
+        max_zoom=20
     )
 
     borough_geo = "london_boroughs.geojson"
